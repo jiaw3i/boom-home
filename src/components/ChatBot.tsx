@@ -2,6 +2,7 @@ import {useForm} from "react-hook-form";
 import {useState} from "react";
 import {get} from "../util/request";
 import {create} from "zustand";
+import {v4 as uuidv4} from 'uuid';
 import message from "../util/message";
 
 type Message = {
@@ -17,6 +18,7 @@ export default function ChatBot() {
         content: "您好，我是您的私人助理"
     } as Message]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [curRandomId, setCurRandomId] = useState<string>(uuidv4());
     const [botMessage, setBotMessage] = useState<string>("");
     const useStore = create((set) => ([]))
 
@@ -44,7 +46,8 @@ export default function ChatBot() {
         setIsLoading(true);
         setMessage("");
         get("/api/gpt/chat", {
-            message: message
+            message: message,
+            id: curRandomId
         }).then((res: any) => {
             // let msgs = messages;
             let msg: Message = messages[messages.length - 1];
