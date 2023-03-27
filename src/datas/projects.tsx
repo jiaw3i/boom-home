@@ -1,27 +1,51 @@
 const ProjectsData = [
     {
-        title: "Blog",
-        desc: "自己独立开发的博客项目"
+        id: 1,
+        name: "Blog",
+        description: "自己独立开发的博客项目",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
     {
-        title: "spdDB",
-        desc: "轻量级，快速的关系型数据库"
+        id: 2,
+        name: "spdDB",
+        description: "轻量级，快速的关系型数据库",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
     {
-        title: "pureland",
-        desc: "净土，烂尾项目"
+        id: 3,
+        name: "pureland",
+        description: "净土，烂尾项目",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
     {
-        title: "Check My IP Address",
-        desc: "查看你的ip地址，本地dns解析设置"
+        id: 4,
+        name: "Check My IP Address",
+        description: "查看你的ip地址，本地dns解析设置",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
     {
-        title: "Blog",
-        desc: "自己独立开发的博客项目"
+        id: 5,
+        name: "Blog",
+        description: "自己独立开发的博客项目",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
     {
-        title: "Blog",
-        desc: "自己独立开发的博客项目"
+        id: 6,
+        name: "Blog",
+        description: "自己独立开发的博客项目",
+        git_url:"https://github.com",
+        home_url:"https://github.com",
+        cover:"https://github.com",
     },
 ]
 export default ProjectsData;
