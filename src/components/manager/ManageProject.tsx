@@ -1,22 +1,50 @@
 import projects from "../../datas/projects";
 import {useForm} from "react-hook-form"
 import message from "../../util/message";
-import request, {get} from "../../util/request";
+import request, {get, post} from "../../util/request";
+import {useEffect, useState} from "react";
 
+type Inputs = {
+    name: string,
+    description: string,
+    gitUrl: string,
+    homeUrl: string
+};
 export default function ManageProject() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const formSubmit = (e: any) => {
-        // console.log(e);
-        message.info("hello", 1500);
-        get("/api/project/list").then((res) => {
+    const [projects, setProjects] = useState<Array<any>>([]);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [editProject, setEditProject] = useState<any>({});
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>({
+        values: {
+            name: editProject.name,
+            description: editProject.description,
+            gitUrl: editProject.gitUrl,
+            homeUrl: editProject.homeUrl
+        }
+    });
+    // 页面载入时 请求获取项目列表
+    useEffect(() => {
+        post("/api/project/list", {}).then((res: any) => {
             console.log(res);
+            setProjects(res.data);
         });
+    }, []);
+    const formSubmit = (editedProject: any) => {
+        editedProject.id = editProject.id;
+        // message.info("hello", 1500);
+        post("/api/project/update", editedProject).then((res:any) => {
+            if (res.success){
+                post("/api/project/list", {}).then((res: any) => {
+                    setProjects(res.data);
+                });
+            }
+        });
+        setIsDrawerOpen(!isDrawerOpen);
     }
 
     return (
         <div className={"manage project drawer h-full  drawer-end"}>
-            <input id="my-drawer" type="checkbox" className="drawer-toggle"/>
+            <input checked={isDrawerOpen} id="my-drawer" type="checkbox" className="drawer-toggle"/>
             <div className="drawer-content">
                 <div>
                     <p className={"font-bold text-2xl"}>ALL MY PROJECTS</p>
@@ -43,11 +71,16 @@ export default function ManageProject() {
                                         <th>{project.id}</th>
                                         <th>{project.name}</th>
                                         <th>{project.description}</th>
-                                        <th>{project.git_url}</th>
-                                        <th>{project.home_url}</th>
+                                        <th>{project.gitUrl}</th>
+                                        <th>{project.homeUrl}</th>
                                         <td>
-                                            <label htmlFor={"my-drawer"}
-                                                   className={"btn btn-sm btn-primary"}>Edit</label>
+                                            <label onClick={() => {
+                                                setEditProject(project);
+                                                setIsDrawerOpen(true);
+                                            }}
+                                                   htmlFor={"my-drawer"}
+                                                   className={"btn btn-sm btn-primary"}
+                                            >Edit</label>
                                         </td>
                                     </tr>
                                 )
@@ -58,35 +91,38 @@ export default function ManageProject() {
                 </div>
             </div>
             <div className="drawer-side">
-                <label htmlFor="my-drawer" className="drawer-overlay"></label>
+                <label key={editProject} htmlFor="my-drawer" className="drawer-overlay" ></label>
                 <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-                    <form className={"project-form"} onSubmit={handleSubmit(formSubmit)} >
+                    <form id={"productForm"} onSubmit={handleSubmit(formSubmit)}>
                         <label className="label">
                             <span className="label-text">项目名称</span>
                             <span className="label-text-alt">必填项</span>
                         </label>
-                        <input {...register("name",{required:true})} type="text" placeholder="项目名称" className="input input-bordered w-full max-w-xs"/>
+                        <input type="text" {...register("name", {required: true})}
+                               placeholder="项目名称" className="input input-bordered w-full max-w-xs"/>
                         {errors.name && <p className={"text-red-500"}>name is required.</p>}
                         <label className="label">
                             <span className="label-text">项目描述</span>
                             <span className="label-text-alt">project desc</span>
                         </label>
-                        <input {...register("description")} type="text" placeholder="项目描述" className="input input-bordered w-full max-w-xs"/>
+                        <input type="text" {...register("description")}
+                               placeholder="项目描述" className="input input-bordered w-full max-w-xs"/>
                         <label className="label">
                             <span className="label-text">GIT地址</span>
                             <span className="label-text-alt">git url</span>
                         </label>
-                        <input {...register("gitUrl")} type="text" placeholder="GIT地址" className="input input-bordered w-full max-w-xs"/>
+                        <input type="text" {...register("gitUrl")}
+                               placeholder="GIT地址" className="input input-bordered w-full max-w-xs"/>
                         <label className="label">
                             <span className="label-text">HOME地址</span>
                             <span className="label-text-alt">home url</span>
                         </label>
-                        <input {...register("homeUrl")} type="text" placeholder="HOME地址" className="input input-bordered w-full max-w-xs"/>
+                        <input type="text" {...register("homeUrl")}
+                               placeholder="HOME地址" className="input input-bordered w-full max-w-xs"/>
                         <div className={"divider"}></div>
 
                         <input type={"submit"} value={"确认修改"} className={"btn"}/>
                     </form>
-
                 </ul>
             </div>
         </div>

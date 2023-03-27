@@ -1,4 +1,15 @@
+import {useEffect, useState} from "react";
+
 export default function Projects(){
+    const [projects,setProjects] = useState<Array<any>>([]);
+
+    // 页面载入时 请求获取项目列表
+    useEffect(()=>{
+        post("/api/project/list",{}).then((res) => {
+            console.log(res);
+            // setProjects(res);
+        });
+    },[]);
     return (
         <div>
             <div>
@@ -42,3 +53,4 @@ export default function Projects(){
 )
 }
 import ProjectsData from "../datas/projects";
+import {get, post} from "../util/request";
