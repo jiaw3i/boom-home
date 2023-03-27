@@ -7,6 +7,7 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import Home from "./components/Home";
 import ManageProject from "./components/manager/ManageProject";
 import APIList from "./components/APIList";
+import ChatBot from "./components/ChatBot";
 
 function App() {
     const currentTitle = () => {
@@ -44,6 +45,7 @@ function App() {
                         <Route path={"project"} element={<ManageProject/>}/>
                     </Route>
                     <Route path={"/apis"} element={<APIList/>}/>
+                    <Route path={"/chatbot"} element={<ChatBot/>}/>
                 </Routes>
             </div>
         </div>

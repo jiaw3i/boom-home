@@ -80,3 +80,7 @@ button:focus-visible {
 .tab {
     --tab-bg: hsla(var(--b2) / var(--tw-bg-opacity, 1))
 }
+
+.card .chat-gpt {
+    padding: 0;
+}
