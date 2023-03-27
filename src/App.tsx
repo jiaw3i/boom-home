@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Projects from "./components/Projects";
-import {Link, Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Home from "./components/Home";
 import ManageProject from "./components/manager/ManageProject";
-import {Alert} from "./components/Alert";
+import APIList from "./components/APIList";
 
 function App() {
     const currentTitle = () => {
@@ -41,8 +41,9 @@ function App() {
                     <Route path={"/"} element={<Home/>}/>
                     <Route path={"/home"} element={<Home/>}/>
                     <Route path={"/manage"} element={<ManageProject/>}>
-                        <Route path={"project"}  element={<ManageProject/>}/>
+                        <Route path={"project"} element={<ManageProject/>}/>
                     </Route>
+                    <Route path={"/apis"} element={<APIList/>}/>
                 </Routes>
             </div>
         </div>
