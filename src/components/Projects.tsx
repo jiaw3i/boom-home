@@ -20,7 +20,7 @@ export default function Projects(){
                 {
                     ProjectsData.map(project=>{
                         return (
-                            <div key={project.id} className="card p-0 ml-3 mr-3 mb-3 mt-3 w-2/5 bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
+                            <div key={project.id} className="card p-0 ml-3 mr-3 mb-3 mt-3 lg:w-2/5 w-96 bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
                                 <div className="card-body p-5 text-left">
                                     <h2 className="card-title">{project.name}</h2>
                                     <p>{project.description}</p>

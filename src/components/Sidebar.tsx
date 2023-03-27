@@ -11,7 +11,7 @@ function Sidebar(props: any) {
     return (
         <div className="drawer-side flex-shrink-0  h-screen">
             <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-            <aside className="flex flex-col bg-base-200 pt-10 w-80">
+            <aside className="flex flex-col bg-base-200 pt-10 w-80 lg:w-60">
                 <label className="swap swap-flip text-5xl h-auto">
 
                     <input type="checkbox"/>
@@ -20,7 +20,7 @@ function Sidebar(props: any) {
                     <div className="swap-off">😇</div>
                 </label>
                 {/*<div className="w-60">*/}
-                <ul className="menu p-4 w-80 text-base-content ">
+                <ul className="menu p-4 text-base-content ">
                     {
                         menus.filter(menuItem => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
@@ -41,7 +41,7 @@ function Sidebar(props: any) {
                         })
                     }
                 </ul>
-                <div className="footer w-80 mt-auto">
+                <div className="footer mt-auto">
                     <footer className="footer items-center p-2 bg-neutral text-neutral-content">
                         <div className="items-center align-middle">
                             <p>Copyright © 2023 Jiawei</p>

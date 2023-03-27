@@ -33,22 +33,17 @@ export default function Home() {
     } as HOME);
 
     return (
-        <div className={"home"}>
-            <div>
+        <div className={"home overflow-auto no-scrollbar"}>
+            <div className={"mt-2"}>
                 <p className={"font-bold text-2xl"}>😊ABOUT ME😊</p>
             </div>
-            <div className="divider"></div>
-            <div className={"content mt-10 flex flex-col h-full items-center"}>
+            <div className="divider mt-2"></div>
+            <div className={"content flex flex-col items-center"}>
                 <div className={"flex flex-col text-left font-bold text-3xl font-mono pl-5"}>
                     <span>Hello,</span>
                     <span>I'm <kbd className="kbd kbd-xl text-sky-700">{home.englishName}</kbd></span>
-
                 </div>
-                <div>
-
-                </div>
-
-                <div className={"grid  w-5/12 "}>
+                <div className={"grid lg:w-8/12 w-10/12 "}>
                     <div className={"mb-5"}>
 
                         <div className={"title flex mr-5"}>

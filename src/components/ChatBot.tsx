@@ -25,7 +25,7 @@ export default function ChatBot() {
             message: message
         }
     });
-    const sendMessage = (data: any) => {
+    const sendMessage:any = (data: any) => {
         // element?.scrollIntoView();
 
         let message = data.message;
@@ -42,7 +42,7 @@ export default function ChatBot() {
         } as Message);
         setMessages(curMsgs);
         setIsLoading(true);
-
+        setMessage("");
         get("/api/gpt/chat", {
             message: message
         }).then((res: any) => {
@@ -78,12 +78,21 @@ export default function ChatBot() {
 
     }
 
+    const commentEnterSubmit = (e: any) => {
+        if (e.code === "Enter" && e.shiftKey == false) {
+            console.log(e)
+            e.preventDefault();
+            const data: any = {message: e.target.value};
+            return handleSubmit(sendMessage(data));
+        }
+    };
+
     return (
         <div
-            className={"chat-gpt p-0 m-10 overflow-y-auto  flex-grow max-h-full card bg-base-300 relative justify-between"}>
+            className={"chat-gpt p-0 m-5  lg:m-10 overflow-y-auto flex-grow max-h-full card bg-base-300 relative justify-between"}>
 
             <div className={"mt-0 mb-5"}></div>
-            <div id={"chats"} className={"m-10 overflow-auto h-full mb-10 chat-area no-scrollbar"}>
+            <div id={"chats"} className={"lg:m-10 m-3 overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                 {
                     messages.map((msg, index) => {
                         return (
@@ -108,14 +117,12 @@ export default function ChatBot() {
             </div>
             <div
                 className={"absolute m-0 ml-auto mr-auto bottom-10 message-area w-4/6  no-scrollbar relative bg-transparent"}>
-                {/*<div className={"divider "}></div>*/}
-                {/*<div className={"absolute card bg-base-200"}>*/}
                 <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
                         placeholder="在此输入消息，Enter发送"
-
-                        className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar"}>
+                        onKeyDown={commentEnterSubmit}
+                        className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar break-all"}>
                     </textarea>
                     {errors.message && <p className={"text-red-500 absolute"}>message is required.</p>}
                     <button
