@@ -47,7 +47,7 @@ const MenusData = [
 ]
 const ManageMenusData = [
     {
-        title: "Manage Profile",
+        title: "M Profile",
         icon: <svg className="h-8 w-8 text-black" width="24" height="24" viewBox="0 0 24 24"
                    strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                    strokeLinejoin="round">
@@ -58,7 +58,7 @@ const ManageMenusData = [
         </svg>
     },
     {
-        title: "Manage Project",
+        title: "M Project",
         icon: <svg className="h-8 w-8 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path
@@ -71,7 +71,7 @@ const ManageMenusData = [
         </svg>
     },
     {
-        title: "Manage Blog",
+        title: "M Blog",
         icon: <svg className="h-8 w-8 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -81,7 +81,7 @@ const ManageMenusData = [
         </svg>
     },
     {
-        title: "Manage Link",
+        title: "M Link",
         icon: <svg className="h-8 w-8 text-black" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
