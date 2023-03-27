@@ -33,9 +33,9 @@ function App() {
     const [type, setType] = useState(location.pathname.match("/manage/*") ? "admin" : "common");
     return (
 
-        <div className="flex flex-row w-screen">
+        <div className="flex flex-row w-screen h-screen max-h-screen">
             <Sidebar type={type} setTitle={setTitle} title={title}></Sidebar>
-            <div className="flex flex-col flex-grow">
+            <div className="flex flex-col flex-grow max-h-full">
                 <Header title={"HELLO,"}/>
                 <Routes>
                     <Route path={"/projects"} element={<Projects/>}/>

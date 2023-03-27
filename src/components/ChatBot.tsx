@@ -1,9 +1,23 @@
 import {useForm} from "react-hook-form";
 import {useState} from "react";
+import {get} from "../util/request";
+import {create} from "zustand";
+import message from "../util/message";
 
+type Message = {
+    role: number,
+    time: string,
+    content: string
+}
 export default function ChatBot() {
     const [message, setMessage] = useState<string>("");
-    const [botMessage,setBotMessage] = useState<string>("");
+    const [messages, setMessages] = useState<Array<Message>>([{
+        role: 1,
+        time: new Date().toLocaleTimeString(),
+        content: "您好，我是您的私人助理"
+    } as Message]);
+    const [botMessage, setBotMessage] = useState<string>("");
+    const useStore = create((set) => ([]))
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         values: {
@@ -11,81 +25,89 @@ export default function ChatBot() {
         }
     });
     const sendMessage = (data: any) => {
+        // element?.scrollIntoView();
+
         let message = data.message;
-        let eventSource = new EventSource("/api/gpt/chat?message=" + message);
-        console.log(message);
-        let allBotMessages = "";
-        // eventSource.addEventListener("message", (event) => {
-        //     allBotMessages = allBotMessages.concat(event.data);
-        //     console.log("allBotMessages",allBotMessages)
-        //     setBotMessage(allBotMessages);
-        //     console.log("botMessages",botMessage)
-        // });
+        let curMsgs = messages;
+        curMsgs.push({
+            role: 2,
+            time: new Date().toLocaleTimeString(),
+            content: message
+        } as Message);
+        setMessages(curMsgs);
 
-        eventSource.onmessage = (event) => {
+        get("/api/gpt/chat", {
+            message: message
+        }).then((res: any) => {
+            // let msgs = messages;
+            let msg: Message = {
+                role: 1,
+                time: new Date().toLocaleTimeString(),
+                content: res.data.content.substring(2)
+            }
+            // this,setMessages([]);
+            setMessages((preMessages) => {
+                return [...preMessages, msg];
+            });
+            setTimeout(() => {
+                let elementChats = document.getElementById("chats");
+                if (elementChats != undefined) {
+                    console.log(elementChats.scrollTop)
+                    elementChats.scrollTop = elementChats.scrollHeight;
+                    console.log(elementChats.scrollTop)
+                }
+            }, 500)
+        })
 
-            console.log(event);
-            console.log("before add", botMessage);
-            setBotMessage(botMessage.concat(event.data));
-            console.log("after add", botMessage);
-        }
-
-        // eventSource.close();
-
-        // eventSource.addEventListener("error", (event) => {
-        //     console.log(event);
-        //     setMessage("error");
-        // });
-
-        // console.log(allBotMessages)
-
+        setTimeout(() => {
+            let elementChats = document.getElementById("chats");
+            if (elementChats != undefined) {
+                console.log(elementChats.scrollTop)
+                elementChats.scrollTop = elementChats.scrollHeight;
+                console.log(elementChats.scrollTop)
+            }
+        }, 500)
 
     }
 
     return (
-        <div className={"chat-gpt p-0 m-10 h-full card bg-base-300 relative justify-between"}>
-            <div className={"p-10 chat-area"}>
-                <div className="chat chat-start">
-                    <div className="chat-image avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="/OIP.jpg"/>
-                        </div>
-                    </div>
-                    <div className="chat-header">
-                        {/*BOT*/}
-                        {/*<time className="text-xs opacity-50">12:45</time>*/}
-                    </div>
-                    <div className="chat-bubble">You were the Chosen One!</div>
-                    {/*<div className="chat-footer opacity-50">*/}
-                    {/*    Delivered*/}
-                    {/*</div>*/}
-                </div>
-                <div className="chat chat-end">
-                    <div className="chat-image avatar">
-                        <div className="w-10 rounded-full">
-                            <img src="/avatar.png"/>
-                        </div>
-                    </div>
-                    <div className="chat-header">
-                        {/*ME*/}
-                        {/*<time className="text-xs opacity-50">12:46</time>*/}
-                    </div>
-                    <div className="chat-bubble">I hate you!</div>
-                    {/*<div className="chat-footer opacity-50">*/}
-                    {/*    Seen at 12:46*/}
-                    {/*</div>*/}
-                </div>
-            </div>
+        <div
+            className={"chat-gpt p-0 m-10 overflow-y-auto  flex-grow max-h-full card bg-base-300 relative justify-between"}>
 
-            <div className={"absolute m-0 ml-auto mr-auto bottom-10 message-area w-4/6 relative bg-transparent"}>
+            <div className={"mt-0 mb-5"}></div>
+            <div id={"chats"} className={"m-10 overflow-auto h-full mb-10 chat-area no-scrollbar"}>
+                {
+                    messages.map(msg => {
+                        return (
+                            <div key={msg.time} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
+                                <div className="chat-image avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img src={msg.role === 1 ? "/OIP.jpg" : "/avatar.png"} alt={""}/>
+                                    </div>
+                                </div>
+                                <div className="chat-header">
+                                    {/*BOT*/}
+                                    <time className="text-xs opacity-50">{msg.time}</time>
+                                </div>
+                                <div className="chat-bubble whitespace-pre-line text-left">{msg.content}</div>
+                                {/*<div className="chat-footer opacity-50">*/}
+                                {/*    Delivered*/}
+                                {/*</div>*/}
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div
+                className={"absolute m-0 ml-auto mr-auto bottom-10 message-area w-4/6  no-scrollbar relative bg-transparent"}>
                 {/*<div className={"divider "}></div>*/}
                 {/*<div className={"absolute card bg-base-200"}>*/}
-                <form onSubmit={handleSubmit(sendMessage)}>
+                <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
                         placeholder="在此输入消息，Enter发送"
 
-                        className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full"}>
+                        className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar"}>
                     </textarea>
                     {errors.message && <p className={"text-red-500"}>message is required.</p>}
                     <button
