@@ -8,7 +8,8 @@ const MenusData = [
             <polyline points="5 12 3 12 12 3 21 12 19 12"/>
             <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/>
             <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Projects",
@@ -21,7 +22,8 @@ const MenusData = [
             <polyline points="21 12 16.5 14.6 16.5 19.79"/>
             <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
             <line x1="12" y1="22.08" x2="12" y2="12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Blogs",
@@ -31,7 +33,8 @@ const MenusData = [
             <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/>
             <line x1="13" y1="8" x2="15" y2="8"/>
             <line x1="13" y1="12" x2="15" y2="12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Apis",
@@ -40,7 +43,8 @@ const MenusData = [
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
             <polyline points="2 17 12 22 22 17"/>
             <polyline points="2 12 12 17 22 12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "ChatBot",
@@ -49,7 +53,8 @@ const MenusData = [
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
             <polyline points="2 17 12 22 22 17"/>
             <polyline points="2 12 12 17 22 12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Links",
@@ -60,7 +65,8 @@ const MenusData = [
             <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
-        </svg>
+        </svg>,
+        isShow: false,
     },
 ]
 const ManageMenusData = [
@@ -73,7 +79,8 @@ const ManageMenusData = [
             <polyline points="5 12 3 12 12 3 21 12 19 12"/>
             <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"/>
             <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Manage Project",
@@ -86,7 +93,8 @@ const ManageMenusData = [
             <polyline points="21 12 16.5 14.6 16.5 19.79"/>
             <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
             <line x1="12" y1="22.08" x2="12" y2="12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Manage Blog",
@@ -96,7 +104,8 @@ const ManageMenusData = [
             <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/>
             <line x1="13" y1="8" x2="15" y2="8"/>
             <line x1="13" y1="12" x2="15" y2="12"/>
-        </svg>
+        </svg>,
+        isShow: true,
     },
     {
         title: "Manage Link",
@@ -107,7 +116,8 @@ const ManageMenusData = [
             <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
-        </svg>
+        </svg>,
+        isShow: false,
     },
 ]
 // export default MenusData;

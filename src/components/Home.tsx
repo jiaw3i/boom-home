@@ -1,26 +1,61 @@
+import {useState} from "react";
+
+type HOME = {
+    name: string,
+    englishName: string,
+    skill: string,
+    aboutMe: string,
+    findMe: {
+        github: string,
+        email: string,
+        wechat: string,
+        blog: string
+    }
+}
 export default function Home() {
+
+    const [home, setHome] = useState<HOME>({
+        name: "韩佳卫",
+        englishName: "Owen Han",
+        skill: "JavaWeb Developer / React / Python",
+        aboutMe:
+            "我是一名JavaWeb开发者，熟悉SpringBoot、SpringCloud、Mybatis、SpringMVC等JavaWeb开发框架🚀。\n" +
+            "我也是一名前端爱好者，会一丢丢的React、Vue、Ant Design、TailWind Css等框架✨。\n" +
+            "我也是一名业余Python开发者，了解一点Gunicorn、Flask、Django等框架🐍。\n" +
+            "我也是一名[极极极]其业余的机器学习爱好者🤖。\n" +
+            "\n💕Emoji爱好者",
+        findMe: {
+            github: "https://github.com/jiaw3i",
+            email: "jiawei.me@hotmail.com",
+            wechat: "flower_chai",
+            blog: "https://blog.hanjiawei.com/"
+        }
+    } as HOME);
 
     return (
         <div className={"home"}>
             <div>
-                <p className={"font-bold text-2xl"}>HOME</p>
+                <p className={"font-bold text-2xl"}>😊ABOUT ME😊</p>
             </div>
             <div className="divider"></div>
-            <div className={"content flex flex-col items-center"}>
+            <div className={"content mt-10 flex flex-col h-full items-center"}>
                 <div className={"flex flex-col text-left font-bold text-3xl font-mono pl-5"}>
                     <span>Hello,</span>
-                    {/*<span>I'm <span className={"font-black text-4xl font-mono text-sky-700"}>Jiawei</span></span>*/}
-                    <span>I'm <kbd className="kbd kbd-xl text-sky-700">Jiawei Han</kbd></span>
+                    <span>I'm <kbd className="kbd kbd-xl text-sky-700">{home.englishName}</kbd></span>
 
                 </div>
-                <div className={"grid  w-8/12 "}>
+                <div>
+
+                </div>
+
+                <div className={"grid  w-5/12 "}>
                     <div className={"mb-5"}>
 
                         <div className={"title flex mr-5"}>
                             <span className={"font-bold text-2xl font-mono mt-3"}>skill</span>
                         </div>
                         <div className={"desc flex text-left"}>
-                            <span className={"text-xl font-mono mt-3"}> JavaWeb Developer / React / Python</span>
+                            <span className={"text-xl font-mono mt-3"}>{home.skill}</span>
                         </div>
                     </div>
                     <div className={"mb-5"}>
@@ -28,16 +63,17 @@ export default function Home() {
                             <span className={"font-bold text-2xl font-mono mt-3"}>about me</span>
                         </div>
                         <div className={"desc flex text-left"}>
-                            <span className={"text-xl font-mono mt-3"}>Graduated from XUST and Technology, majoring in software engineering, born in 1998, focusing on web back-end development, but also slightly familiar with front-end frameworks, such as the react framework.</span>
+                            <span className={"text-xl font-mono mt-3 whitespace-pre-wrap"}>{home.aboutMe}</span>
                         </div>
                     </div>
+
                     <div className={"mb-5"}>
                         <div className={"title flex mr-5 text-right"}>
                             <span className={"font-bold text-2xl font-mono mt-3"}>find me</span>
                         </div>
                         <div className={"desc flex text-left justify-between"}>
                             <span className={"text-xl font-mono mt-3"}>
-                                <a href={"/"}>
+                                <a href={home.findMe.github} target="_blank">
                                     <svg className="inline h-6 w-6 text-blue-500" width="24" height="24"
                                          viewBox="0 0 24 24"
                                          strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
@@ -47,13 +83,13 @@ export default function Home() {
                                 </a>
                             </span>
                             <span className={"text-xl font-mono mt-3"}>
-                                <a href={"/"}>
+                                <a href={home.findMe.blog} target="_blank">
                                     <svg className="inline h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                             d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
                                     </svg>
-                                    WeChat
+                                    Blog
                                 </a>
                             </span>
                             <span className={"text-xl font-mono mt-3"}>
@@ -78,8 +114,6 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     )
