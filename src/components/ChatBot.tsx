@@ -16,6 +16,7 @@ export default function ChatBot() {
         time: new Date().toLocaleTimeString(),
         content: "您好，我是您的私人助理"
     } as Message]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [botMessage, setBotMessage] = useState<string>("");
     const useStore = create((set) => ([]))
 
@@ -34,21 +35,28 @@ export default function ChatBot() {
             time: new Date().toLocaleTimeString(),
             content: message
         } as Message);
+        curMsgs.push({
+            role: 1,
+            time: new Date().toLocaleTimeString(),
+            content: "正在为您处理..."
+        } as Message);
         setMessages(curMsgs);
+        setIsLoading(true);
 
         get("/api/gpt/chat", {
             message: message
         }).then((res: any) => {
             // let msgs = messages;
-            let msg: Message = {
-                role: 1,
-                time: new Date().toLocaleTimeString(),
-                content: res.data.content.substring(2)
-            }
+            let msg: Message = messages[messages.length - 1];
+            msg.content = res.data.content;
+            msg.time = new Date().toLocaleTimeString();
             // this,setMessages([]);
+
             setMessages((preMessages) => {
+                preMessages.pop();
                 return [...preMessages, msg];
             });
+            setIsLoading(false);
             setTimeout(() => {
                 let elementChats = document.getElementById("chats");
                 if (elementChats != undefined) {
@@ -77,9 +85,9 @@ export default function ChatBot() {
             <div className={"mt-0 mb-5"}></div>
             <div id={"chats"} className={"m-10 overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                 {
-                    messages.map(msg => {
+                    messages.map((msg, index) => {
                         return (
-                            <div key={msg.time} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
+                            <div key={index} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
                                 <div className="chat-image avatar">
                                     <div className="w-10 rounded-full">
                                         <img src={msg.role === 1 ? "/OIP.jpg" : "/avatar.png"} alt={""}/>
@@ -109,10 +117,11 @@ export default function ChatBot() {
 
                         className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar"}>
                     </textarea>
-                    {errors.message && <p className={"text-red-500"}>message is required.</p>}
+                    {errors.message && <p className={"text-red-500 absolute"}>message is required.</p>}
                     <button
                         type={"submit"}
-                        className="border-0 absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 md:bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
+                        disabled={isLoading}
+                        className="border-0 disabled:cursor-not-allowed absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 md:bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
                         <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round"
                              strokeLinejoin="round" className="h-4 w-4 mr-1" height="1em" width="1em"
                              xmlns="http://www.w3.org/2000/svg">
