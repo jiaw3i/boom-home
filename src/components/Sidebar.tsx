@@ -1,9 +1,9 @@
 import MenusData from "../datas/menus";
-import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Sidebar(props: any) {
-    const {setTitle} = props;
-    const [active, setActive] = useState("Home");
+    const {title, setTitle} = props;
+    const navigate = useNavigate();
     return (
         <div className="drawer flex flex-col flex-shrink-0 w-60 drawer-mobile bg-base-200 h-screen">
             <div className="pt-10 pb-5 w-60">
@@ -20,10 +20,10 @@ function Sidebar(props: any) {
                     {
                         MenusData.map(menuItem => {
                             return <li className="">
-                                <a className={"font-bold text-l " + (active === menuItem.title ? "active" : "")}
+                                <a className={"font-bold text-l " + (title === menuItem.title ? "active" : "")}
                                    key={menuItem.title} onClick={() => {
-                                    setActive(menuItem.title);
-                                    setTitle(menuItem.title)
+                                    setTitle(menuItem.title);
+                                    navigate(`/${menuItem.title.toLowerCase()}`)
                                 }}>
                                     {menuItem.icon}
                                     {menuItem.title}
