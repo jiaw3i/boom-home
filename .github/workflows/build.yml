@@ -35,9 +35,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
-        tag_name: auto
-        release_name: Release auto
-        body: TODO New Release.
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: Auto New Release.
         draft: false
         prerelease: false
         
