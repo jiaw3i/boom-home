@@ -1,13 +1,17 @@
 import projects from "../../datas/projects";
 import {useForm} from "react-hook-form"
 import message from "../../util/message";
+import request, {get} from "../../util/request";
 
 export default function ManageProject() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const formSubmit = (e: any) => {
-        console.log(e);
-        message.info("hello", 2000);
+        // console.log(e);
+        message.info("hello", 1500);
+        get("/api/project/list").then((res) => {
+            console.log(res);
+        });
     }
 
     return (

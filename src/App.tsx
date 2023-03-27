@@ -35,14 +35,13 @@ function App() {
         <div className="flex flex-row w-screen">
             <Sidebar type={type} setTitle={setTitle} title={title}></Sidebar>
             <div className="flex flex-col flex-grow">
-                <Header title={title}/>
+                <Header title={"HELLO,"}/>
                 <Routes>
                     <Route path={"/projects"} element={<Projects/>}/>
                     <Route path={"/"} element={<Home/>}/>
                     <Route path={"/home"} element={<Home/>}/>
                     <Route path={"/manage"} element={<ManageProject/>}>
                         <Route path={"project"}  element={<ManageProject/>}/>
-
                     </Route>
                 </Routes>
             </div>
