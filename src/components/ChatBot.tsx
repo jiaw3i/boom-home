@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {get} from "../util/request";
 import {create} from "zustand";
 import {v4 as uuidv4} from 'uuid';
@@ -27,7 +27,7 @@ export default function ChatBot() {
             message: message
         }
     });
-    const sendMessage:any = (data: any) => {
+    const sendMessage: any = (data: any) => {
         // element?.scrollIntoView();
 
         let message = data.message;
@@ -80,6 +80,34 @@ export default function ChatBot() {
         }, 500)
 
     }
+
+    const deleteContext = (id:string) => {
+        get("/api/gpt/clear", {
+            id: curRandomId
+        }).then((res: any) => {
+            console.log(res);
+        })
+    }
+
+
+    useEffect(() => {
+        const preventUnload = (event: BeforeUnloadEvent) => {
+
+            navigator.sendBeacon("/api/gpt/clear?id=" + curRandomId, "");
+            // deleteContext(curRandomId)
+            // deleteContext();
+            event.preventDefault();
+            event.returnValue = message;
+        };
+
+        window.addEventListener('beforeunload', preventUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', preventUnload);
+            // setTimeout
+            deleteContext(curRandomId);
+        };
+    }, []);
 
     const commentEnterSubmit = (e: any) => {
         if (e.code === "Enter" && e.shiftKey == false) {
