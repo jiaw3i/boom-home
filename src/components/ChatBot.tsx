@@ -46,17 +46,30 @@ export default function ChatBot() {
             id: curRandomId,
             isContext: isContext
         }).then((res: any) => {
-            // let msgs = messages;
-            let msg: Message = messages[messages.length - 1];
-            msg.content = res.data.content;
-            msg.time = new Date().toLocaleTimeString();
-            // this,setMessages([]);
+            if (res.success){
+                // let msgs = messages;
+                let msg: Message = messages[messages.length - 1];
+                msg.content = res.data.content;
+                msg.time = new Date().toLocaleTimeString();
+                // this,setMessages([]);
 
-            setMessages((preMessages) => {
-                preMessages.pop();
-                return [...preMessages, msg];
-            });
-            setIsLoading(false);
+                setMessages((preMessages) => {
+                    preMessages.pop();
+                    return [...preMessages, msg];
+                });
+                setIsLoading(false);
+            }else {
+                let msg: Message = messages[messages.length - 1];
+                msg.content = "上下文超过GPT最大支持长度，请刷新页面重新开始会话。";
+                msg.time = new Date().toLocaleTimeString();
+                // this,setMessages([]);
+
+                setMessages((preMessages) => {
+                    preMessages.pop();
+                    return [...preMessages, msg];
+                });
+                setIsLoading(false);
+            }
             setTimeout(() => {
                 let elementChats = document.getElementById("chats");
                 if (elementChats != undefined) {
