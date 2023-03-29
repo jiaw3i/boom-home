@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
-import Projects from "./components/Projects";
 import {Route, Routes, useLocation} from "react-router-dom";
-import Home from "./components/Home";
-import ManageProject from "./components/manager/ManageProject";
-import APIList from "./components/APIList";
-import ChatBot from "./components/ChatBot";
-import {set} from "react-hook-form";
+
+const Projects = lazy(() => import('./components/Projects'));
+const ManageProject = lazy(() => import('./components/manager/ManageProject'));
+const APIList = lazy(() => import('./components/APIList'));
+const ChatBot = lazy(() => import('./components/ChatBot'));
+const Home = lazy(() => import('./components/Home'));
+const Sidebar = lazy(() => import('./components/Sidebar'));
 
 function App() {
     const location = useLocation();
@@ -45,27 +44,55 @@ function App() {
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
-                    <div className="lg:w-full flex">
-                        <div className="flex-none lg:hidden">
-                            <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                     className="inline-block w-6 h-6 stroke-current">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                          d="M4 6h16M4 12h16M4 18h16"></path>
-                                </svg>
-                            </label>
-                        </div>
-                    </div>
                     <div className="flex flex-col flex-grow max-h-full">
+                        <div className="lg:w-full flex">
+                            <div className="flex-none lg:hidden">
+                                <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         className="inline-block w-6 h-6 stroke-current">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                              d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                </label>
+                            </div>
+                        </div>
                         <Routes>
-                            <Route path={"/projects"} element={<Projects/>}/>
-                            <Route path={"/"} element={<Home/>}/>
-                            <Route path={"/home"} element={<Home/>}/>
-                            <Route path={"/manage"} element={<ManageProject/>}>
-                                <Route path={"project"} element={<ManageProject/>}/>
+                            <Route path={"/projects"} element={
+                                <React.Suspense>
+                                    <Projects/>
+                                </React.Suspense>
+                            }/>
+                            <Route path={"/"} element={
+                                <React.Suspense>
+                                    <Home/>
+                                </React.Suspense>
+                            }/>
+                            <Route path={"/home"} element={
+                                <React.Suspense>
+                                    <Home/>
+                                </React.Suspense>
+                            }/>
+                            <Route path={"/manage"} element={
+                                <React.Suspense>
+                                    <ManageProject/>
+                                </React.Suspense>
+                            }>
+                                <Route path={"project"} element={
+                                    <React.Suspense>
+                                        <ManageProject/>
+                                    </React.Suspense>
+                                }/>
                             </Route>
-                            <Route path={"/apis"} element={<APIList/>}/>
-                            <Route path={"/chatbot"} element={<ChatBot/>}/>
+                            <Route path={"/apis"} element={
+                                <React.Suspense>
+                                    <APIList/>
+                                </React.Suspense>
+                            }/>
+                            <Route path={"/chatbot"} element={
+                                <React.Suspense>
+                                    <ChatBot/>
+                                </React.Suspense>
+                            }/>
                         </Routes>
                     </div>
                 </div>

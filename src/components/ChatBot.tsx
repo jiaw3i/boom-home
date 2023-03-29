@@ -46,7 +46,7 @@ export default function ChatBot() {
             id: curRandomId,
             isContext: isContext
         }).then((res: any) => {
-            if (res.success){
+            if (res.success) {
                 // let msgs = messages;
                 let msg: Message = messages[messages.length - 1];
                 msg.content = res.data.content;
@@ -58,7 +58,7 @@ export default function ChatBot() {
                     return [...preMessages, msg];
                 });
                 setIsLoading(false);
-            }else {
+            } else {
                 let msg: Message = messages[messages.length - 1];
                 msg.content = "上下文超过GPT最大支持长度，请刷新页面重新开始会话。";
                 msg.time = new Date().toLocaleTimeString();
@@ -121,7 +121,7 @@ export default function ChatBot() {
     }, []);
 
     const commentEnterSubmit = (e: any) => {
-        if (e.key === "Enter" && e.ctrlKey==true &&e.shiftKey == false) {
+        if (e.key === "Enter" && e.ctrlKey == true && e.shiftKey == false) {
             if (isLoading) {
                 console.log("正在处理上一段对话");
                 return;
@@ -134,13 +134,11 @@ export default function ChatBot() {
 
     return (
         isSelected ?
-            (<div className={"chat-gpt p-0 m-5 prose max-w-none lg:m-10 overflow-y-auto flex-grow max-h-full card bg-base-300 relative justify-between"}>
+            (<div
+                className={"chat-gpt m-5 p-3 lg:p-10 prose max-w-none lg:m-10 overflow-y-auto flex-grow card bg-base-300 relative justify-between"}>
 
-                <div className={"mt-0 mb-5"}>
 
-                </div>
-
-                <div id={"chats"} className={"lg:m-10 m-3 overflow-auto h-full mb-10 chat-area no-scrollbar"}>
+                <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                     {
                         messages.map((msg, index) => {
                             return (
@@ -164,7 +162,7 @@ export default function ChatBot() {
                     }
                 </div>
                 <div
-                    className={"absolute m-0 ml-auto mr-auto bottom-10 message-area w-4/6  no-scrollbar relative bg-transparent"}>
+                    className={"absolute not-prose m-0 ml-auto mr-auto bottom-10 message-area w-4/6  no-scrollbar relative bg-transparent"}>
                     <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
@@ -176,7 +174,7 @@ export default function ChatBot() {
                         <button
                             type={"submit"}
                             disabled={isLoading}
-                            className="border-0 disabled:cursor-not-allowed absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 md:bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
+                            className="border-0 disabled:cursor-not-allowed absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
                             <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24"
                                  strokeLinecap="round"
                                  strokeLinejoin="round" className="h-4 w-4 mr-1" height="1em" width="1em"
@@ -208,7 +206,7 @@ export default function ChatBot() {
                             <h2 className="card-title">普通模式</h2>
                             <p>普通问答模式，不会记录对话上下文信息，不关联上下文对话</p>
                             <div className="card-actions">
-                                <button className="btn btn-primary" onClick={()=>{
+                                <button className="btn btn-primary" onClick={() => {
                                     setIsContext(false);
                                     setIsSelected(true);
                                     setMessages([{
@@ -216,7 +214,8 @@ export default function ChatBot() {
                                         time: new Date().toLocaleTimeString(),
                                         content: "您将使用普通模式与我对话。"
                                     } as Message]);
-                                }}>普通模式</button>
+                                }}>普通模式
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -228,7 +227,7 @@ export default function ChatBot() {
                             <h2 className="card-title">上下文模式</h2>
                             <p>关联对话上下文，会根据上下文内容做出回答，但是由于gpt的token限制，每次对话次数有限。</p>
                             <div className="card-actions">
-                                <button className="btn btn-primary" onClick={()=>{
+                                <button className="btn btn-primary" onClick={() => {
                                     setIsContext(true);
                                     setIsSelected(true);
                                     setMessages([{
@@ -236,7 +235,8 @@ export default function ChatBot() {
                                         time: new Date().toLocaleTimeString(),
                                         content: "您将使用上下文模式与我对话。"
                                     } as Message]);
-                                }}>上下文模式</button>
+                                }}>上下文模式
+                                </button>
                             </div>
                         </div>
                     </div>
