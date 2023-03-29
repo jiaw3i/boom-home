@@ -134,7 +134,7 @@ export default function ChatBot() {
 
     return (
         isSelected ?
-            (<div className={"chat-gpt p-0 m-5  lg:m-10 overflow-y-auto flex-grow max-h-full card bg-base-300 relative justify-between"}>
+            (<div className={"chat-gpt p-0 m-5 prose max-w-none lg:m-10 overflow-y-auto flex-grow max-h-full card bg-base-300 relative justify-between"}>
 
                 <div className={"mt-0 mb-5"}>
 
@@ -146,7 +146,7 @@ export default function ChatBot() {
                             return (
                                 <div key={index} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
                                     <div className="chat-image avatar">
-                                        <div className="w-10 rounded-full">
+                                        <div className="w-10 not-prose rounded-full">
                                             <img src={msg.role === 1 ? "/OIP.jpg" : "/avatar.png"} alt={""}/>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@ export default function ChatBot() {
                 </div>
             </div>)
             :
-            (<div className={"flex flex-col justify-center align-middle "}>
+            (<div className={"flex flex-col prose max-w-none justify-center align-middle "}>
                 <div className={"lg:mt-0 lg:mb-5"}>
 
                 </div>

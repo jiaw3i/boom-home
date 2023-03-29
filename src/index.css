@@ -85,6 +85,10 @@ button:focus-visible {
     padding: 0;
 }
 
+/*a:hover {*/
+/*    color: #ccaf66;*/
+/*}*/
+
 @layer utilities {
     @variants responsive {
         /* Hide scrollbar for Chrome, Safari and Opera */

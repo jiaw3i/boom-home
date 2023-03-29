@@ -21,12 +21,12 @@ export default function Projects(){
                     ProjectsData.map(project=>{
                         return (
                             <div key={project.id} className="card p-0 ml-3 mr-3 mb-3 mt-3 lg:w-2/5 w-96 bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
-                                <div className="card-body p-5 text-left">
+                                <div className="card-body p-5 text-left prose">
                                     <h2 className="card-title">{project.name}</h2>
                                     <p>{project.description}</p>
                                     <div className="card-actions justify-end">
                                         <button className="btn btn-square btn-sm">
-                                            <svg className="h-8 w-8 text-white" width="24" height="24" viewBox="0 0 24 24"
+                                            <svg className="h-8 w-8" width="24" height="24" viewBox="0 0 24 24"
                                                  strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                                                  strokeLinejoin="round">
                                                 <path stroke="none" d="M0 0h24v24H0z"/>
@@ -35,7 +35,7 @@ export default function Projects(){
                                             </svg>
                                         </button>
                                         <button className="btn btn-square btn-sm">
-                                            <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                       d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
                                             </svg>

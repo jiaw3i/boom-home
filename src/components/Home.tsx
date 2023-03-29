@@ -33,9 +33,9 @@ export default function Home() {
     } as HOME);
 
     return (
-        <div className={"home overflow-auto no-scrollbar"}>
+        <div className={"home overflow-auto prose block max-w-none no-scrollbar"}>
             <div className={"mt-2"}>
-                <p className={"font-bold text-2xl"}>😊ABOUT ME😊</p>
+                <p className={"font-bold text-2xl "}>😊ABOUT ME😊</p>
             </div>
             <div className="divider mt-2"></div>
             <div className={"content flex flex-col items-center"}>

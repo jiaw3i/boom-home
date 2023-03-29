@@ -41,7 +41,7 @@ function App() {
     }
     return (
 
-        <div className="flex flex-row w-screen h-screen max-h-screen">
+        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen">
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
