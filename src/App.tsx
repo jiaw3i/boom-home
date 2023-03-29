@@ -36,6 +36,7 @@ function App() {
             }
             finalTitle = title.replace(/^\S/, s => s.toUpperCase());
         }
+        document.title = "Owen❤ | " + finalTitle + "✔";
         return finalTitle;
     }
     return (
