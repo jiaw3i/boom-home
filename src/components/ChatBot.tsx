@@ -199,12 +199,12 @@ export default function ChatBot() {
                     </div>
                     <div className={"divider"}></div>
                 </div>
-                <div className={"flex flex-row flex-wrap justify-center align-middle"}>
+                <div className={"flex flex-row not-prose flex-wrap justify-center align-middle"}>
                     <div className="card p-0 w-96 bg-base-300 shadow-xl m-3">
-                        <figure className="hidden lg:px-10 lg:pt-10 lg:flex">
+                        <figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">
                             <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>
                         </figure>
-                        <div className="card-body items-center text-center">
+                        <div className="card-body  items-center text-center">
                             <h2 className="card-title">普通模式</h2>
                             <p>普通问答模式，不会记录对话上下文信息，不关联上下文对话</p>
                             <div className="card-actions">
@@ -221,7 +221,7 @@ export default function ChatBot() {
                         </div>
                     </div>
                     <div className="card p-0 w-96 bg-base-300 shadow-xl m-3">
-                        <figure className="hidden lg:px-10 lg:pt-10 lg:flex">
+                        <figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">
                             <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>
                         </figure>
                         <div className="card-body items-center text-center">
