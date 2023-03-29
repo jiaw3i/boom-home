@@ -6,7 +6,7 @@ export function Alert(props: any) {
 
     const [open, setOpen] = useState(true);
     // 关闭消息提示
-    console.log("alert alert-info shadow-lg absolute w-1/3 left-1/3 top-2 -ml-2/12 " + (open?"":"hidden"))
+    // console.log("alert alert-info shadow-lg absolute w-1/3 left-1/3 top-2 -ml-2/12 " + (open?"":"hidden"))
     const close = () => {
         setOpen(false);
     };

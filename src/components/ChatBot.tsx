@@ -73,9 +73,7 @@ export default function ChatBot() {
             setTimeout(() => {
                 let elementChats = document.getElementById("chats");
                 if (elementChats != undefined) {
-                    console.log(elementChats.scrollTop)
                     elementChats.scrollTop = elementChats.scrollHeight;
-                    console.log(elementChats.scrollTop)
                 }
             }, 500)
         })
@@ -123,11 +121,11 @@ export default function ChatBot() {
     }, []);
 
     const commentEnterSubmit = (e: any) => {
-        if (isLoading) {
-            console.log("正在处理上一段对话");
-            return;
-        }
         if (e.key === "Enter" && e.ctrlKey==true &&e.shiftKey == false) {
+            if (isLoading) {
+                console.log("正在处理上一段对话");
+                return;
+            }
             e.preventDefault();
             const data: any = {message: e.target.value};
             return handleSubmit(sendMessage(data));

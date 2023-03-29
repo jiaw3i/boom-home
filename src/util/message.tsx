@@ -12,7 +12,7 @@ const message = {
         // 置入到body节点下
         document.body.appendChild(dom);
         setTimeout(() => {
-            console.log("remove",dom)
+            // console.log("remove",dom)
             // 移除dom
             document.body.removeChild(dom);
 
@@ -24,7 +24,7 @@ const message = {
         createRoot(dom).render(JSXdom);
         document.body.appendChild(dom);
         setTimeout(() => {
-            console.log("remove",dom)
+            // console.log("remove",dom)
             // 移除dom
             document.body.removeChild(dom);
 
@@ -36,7 +36,7 @@ const message = {
         createRoot(dom).render(JSXdom);
         document.body.appendChild(dom);
         setTimeout(() => {
-            console.log("remove",dom)
+            // console.log("remove",dom)
             // 移除dom
             document.body.removeChild(dom);
 
