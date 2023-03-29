@@ -1,4 +1,4 @@
-import {ManageMenusData, MenusData,} from "../datas/menus";
+import {ManageMenusData, MenusData, Links} from "../datas/menus";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
@@ -20,13 +20,16 @@ function Sidebar(props: any) {
                     <div className="swap-on" onClick={() => {
                         console.log("aaa")
                         document.documentElement.setAttribute("data-theme", "light");
-                    }}>😈</div>
+                    }}>😈
+                    </div>
                     <div className="swap-off" onClick={() => {
                         document.documentElement.setAttribute("data-theme", "dark");
-                    }}>😇</div>
+                    }}>😇
+                    </div>
                 </label>
                 {/*<div className="w-60">*/}
                 <ul className="menu p-4 text-base-content ">
+                    <div className={"divider"}>Pages</div>
                     {
                         menus.filter(menuItem => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
@@ -45,6 +48,30 @@ function Sidebar(props: any) {
                                     {menuItem.title}
                                 </a></li>
                         })
+                    }
+
+                    <div className={"divider"}>Links</div>
+
+                    {
+                        Links.filter(link => link.isShow).map(link => {
+                                return <li className="" key={link.title}>
+                                    <a className={"hover:[hsl(var(--p)/var(--tw-bg-opacity))] font-bold text-l "}
+                                       key={link.title} onClick={() => {
+                                        window.open(link.url, "_blank");
+                                    }}>
+                                        {link.icon}
+                                        {link.title}
+
+                                        <span className={"flex-none lowercase absolute right-0 mr-3"}>
+                                            <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24"
+                                                 strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
+                                                 strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line
+                                                x1="17" y1="7" x2="7" y2="17"/>  <polyline points="8 7 17 7 17 16"/></svg>
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        )
                     }
                 </ul>
                 <div className="footer mt-auto">

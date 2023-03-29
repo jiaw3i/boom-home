@@ -12,8 +12,8 @@ export default function Projects(){
     },[]);
     return (
         <div>
-            <div>
-                <p className={"font-bold text-2xl"}>ALL MY PROJECTS</p>
+            <div className={"mt-5"}>
+                <p className={"font-bold text-2xl"}>🛠️ALL MY PROJECTS🛠️</p>
             </div>
             <div className="divider"></div>
             <div className={"flex projects flex-wrap align-middle justify-center"}>
