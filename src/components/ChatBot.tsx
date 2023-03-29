@@ -87,6 +87,9 @@ export default function ChatBot() {
     }
 
 
+    /**
+     * 离开页面请求删除当前id的上下文对话，防止后端内存泄漏
+     */
     useEffect(() => {
         const preventUnload = (event: BeforeUnloadEvent) => {
 
@@ -107,8 +110,11 @@ export default function ChatBot() {
     }, []);
 
     const commentEnterSubmit = (e: any) => {
-        if (e.code === "Enter" && e.shiftKey == false) {
-            console.log(e)
+        if (isLoading) {
+            console.log("正在处理上一段对话");
+            return;
+        }
+        if (e.key === "Enter" && e.ctrlKey==true &&e.shiftKey == false) {
             e.preventDefault();
             const data: any = {message: e.target.value};
             return handleSubmit(sendMessage(data));
@@ -151,7 +157,7 @@ export default function ChatBot() {
                     <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
-                        placeholder="在此输入消息，Enter发送"
+                        placeholder="在此输入消息，Ctrl+Enter或者点击右下方飞机按钮发送。"
                         onKeyDown={commentEnterSubmit}
                         className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar break-all"}>
                     </textarea>
