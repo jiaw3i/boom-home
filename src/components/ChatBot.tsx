@@ -1,9 +1,8 @@
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import {get} from "../util/request";
-import {create} from "zustand";
 import {v4 as uuidv4} from 'uuid';
-import message from "../util/message";
+import {sync} from "framer-motion";
 
 type Message = {
     role: number,
@@ -14,6 +13,7 @@ export default function ChatBot() {
     const [isContext, setIsContext] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
+    const [botMessage, setBotMessage] = useState<string>("");
     const [messages, setMessages] = useState<Array<Message>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [curRandomId, setCurRandomId] = useState<string>(uuidv4());
@@ -23,7 +23,7 @@ export default function ChatBot() {
             message: message
         }
     });
-    const sendMessage: any = (data: any) => {
+    const sendMessage: any = async (data: any) => {
         // element?.scrollIntoView();
 
         let message = data.message;
@@ -38,55 +38,74 @@ export default function ChatBot() {
             time: new Date().toLocaleTimeString(),
             content: "正在为您处理..."
         } as Message);
-        setMessages(curMsgs);
-        setIsLoading(true);
-        setMessage("");
-        get("/api/gpt/chat", {
-            message: message,
-            id: curRandomId,
-            isContext: isContext
-        }).then((res: any) => {
-            if (res.success) {
-                // let msgs = messages;
-                let msg: Message = messages[messages.length - 1];
-                msg.content = res.data.content;
-                msg.time = new Date().toLocaleTimeString();
-                // this,setMessages([]);
-
-                setMessages((preMessages) => {
-                    preMessages.pop();
-                    return [...preMessages, msg];
-                });
-                setIsLoading(false);
-            } else {
-                let msg: Message = messages[messages.length - 1];
-                msg.content = "上下文超过GPT最大支持长度，请刷新页面重新开始会话。";
-                msg.time = new Date().toLocaleTimeString();
-                // this,setMessages([]);
-
-                setMessages((preMessages) => {
-                    preMessages.pop();
-                    return [...preMessages, msg];
-                });
-                setIsLoading(false);
-            }
-            setTimeout(() => {
-                let elementChats = document.getElementById("chats");
-                if (elementChats != undefined) {
-                    elementChats.scrollTop = elementChats.scrollHeight;
-                }
-            }, 500)
-        })
+        await setMessages(curMsgs);
+        await setIsLoading(true);
+        await setMessage("");
 
         setTimeout(() => {
-            let elementChats = document.getElementById("chats");
-            if (elementChats != undefined) {
-                console.log(elementChats.scrollTop)
-                elementChats.scrollTop = elementChats.scrollHeight;
-                console.log(elementChats.scrollTop)
-            }
+
+            createSseEmitter("/api/gpt/streamchat", data.message);
         }, 500)
 
+    }
+
+    useEffect(() => {
+        // console.log("messages==>", messages);
+        if (messages.length < 2 || botMessage === "") {
+            setIsLoading(false);
+            return
+        }
+        let msg: Message = messages[messages.length - 1];
+        msg.content = botMessage;
+        msg.time = new Date().toLocaleTimeString();
+        // this,setMessages([]);
+        // console.log("msg==>", msg);
+        setMessages((preMessages) => {
+            // console.log("preMessages==>", preMessages);
+            preMessages.pop();
+            return [...preMessages, msg];
+        });
+        let elementChats = document.getElementById("chats");
+        if (elementChats != undefined) {
+            console.log(elementChats.scrollTop)
+            elementChats.scrollTop = elementChats.scrollHeight;
+            console.log(elementChats.scrollTop)
+        }
+    }, [botMessage]);
+
+    const createSseEmitter = (url: string, message: string) => {
+        if (window.EventSource) {
+
+            let source = new EventSource(url + "?message=" + message + "&id=" + curRandomId + "&isContext=" + isContext);
+
+            // 监听消息事件
+            source.addEventListener("message", (e) => {
+                console.log("e==>", e)
+                const partMessage = e.data
+                if (partMessage === "@@end") {
+                    setBotMessage("");
+                    source.close();
+                    return
+                }
+                // console.log("partMessage==>", partMessage);
+                // console.log("partMessage==>", partMessage);
+                setBotMessage((preBotMessage: string) => {
+                    // console.log("preBotMessage==>", preBotMessage);
+                    let newBotMessage: string;
+                    newBotMessage = preBotMessage + partMessage;
+                    return newBotMessage;
+                })
+            })
+
+            // 监听错误事件
+            source.addEventListener("error", (e) => {
+
+                console.log("断开 οnerrοr==>", e);
+            })
+
+        } else {
+            alert("该浏览器不支持sse")
+        }
     }
 
     const deleteContext = (id: string) => {
@@ -152,7 +171,7 @@ export default function ChatBot() {
                                         {/*BOT*/}
                                         <time className="text-xs opacity-50">{msg.time}</time>
                                     </div>
-                                    <div className="chat-bubble whitespace-pre-line text-left">{msg.content}</div>
+                                    <div className="chat-bubble not-prose whitespace-pre-wrap break-words text-left">{msg.content}</div>
                                     {/*<div className="chat-footer opacity-50">*/}
                                     {/*    Delivered*/}
                                     {/*</div>*/}
@@ -162,7 +181,7 @@ export default function ChatBot() {
                     }
                 </div>
                 <div
-                    className={"absolute not-prose m-0 ml-auto mr-auto bottom-10 message-area w-4/6  no-scrollbar relative bg-transparent"}>
+                    className={"not-prose m-0 ml-auto mr-auto bottom-3 message-area w-4/6  no-scrollbar relative bg-transparent"}>
                     <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
