@@ -1,8 +1,12 @@
 import {useForm} from "react-hook-form";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {get} from "../util/request";
 import {v4 as uuidv4} from 'uuid';
 import {sync} from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import {darcula, dark} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 type Message = {
     role: number,
@@ -55,6 +59,8 @@ export default function ChatBot() {
             setIsLoading(false);
             return
         }
+
+        console.log("botMessage==>", botMessage);
         let msg: Message = messages[messages.length - 1];
         msg.content = botMessage;
         msg.time = new Date().toLocaleTimeString();
@@ -80,9 +86,12 @@ export default function ChatBot() {
 
             // 监听消息事件
             source.addEventListener("message", (e) => {
-                console.log("e==>", e)
-                const partMessage = e.data
-                if (partMessage === "@@end") {
+                let partMessage = e.data;
+                // 将partMessage中的//n替换为/n
+
+                partMessage = partMessage.replaceAll("\\n", "<br>");
+                console.log("partMessage==>", partMessage);
+                if (partMessage === "@end@") {
                     setBotMessage("");
                     source.close();
                     return
@@ -92,7 +101,7 @@ export default function ChatBot() {
                 setBotMessage((preBotMessage: string) => {
                     // console.log("preBotMessage==>", preBotMessage);
                     let newBotMessage: string;
-                    newBotMessage = preBotMessage + partMessage;
+                    newBotMessage = preBotMessage.concat(partMessage);
                     return newBotMessage;
                 })
             })
@@ -156,7 +165,6 @@ export default function ChatBot() {
             (<div
                 className={"chat-gpt m-5 p-3 lg:p-10 prose max-w-none lg:m-10 overflow-y-auto flex-grow card bg-base-300 relative justify-between"}>
 
-
                 <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                     {
                         messages.map((msg, index) => {
@@ -171,10 +179,14 @@ export default function ChatBot() {
                                         {/*BOT*/}
                                         <time className="text-xs opacity-50">{msg.time}</time>
                                     </div>
-                                    <div className="chat-bubble not-prose whitespace-pre-wrap break-words text-left">{msg.content}</div>
-                                    {/*<div className="chat-footer opacity-50">*/}
-                                    {/*    Delivered*/}
-                                    {/*</div>*/}
+                                    <div
+                                        className={"chat-bubble not-prose whitespace-pre-wrap break-words text-left"}
+                                        dangerouslySetInnerHTML={{__html:msg.content}}
+                                    >
+
+                                    </div>
+
+
                                 </div>
                             )
                         })
