@@ -89,7 +89,7 @@ export default function ChatBot() {
                 let partMessage = e.data;
                 // 将partMessage中的//n替换为/n
 
-                partMessage = partMessage.replaceAll("\\n", "<br>");
+                partMessage = partMessage.replaceAll("&#92n", "<br>");
                 console.log("partMessage==>", partMessage);
                 if (partMessage === "@end@") {
                     setBotMessage("");
@@ -108,7 +108,6 @@ export default function ChatBot() {
 
             // 监听错误事件
             source.addEventListener("error", (e) => {
-
                 console.log("断开 οnerrοr==>", e);
             })
 
