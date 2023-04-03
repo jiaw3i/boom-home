@@ -6,7 +6,7 @@ export default function APIList() {
     return (
         <div className={"flex flex-col flex-grow items-center"}>
             <div className={"mt-5"}>
-                <p className={"font-bold text-2xl"}>MAYBE YOU CAN USE.</p>
+                <p className={"font-bold text-2xl prose"}>🛠️MAYBE YOU CAN USE.🛠️</p>
             </div>
             <div className="divider"></div>
             <div className={"flex flex-row flex-grow w-5/6 pl-10 pr-10 pb-20 justify-center"}>
@@ -30,7 +30,7 @@ export default function APIList() {
                         <a onClick={()=>setActiveTab(2)} className={"tab tab-lifted " + (activeTab===2?"tab-active":"")}>在线体验</a>
                     </div>
                     <div className={"left-box bg-base-200 flex-grow rounded-tr-2xl rounded-bl-2xl rounded-br-2xl"}>
-                        <p>{activeTab===1?"API说明":"在线体验"}</p>
+                        <p className={"prose max-w-none"}>{activeTab===1?"API说明":"在线体验"}</p>
                     </div>
                 </div>
 

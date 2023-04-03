@@ -13,18 +13,18 @@ export default function Projects(){
     return (
         <div>
             <div className={"mt-5"}>
-                <p className={"font-bold text-2xl"}>🛠️ALL MY PROJECTS🛠️</p>
+                <p className={"font-bold text-2xl prose max-w-none"}>🛠️ALL MY PROJECTS🛠️</p>
             </div>
             <div className="divider"></div>
-            <div className={"flex projects flex-wrap align-middle justify-center"}>
+            <div className={"flex projects not-prose flex-wrap align-middle justify-center"}>
                 {
                     ProjectsData.map(project=>{
                         return (
                             <div key={project.id} className="card p-0 ml-3 mr-3 mb-3 mt-3 lg:w-2/5 w-96 bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
-                                <div className="card-body p-5 text-left prose">
-                                    <h2 className="card-title">{project.name}</h2>
-                                    <p>{project.description}</p>
-                                    <div className="card-actions justify-end">
+                                <div className="card-body p-5 text-left">
+                                    <h2 className="card-title prose">{project.name}</h2>
+                                    <p className={"prose"}>{project.description}</p>
+                                    <div className="card-actions justify-end w-full">
                                         <button className="btn btn-square btn-sm">
                                             <svg className="h-8 w-8" width="24" height="24" viewBox="0 0 24 24"
                                                  strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
