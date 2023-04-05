@@ -2,11 +2,19 @@ import {useForm} from "react-hook-form";
 import React, {useEffect, useState} from "react";
 import {get} from "../util/request";
 import {v4 as uuidv4} from 'uuid';
+import {fetchEventSource} from "@microsoft/fetch-event-source";
 import {sync} from "framer-motion";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {darcula, dark} from "react-syntax-highlighter/dist/esm/styles/prism";
+// import remarkGfm from 'remark-gfm';
+import RemarkMath from "remark-math";
+import RemarkBreaks from "remark-breaks";
+import RehypeKatex from "rehype-katex";
+import RehypeRaw from "rehype-raw";
+import RemarkGfm from "remark-gfm";
+import RehypePrsim from "rehype-prism-plus";
+
+import CodeBlock from "./CodeBlock";
+
 
 type Message = {
     role: number,
@@ -27,7 +35,7 @@ export default function ChatBot() {
             message: message
         }
     });
-    const sendMessage: any = async (data: any) => {
+    const sendMessage: any = (data: any) => {
         // element?.scrollIntoView();
 
         let message = data.message;
@@ -42,14 +50,12 @@ export default function ChatBot() {
             time: new Date().toLocaleTimeString(),
             content: "正在为您处理..."
         } as Message);
-        await setMessages(curMsgs);
-        await setIsLoading(true);
-        await setMessage("");
-
-        setTimeout(() => {
-
-            createSseEmitter("/api/gpt/streamchat", data.message);
-        }, 500)
+        setMessages(curMsgs);
+        setIsLoading(true);
+        setMessage("");
+        fetchBotMessage(message, curRandomId, false).then(res => {
+            console.log("[fetchBotMessage.then]", res);
+        });
 
     }
 
@@ -79,42 +85,52 @@ export default function ChatBot() {
         }
     }, [botMessage]);
 
-    const createSseEmitter = (url: string, message: string) => {
-        if (window.EventSource) {
+    const fetchBotMessage = async (message: string, id: string, isContext: boolean) => {
+        await fetchEventSource(`api/gpt/streamchat`, {
+            method: "POST",
+            body: JSON.stringify({
+                "message": message,
+                "id": id,
+                "isContext": isContext
+            }),
+            headers: {
+                Accept: "text/event-stream",
+                "Content-Type": "application/json",
+            },
+            async onopen(res: any) {
+                if (res.ok && res.status === 200) {
+                    console.log("Connection made ", res);
+                } else if (
+                    res.status >= 400 &&
+                    res.status < 500 &&
+                    res.status !== 429
+                ) {
+                    console.log("Client side error ", res);
+                }
+            },
+            onmessage(event) {
 
-            let source = new EventSource(url + "?message=" + message + "&id=" + curRandomId + "&isContext=" + isContext);
-
-            // 监听消息事件
-            source.addEventListener("message", (e) => {
-                let partMessage = e.data;
-                // 将partMessage中的//n替换为/n
-
-                partMessage = partMessage.replaceAll("&#92n", "<br>");
-                console.log("partMessage==>", partMessage);
-                if (partMessage === "@end@") {
+                // const parsedData = JSON.parse(event.data);
+                if (event.data == "@end@") {
                     setBotMessage("");
-                    source.close();
+                    // source.close();
                     return
                 }
-                // console.log("partMessage==>", partMessage);
-                // console.log("partMessage==>", partMessage);
+                let message = event.data.replaceAll("&#32;", " ").replaceAll("&#92n;&#92n;", "\n").replaceAll("&#92n;", "\n");
                 setBotMessage((preBotMessage: string) => {
-                    // console.log("preBotMessage==>", preBotMessage);
-                    let newBotMessage: string;
-                    newBotMessage = preBotMessage.concat(partMessage);
-                    return newBotMessage;
+                    return preBotMessage.concat(message);
                 })
-            })
+                // setData((data) => [...data, parsedData]);
+            },
+            onclose() {
+                console.log("Connection closed by the server");
+            },
+            onerror(err) {
+                console.log("There was an error from server", err);
+            },
+        });
+    };
 
-            // 监听错误事件
-            source.addEventListener("error", (e) => {
-                console.log("断开 οnerrοr==>", e);
-            })
-
-        } else {
-            alert("该浏览器不支持sse")
-        }
-    }
 
     const deleteContext = (id: string) => {
         get("/api/gpt/clear", {
@@ -180,8 +196,16 @@ export default function ChatBot() {
                                     </div>
                                     <div
                                         className={"chat-bubble not-prose whitespace-pre-wrap break-words text-left"}
-                                        dangerouslySetInnerHTML={{__html:msg.content}}
                                     >
+                                        <ReactMarkdown
+                                            children={msg.content}
+
+                                            className={"not-prose list-decimal rmd"}
+                                            remarkPlugins={[RemarkMath]}
+                                            // rehypePlugins={[RehypeRaw]}
+                                            // rehypePlugins={[RehypeKatex, [RehypePrsim, {ignoreMissing: true}]]}
+                                            components={CodeBlock}
+                                        />
 
                                     </div>
 

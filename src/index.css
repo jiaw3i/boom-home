@@ -103,3 +103,7 @@ button:focus-visible {
         }
     }
 }
+
+.rmd ol{
+    display: grid;
+}
