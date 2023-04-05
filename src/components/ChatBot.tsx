@@ -1,17 +1,10 @@
 import {useForm} from "react-hook-form";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {get} from "../util/request";
 import {v4 as uuidv4} from 'uuid';
 import {fetchEventSource} from "@microsoft/fetch-event-source";
-import {sync} from "framer-motion";
 import ReactMarkdown from "react-markdown";
-// import remarkGfm from 'remark-gfm';
 import RemarkMath from "remark-math";
-import RemarkBreaks from "remark-breaks";
-import RehypeKatex from "rehype-katex";
-import RehypeRaw from "rehype-raw";
-import RemarkGfm from "remark-gfm";
-import RehypePrsim from "rehype-prism-plus";
 
 import CodeBlock from "./CodeBlock";
 
@@ -25,10 +18,10 @@ export default function ChatBot() {
     const [isContext, setIsContext] = useState<boolean>(false);
     const [isSelected, setIsSelected] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
-    const [botMessage, setBotMessage] = useState<string>("");
+    const botMessage = useRef<string>("");
     const [messages, setMessages] = useState<Array<Message>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [curRandomId, setCurRandomId] = useState<string>(uuidv4());
+    const curRandomId = useRef<string>(uuidv4());
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         values: {
@@ -40,6 +33,8 @@ export default function ChatBot() {
 
         let message = data.message;
         let curMsgs = messages;
+        console.log("[1.messages]", messages);
+        console.log("[1.curMsgs]", curMsgs);
         curMsgs.push({
             role: 2,
             time: new Date().toLocaleTimeString(),
@@ -51,42 +46,41 @@ export default function ChatBot() {
             content: "正在为您处理..."
         } as Message);
         setMessages(curMsgs);
+
         setIsLoading(true);
         setMessage("");
-        fetchBotMessage(message, curRandomId, false).then(res => {
-            console.log("[fetchBotMessage.then]", res);
-        });
-
+        fetchBotMessage(message, curRandomId.current, false);
+        // setTimeout(() => {
+        //     console.log(messages);
+        // }, 5000)
     }
 
-    useEffect(() => {
-        // console.log("messages==>", messages);
-        if (messages.length < 2 || botMessage === "") {
-            setIsLoading(false);
-            return
-        }
+    const handleMessages = () => {
 
-        console.log("botMessage==>", botMessage);
-        let msg: Message = messages[messages.length - 1];
-        msg.content = botMessage;
+        let msg: Message = {...messages[messages.length - 1]};
+
+        msg.content = botMessage.current;
         msg.time = new Date().toLocaleTimeString();
+        msg.role = 1;
         // this,setMessages([]);
-        // console.log("msg==>", msg);
         setMessages((preMessages) => {
-            // console.log("preMessages==>", preMessages);
             preMessages.pop();
             return [...preMessages, msg];
         });
         let elementChats = document.getElementById("chats");
         if (elementChats != undefined) {
-            console.log(elementChats.scrollTop)
             elementChats.scrollTop = elementChats.scrollHeight;
-            console.log(elementChats.scrollTop)
-        }
-    }, [botMessage]);
 
-    const fetchBotMessage = async (message: string, id: string, isContext: boolean) => {
-        await fetchEventSource(`api/gpt/streamchat`, {
+        }
+    }
+
+
+    const fetchBotMessage = (message: string, id: string, isContext: boolean) => {
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        fetchEventSource(`api/gpt/streamchat`, {
+            signal: signal,
             method: "POST",
             body: JSON.stringify({
                 "message": message,
@@ -97,37 +91,30 @@ export default function ChatBot() {
                 Accept: "text/event-stream",
                 "Content-Type": "application/json",
             },
-            async onopen(res: any) {
-                if (res.ok && res.status === 200) {
-                    console.log("Connection made ", res);
-                } else if (
-                    res.status >= 400 &&
-                    res.status < 500 &&
-                    res.status !== 429
-                ) {
-                    console.log("Client side error ", res);
-                }
-            },
             onmessage(event) {
 
                 // const parsedData = JSON.parse(event.data);
                 if (event.data == "@end@") {
-                    setBotMessage("");
-                    // source.close();
+                    botMessage.current = "";
+                    setIsLoading(false);
+                    abortController.abort();
                     return
                 }
-                let message = event.data.replaceAll("&#32;", " ").replaceAll("&#92n;&#92n;", "\n").replaceAll("&#92n;", "\n");
-                setBotMessage((preBotMessage: string) => {
-                    return preBotMessage.concat(message);
-                })
-                // setData((data) => [...data, parsedData]);
+                let partMessage = event.data.replaceAll("&#32;", " ").replaceAll("&#92n;&#92n;", "\n").replaceAll("&#92n;", "\n");
+
+                botMessage.current = botMessage.current.concat(partMessage);
+                handleMessages();
             },
             onclose() {
                 console.log("Connection closed by the server");
+                setIsLoading(false);
             },
             onerror(err) {
                 console.log("There was an error from server", err);
+                setIsLoading(false);
             },
+        }).then(r => {
+            console.log("[fetchEventSource then]", r)
         });
     };
 
@@ -159,21 +146,21 @@ export default function ChatBot() {
         return () => {
             window.removeEventListener('beforeunload', preventUnload);
             // setTimeout
-            deleteContext(curRandomId);
+            deleteContext(curRandomId.current);
         };
     }, []);
 
     const commentEnterSubmit = (e: any) => {
-        if (e.key === "Enter" && e.ctrlKey == true && e.shiftKey == false) {
-            if (isLoading) {
-                console.log("正在处理上一段对话");
-                return;
+            if (e.key === "Enter" && e.ctrlKey == true && e.shiftKey == false) {
+                if (isLoading) {
+                    console.log("正在处理上一段对话");
+                    return;
+                }
+                e.preventDefault();
+                const data: any = {message: e.target.value};
+                return handleSubmit(sendMessage(data));
             }
-            e.preventDefault();
-            const data: any = {message: e.target.value};
-            return handleSubmit(sendMessage(data));
-        }
-    };
+        };
 
     return (
         isSelected ?
@@ -183,6 +170,7 @@ export default function ChatBot() {
                 <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                     {
                         messages.map((msg, index) => {
+                            // console.log("msg==>", msg)
                             return (
                                 <div key={index} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
                                     <div className="chat-image avatar">
