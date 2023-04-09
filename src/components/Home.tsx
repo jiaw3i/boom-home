@@ -18,12 +18,13 @@ export default function Home() {
     const [home, setHome] = useState<HOME>({
         name: "韩佳卫",
         englishName: "Owen Han",
-        skill: "JavaWeb Developer / React / Python",
+        skill: "Java / Typescript / Python",
         aboutMe:
-            "我是一名JavaWeb开发者，熟悉SpringBoot、SpringCloud、Mybatis、SpringMVC等JavaWeb开发框架🚀。\n" +
-            "我也是一名前端爱好者，会一丢丢的React、Vue、Ant Design、TailWind Css等框架✨。\n" +
-            "我也是一名业余Python开发者，了解一点Gunicorn、Flask、Django等框架🐍。\n" +
-            "我也是一名[极极极]其业余的机器学习爱好者🤖。\n" +
+            "2016-2020 西安科技大学 软件工程专业💻。\n" +
+            "主业后端开发工程师，熟悉SpringBoot、SpringCloud、Mybatis、SpringMVC等JavaWeb开发框架🚀。\n" +
+            "也是一名前端爱好者，会一丢丢的React、Vue、Ant Design、TailWind Css等框架✨。\n" +
+            "还是一名业余Python开发者，了解一点Gunicorn、Flask、Django等框架🐍。\n" +
+            "最近在学习机器学习的一些知识🤖。\n" +
             "\n💕Emoji爱好者",
         findMe: {
             github: "https://github.com/jiaw3i",

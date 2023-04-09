@@ -33,8 +33,8 @@ export default function ChatBot() {
 
         let message = data.message;
         let curMsgs = messages;
-        console.log("[1.messages]", messages);
-        console.log("[1.curMsgs]", curMsgs);
+        // console.log("[1.messages]", messages);
+        // console.log("[1.curMsgs]", curMsgs);
         curMsgs.push({
             role: 2,
             time: new Date().toLocaleTimeString(),
@@ -49,7 +49,7 @@ export default function ChatBot() {
 
         setIsLoading(true);
         setMessage("");
-        fetchBotMessage(message, curRandomId.current, false);
+        fetchBotMessage(message, curRandomId.current, isContext);
         // setTimeout(() => {
         //     console.log(messages);
         // }, 5000)
@@ -121,7 +121,7 @@ export default function ChatBot() {
 
     const deleteContext = (id: string) => {
         get("/api/gpt/clear", {
-            id: curRandomId
+            id: id
         }).then((res: any) => {
             console.log(res);
         })

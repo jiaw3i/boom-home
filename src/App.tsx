@@ -1,11 +1,12 @@
 import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
+import ChatBot from "./components/ChatBot";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
 const APIList = lazy(() => import('./components/APIList'));
-const ChatBot = lazy(() => import('./components/ChatBot'));
+// const ChatBot = import('./components/ChatBot');
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
 
@@ -89,9 +90,9 @@ function App() {
                                 </React.Suspense>
                             }/>
                             <Route path={"/chatbot"} element={
-                                <React.Suspense>
+                                // <React.Suspense>
                                     <ChatBot/>
-                                </React.Suspense>
+                                // </React.Suspense>
                             }/>
                         </Routes>
                     </div>
