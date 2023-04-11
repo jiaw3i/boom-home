@@ -17,12 +17,11 @@ function Sidebar(props: any) {
 
                     <input type="checkbox"/>
 
-                    <div className="swap-on" onClick={() => {
-                        console.log("aaa")
+                    <div className="swap-on tooltip" data-tip={"点击切换页面主题"} onClick={() => {
                         document.documentElement.setAttribute("data-theme", "light");
                     }}>😈
                     </div>
-                    <div className="swap-off" onClick={() => {
+                    <div className="swap-off tooltip" data-tip={"点击切换页面主题"} onClick={() => {
                         document.documentElement.setAttribute("data-theme", "dark");
                     }}>😇
                     </div>

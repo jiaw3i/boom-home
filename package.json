@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cross-env vite --mode dev",
+    "dev": "cross-env vite --mode development",
     "release": "cross-env vite --mode release",
-    "build:dev": "tsc && cross-env vite build --mode dev",
+    "build:dev": "tsc && cross-env vite build --mode development",
     "build:release":"tsc && cross-env vite build --mode release",
     "preview": "vite preview"
   },
