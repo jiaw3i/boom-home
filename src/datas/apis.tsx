@@ -36,4 +36,15 @@ const apis = [
         description: "随机一句励志语录",
     }
 ]
+
+// components /Projects.tsx
+export const PROJECT_LIST = "/api/project/list"
+export const PROJECT_ADD = "/api/project/add"
+export const PROJECT_UPDATE = "/api/project/update"
+export const PROJECT_DELETE = "/api/project/delete"
+
+// components /ChatBot.tsx
+
+export const GPT_STREAM_CHAT = "api/gpt/streamchat"
+
 export default apis;

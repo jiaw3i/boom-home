@@ -1,11 +1,14 @@
 import {useEffect, useState} from "react";
-
+import ProjectsData from "../datas/projects";
+import {post} from "../util/request";
+import {useNavigate} from "react-router-dom";
+import {PROJECT_LIST} from "../datas/apis";
 export default function Projects(){
     const [projects,setProjects] = useState<Array<any>>([]);
     const navigate = useNavigate();
     // 页面载入时 请求获取项目列表
     useEffect(()=>{
-        post("/api/project/list",{}).then((res) => {
+        post(PROJECT_LIST,{}).then((res) => {
             console.log(res);
             // setProjects(res);
         });
@@ -60,6 +63,4 @@ export default function Projects(){
 
 )
 }
-import ProjectsData from "../datas/projects";
-import {get, post} from "../util/request";
-import {useNavigate} from "react-router-dom";
+

@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
+import {GPT_STREAM_CHAT} from "../datas/apis";
 
 
 type Message = {
@@ -74,12 +75,11 @@ export default function ChatBot() {
         }
     }
 
-
     const fetchBotMessage = (message: string, id: string, isContext: boolean) => {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
-        fetchEventSource(`api/gpt/streamchat`, {
+        fetchEventSource(GPT_STREAM_CHAT, {
             signal: signal,
             method: "POST",
             body: JSON.stringify({
@@ -118,7 +118,6 @@ export default function ChatBot() {
         });
     };
 
-
     const deleteContext = (id: string) => {
         get("/api/gpt/clear", {
             id: id
@@ -126,7 +125,6 @@ export default function ChatBot() {
             console.log(res);
         })
     }
-
 
     /**
      * 离开页面请求删除当前id的上下文对话，防止后端内存泄漏
