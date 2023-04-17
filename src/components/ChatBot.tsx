@@ -23,6 +23,8 @@ export default function ChatBot() {
     const [messages, setMessages] = useState<Array<Message>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const curRandomId = useRef<string>(uuidv4());
+    const [temperature, setTemperature] = useState("0.9");
+
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         values: {
@@ -51,9 +53,6 @@ export default function ChatBot() {
         setIsLoading(true);
         setMessage("");
         fetchBotMessage(message, curRandomId.current, isContext);
-        // setTimeout(() => {
-        //     console.log(messages);
-        // }, 5000)
     }
 
     const handleMessages = () => {
@@ -85,7 +84,8 @@ export default function ChatBot() {
             body: JSON.stringify({
                 "message": message,
                 "id": id,
-                "isContext": isContext
+                "isContext": isContext,
+                "temperature": temperature
             }),
             headers: {
                 Accept: "text/event-stream",
@@ -149,81 +149,86 @@ export default function ChatBot() {
     }, []);
 
     const commentEnterSubmit = (e: any) => {
-            if (e.key === "Enter" && e.ctrlKey == true && e.shiftKey == false) {
-                if (isLoading) {
-                    console.log("正在处理上一段对话");
-                    return;
-                }
-                e.preventDefault();
-                const data: any = {message: e.target.value};
-                return handleSubmit(sendMessage(data));
+        if (e.key === "Enter" && e.ctrlKey == true && e.shiftKey == false) {
+            if (isLoading) {
+                console.log("正在处理上一段对话");
+                return;
             }
-        };
+            e.preventDefault();
+            const data: any = {message: e.target.value};
+            return handleSubmit(sendMessage(data));
+        }
+    };
 
     return (
         isSelected ?
-            (<div
-                className={"chat-gpt m-5 p-3 lg:p-10 prose max-w-none lg:m-10 overflow-y-auto flex-grow card bg-base-300 relative justify-between"}>
-
-                <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
-                    {
-                        messages.map((msg, index) => {
-                            // console.log("msg==>", msg)
-                            return (
-                                <div key={index} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
-                                    <div className="chat-image avatar">
-                                        <div className="w-10 not-prose rounded-full">
-                                            <img src={msg.role === 1 ? "/OIP.jpg" : "/avatar.png"} alt={""}/>
-                                        </div>
-                                    </div>
-                                    <div className="chat-header">
-                                        {/*BOT*/}
-                                        <time className="text-xs opacity-50">{msg.time}</time>
-                                    </div>
-                                    <div
-                                        className={"chat-bubble not-prose whitespace-pre-wrap break-words text-left"}
-                                    >
-                                        <ReactMarkdown
-                                            children={msg.content}
-
-                                            className={"not-prose list-decimal rmd"}
-                                            remarkPlugins={[RemarkMath]}
-                                            // rehypePlugins={[RehypeRaw]}
-                                            // rehypePlugins={[RehypeKatex, [RehypePrsim, {ignoreMissing: true}]]}
-                                            components={CodeBlock}
-                                        />
-
-                                    </div>
-
-
-                                </div>
-                            )
-                        })
-                    }
+            (<div className={"m-5 p-3 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow justify-between"}>
+                <div className={"prose max-w-none"}>
+                    <label>Temperature:bot回复自由度</label>
+                    <input type="range" min="0" max="2" value={temperature}
+                           step={"0.1"}
+                           onChange={(e) => setTemperature(e.target.value)} className="range range-xs range-primary"/>
                 </div>
+                <div className={"divider"}></div>
                 <div
-                    className={"not-prose m-0 ml-auto mr-auto bottom-3 message-area w-4/6  no-scrollbar relative bg-transparent"}>
-                    <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
+                    className={"chat-gpt   prose max-w-none  overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
+                    <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
+                        {
+                            messages.map((msg, index) => {
+                                return (
+                                    <div key={index} className={"chat " + (msg.role === 1 ? "chat-start" : "chat-end")}>
+                                        <div className="chat-image avatar">
+                                            <div className="w-10 not-prose rounded-full">
+                                                <img src={msg.role === 1 ? "/OIP.jpg" : "/avatar.png"} alt={""}/>
+                                            </div>
+                                        </div>
+                                        <div className="chat-header">
+                                            {/*BOT*/}
+                                            <time className="text-xs opacity-50">{msg.time}</time>
+                                        </div>
+                                        <div
+                                            className={"chat-bubble not-prose whitespace-pre-wrap break-words text-left"}
+                                        >
+                                            <ReactMarkdown
+                                                children={msg.content}
+
+                                                className={"not-prose list-decimal rmd"}
+                                                remarkPlugins={[RemarkMath]}
+                                                components={CodeBlock}
+                                            />
+
+                                        </div>
+
+
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                    <div
+                        className={"not-prose m-0 ml-auto mr-auto bottom-3 message-area w-4/6  no-scrollbar relative bg-transparent"}>
+                        <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
                         placeholder="在此输入消息，Ctrl+Enter或者点击右下方飞机按钮发送。"
                         onKeyDown={commentEnterSubmit}
                         className={"bg-base-200 textarea rounded-xl shadow-2xl resize-none w-full  no-scrollbar break-all"}>
                     </textarea>
-                        {errors.message && <p className={"text-red-500 absolute"}>message is required.</p>}
-                        <button
-                            type={"submit"}
-                            disabled={isLoading}
-                            className="border-0 disabled:cursor-not-allowed absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
-                            <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24"
-                                 strokeLinecap="round"
-                                 strokeLinejoin="round" className="h-4 w-4 mr-1" height="1em" width="1em"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <line x1="22" y1="2" x2="11" y2="13"></line>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                            </svg>
-                        </button>
-                    </form>
+                            {errors.message && <p className={"text-red-500 absolute"}>message is required.</p>}
+                            <button
+                                type={"submit"}
+                                disabled={isLoading}
+                                className="border-0 disabled:cursor-not-allowed absolute bg-base-200 p-1 rounded-md text-gray-500 bottom-1.5 bottom-2.5 hover:border-0 hover:bg-base-300 focus:border-0 dark:disabled:hover:bg-transparent right-1 md:right-2">
+                                <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24"
+                                     strokeLinecap="round"
+                                     strokeLinejoin="round" className="h-4 w-4 mr-1" height="1em" width="1em"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>)
             :
@@ -233,7 +238,7 @@ export default function ChatBot() {
                 </div>
                 <div className={"flex flex-col"}>
                     <div>
-                        <p className={"text-xl font-bold"}>选择对话模式</p>
+                        <p className={"text-xl font-bold mt-0 mb-0"}>选择对话模式</p>
                     </div>
                     <div className={"divider"}></div>
                 </div>
