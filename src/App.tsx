@@ -1,7 +1,7 @@
 import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
-import ChatBot from "./components/ChatBot";
+import ChatBot from "./components/chatbot/ChatBot";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -110,7 +110,6 @@ function App() {
 
                 {/*</div>*/}
             </div>
-
         </div>
 
 

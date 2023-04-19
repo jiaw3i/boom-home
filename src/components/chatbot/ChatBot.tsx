@@ -1,13 +1,13 @@
 import {useForm} from "react-hook-form";
 import React, {useEffect, useRef, useState} from "react";
-import {get} from "../util/request";
+import {get} from "../../util/request";
 import {v4 as uuidv4} from 'uuid';
 import {fetchEventSource} from "@microsoft/fetch-event-source";
 import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
-import {GPT_STREAM_CHAT} from "../datas/apis";
+import {GPT_STREAM_CHAT} from "../../datas/apis";
 
 
 type Message = {
@@ -132,7 +132,7 @@ export default function ChatBot() {
     useEffect(() => {
         const preventUnload = (event: BeforeUnloadEvent) => {
 
-            navigator.sendBeacon("/api/gpt/clear?id=" + curRandomId, "");
+            navigator.sendBeacon("/api/gpt/clear?id=" + curRandomId.current, "");
             // deleteContext(curRandomId)
             // deleteContext();
             event.preventDefault();
