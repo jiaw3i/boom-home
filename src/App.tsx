@@ -2,6 +2,7 @@ import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
 import ChatBot from "./components/chatbot/ChatBot";
+import ChatType from "./components/chatbot/ChatType";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -89,11 +90,18 @@ function App() {
                                     <APIList/>
                                 </React.Suspense>
                             }/>
+                            {/*<Route path={"/chatbot"} element={*/}
+                            {/*    // <React.Suspense>*/}
+                            {/*        <ChatBot/>*/}
+                            {/*    // </React.Suspense>*/}
+                            {/*}/>*/}
                             <Route path={"/chatbot"} element={
-                                // <React.Suspense>
-                                    <ChatBot/>
-                                // </React.Suspense>
-                            }/>
+                                <React.Suspense>
+                                    <ChatType/>
+                                </React.Suspense>
+                            }>
+                            </Route>
+                            <Route path={"/chatbot/:type"} element={<ChatBot/>}/>
                         </Routes>
                     </div>
                 </div>

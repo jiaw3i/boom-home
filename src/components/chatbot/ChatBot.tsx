@@ -8,6 +8,7 @@ import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
 import {GPT_STREAM_CHAT} from "../../datas/apis";
+import {useParams} from "react-router-dom";
 
 
 type Message = {
@@ -17,7 +18,6 @@ type Message = {
 }
 export default function ChatBot() {
     const [isContext, setIsContext] = useState<boolean>(false);
-    const [isSelected, setIsSelected] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("");
     const botMessage = useRef<string>("");
     const [messages, setMessages] = useState<Array<Message>>([]);
@@ -25,7 +25,27 @@ export default function ChatBot() {
     const curRandomId = useRef<string>(uuidv4());
     const [temperature, setTemperature] = useState("0.9");
 
+    const params = useParams();
 
+
+    useEffect(()=>{
+        console.log(params.type);
+        if (params.type === "context") {
+            setIsContext(true);
+            setMessages([{
+                role: 1,
+                time: new Date().toLocaleTimeString(),
+                content: "您将使用上下文模式与我对话。"
+            } as Message]);
+            // setMessages()
+        }else {
+            setMessages([{
+                role: 1,
+                time: new Date().toLocaleTimeString(),
+                content: "您将使用普通模式与我对话。"
+            } as Message]);
+        }
+    })
     const {register, handleSubmit, formState: {errors}} = useForm({
         values: {
             message: message
@@ -161,7 +181,6 @@ export default function ChatBot() {
     };
 
     return (
-        isSelected ?
             (<div className={"m-5 p-3 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow justify-between"}>
                 <div className={"prose max-w-none"}>
                     <label>Temperature:bot回复自由度</label>
@@ -230,63 +249,6 @@ export default function ChatBot() {
                         </form>
                     </div>
                 </div>
-            </div>)
-            :
-            (<div className={"flex flex-col prose max-w-none justify-center align-middle "}>
-                <div className={"lg:mt-0 lg:mb-5"}>
-
-                </div>
-                <div className={"flex flex-col"}>
-                    <div>
-                        <p className={"text-xl font-bold mt-0 mb-0"}>选择对话模式</p>
-                    </div>
-                    <div className={"divider"}></div>
-                </div>
-                <div className={"flex flex-row not-prose flex-wrap justify-center align-middle"}>
-                    <div className="card p-0 w-96 bg-base-300 shadow-xl m-3">
-                        <figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">
-                            <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>
-                        </figure>
-                        <div className="card-body  items-center text-center">
-                            <h2 className="card-title">普通模式</h2>
-                            <p>普通问答模式，不会记录对话上下文信息，不关联上下文对话</p>
-                            <div className="card-actions">
-                                <button className="btn btn-primary" onClick={() => {
-                                    setIsContext(false);
-                                    setIsSelected(true);
-                                    setMessages([{
-                                        role: 1,
-                                        time: new Date().toLocaleTimeString(),
-                                        content: "您将使用普通模式与我对话。"
-                                    } as Message]);
-                                }}>普通模式
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card p-0 w-96 bg-base-300 shadow-xl m-3">
-                        <figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">
-                            <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>
-                        </figure>
-                        <div className="card-body items-center text-center">
-                            <h2 className="card-title">上下文模式</h2>
-                            <p>关联对话上下文，会根据上下文内容做出回答，但是由于gpt的token限制，每次对话次数有限。</p>
-                            <div className="card-actions">
-                                <button className="btn btn-primary" onClick={() => {
-                                    setIsContext(true);
-                                    setIsSelected(true);
-                                    setMessages([{
-                                        role: 1,
-                                        time: new Date().toLocaleTimeString(),
-                                        content: "您将使用上下文模式与我对话。"
-                                    } as Message]);
-                                }}>上下文模式
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>)
     )
 }
