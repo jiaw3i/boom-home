@@ -45,7 +45,7 @@ export default function ChatBot() {
                 content: "您将使用普通模式与我对话。"
             } as Message]);
         }
-    })
+    },[])
     const {register, handleSubmit, formState: {errors}} = useForm({
         values: {
             message: message

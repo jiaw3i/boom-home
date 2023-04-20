@@ -45,6 +45,6 @@ export const PROJECT_DELETE = "/api/project/delete"
 
 // components /ChatBot.tsx
 
-export const GPT_STREAM_CHAT = "api/gpt/streamchat"
+export const GPT_STREAM_CHAT = "/api/gpt/streamchat"
 
 export default apis;
