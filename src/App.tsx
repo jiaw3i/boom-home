@@ -47,8 +47,8 @@ function App() {
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
-                    <div className="flex flex-col pt-1">
-                        <div className="lg:w-full lg:justify-center flex flex-grow max-w-full">
+                    <div className="flex flex-col pt-1 flex-grow max-h-full">
+                        <div className="lg:w-full lg:justify-center flex max-w-full">
                             <div className="flex-none lg:hidden left-0">
                                 <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

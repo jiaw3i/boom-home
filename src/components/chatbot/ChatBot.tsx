@@ -181,16 +181,16 @@ export default function ChatBot() {
     };
 
     return (
-            (<div className={"m-5 p-3 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow justify-between"}>
-                <div className={"prose max-w-none"}>
-                    <label>Temperature:bot回复自由度</label>
-                    <input type="range" min="0" max="2" value={temperature}
-                           step={"0.1"}
-                           onChange={(e) => setTemperature(e.target.value)} className="range range-xs range-primary"/>
-                </div>
-                <div className={"divider"}></div>
+            (<div className={"m-5 p-3 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow max-h-[85%] justify-between"}>
+                {/*<div className={"prose max-w-none"}>*/}
+                {/*    <label>Temperature:bot回复自由度</label>*/}
+                {/*    <input type="range" min="0" max="2" value={temperature}*/}
+                {/*           step={"0.1"}*/}
+                {/*           onChange={(e) => setTemperature(e.target.value)} className="range range-xs range-primary"/>*/}
+                {/*</div>*/}
+                {/*<div className={"divider"}></div>*/}
                 <div
-                    className={"chat-gpt prose max-w-none  overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
+                    className={"chat-gpt prose max-w-none overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
                     <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                         {
                             messages.map((msg, index) => {
@@ -224,8 +224,7 @@ export default function ChatBot() {
                             })
                         }
                     </div>
-                    <div
-                        className={"not-prose m-0 ml-auto mr-auto bottom-3 message-area w-4/6  no-scrollbar relative bg-transparent"}>
+                    <div className={"not-prose m-0 ml-auto mr-auto bottom-3 message-area w-4/6  no-scrollbar relative bg-transparent"}>
                         <form className={"no-scrollbar"} onSubmit={handleSubmit(sendMessage)}>
                     <textarea
                         {...register("message", {required: true})}
