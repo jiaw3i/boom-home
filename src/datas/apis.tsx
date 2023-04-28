@@ -37,14 +37,15 @@ const apis = [
     }
 ]
 
+const BOOM_HOME_BASE = "/api/home/portal"
 // components /Projects.tsx
-export const PROJECT_LIST = "/api/project/list"
-export const PROJECT_ADD = "/api/project/add"
-export const PROJECT_UPDATE = "/api/project/update"
-export const PROJECT_DELETE = "/api/project/delete"
+export const PROJECT_LIST = BOOM_HOME_BASE + "/project/list"
+export const PROJECT_ADD = BOOM_HOME_BASE + "/project/add"
+export const PROJECT_UPDATE = BOOM_HOME_BASE + "/project/update"
+export const PROJECT_DELETE = BOOM_HOME_BASE + "/project/delete"
 
 // components /ChatBot.tsx
 
-export const GPT_STREAM_CHAT = "/api/gpt/streamchat"
+export const GPT_STREAM_CHAT = BOOM_HOME_BASE + "/gpt/streamchat"
 
 export default apis;
