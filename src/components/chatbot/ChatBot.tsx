@@ -190,7 +190,7 @@ export default function ChatBot() {
                 </div>
                 <div className={"divider"}></div>
                 <div
-                    className={"chat-gpt   prose max-w-none  overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
+                    className={"chat-gpt prose max-w-none  overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
                     <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                         {
                             messages.map((msg, index) => {

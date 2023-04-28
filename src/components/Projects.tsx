@@ -23,10 +23,6 @@ export default function Projects(){
     }
     return (
         <div>
-            <div className={"mt-5"}>
-                <p className={"font-bold text-2xl prose max-w-none"}>🛠️ALL MY PROJECTS🛠️</p>
-            </div>
-            <div className="divider"></div>
             <div className={"flex projects not-prose flex-wrap align-middle justify-center"}>
                 {
                     ProjectsData.map(project=>{
@@ -57,7 +53,6 @@ export default function Projects(){
                         )
                     })
                 }
-
             </div>
         </div>
 

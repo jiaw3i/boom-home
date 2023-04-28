@@ -74,10 +74,10 @@ function Sidebar(props: any) {
                     }
                 </ul>
                 <div className="footer mt-auto">
-                    <footer className="footer items-center p-2 bg-neutral text-neutral-content">
-                        <div className="items-center align-middle">
-                            <p>Copyright © 2023 Jiawei</p>
-                            <p>All right reserved</p>
+                    <footer className="footer items-center justify-center p-2 text-neutral-content">
+                        <div className="items-center font-mono align-middle gap-0">
+                            <p className={"prose"}>Copyright©2023 Owen</p>
+                            <a href="https://icp.gov.moe/?keyword=20233353" className={"prose"} target="_blank">萌ICP备20233353号</a>
                         </div>
                     </footer>
                 </div>

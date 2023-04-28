@@ -3,6 +3,7 @@ import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
 import ChatBot from "./components/chatbot/ChatBot";
 import ChatType from "./components/chatbot/ChatType";
+import Header from "./components/Header";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -46,9 +47,9 @@ function App() {
             <div className="drawer drawer-mobile">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
-                    <div className="flex flex-col flex-grow max-h-full">
-                        <div className="lg:w-full flex">
-                            <div className="flex-none lg:hidden">
+                    <div className="flex flex-col pt-1">
+                        <div className="lg:w-full lg:justify-center flex flex-grow max-w-full">
+                            <div className="flex-none lg:hidden left-0">
                                 <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          className="inline-block w-6 h-6 stroke-current">
@@ -57,7 +58,9 @@ function App() {
                                     </svg>
                                 </label>
                             </div>
+                            <Header title={title}></Header>
                         </div>
+                        <div className={"divider mt-0"}></div>
                         <Routes>
                             <Route path={"/projects"} element={
                                 <React.Suspense>
@@ -107,16 +110,6 @@ function App() {
                 </div>
 
                 <Sidebar type={type} setTitle={setTitle} title={title}></Sidebar>
-                {/*<div className="drawer-side">*/}
-                {/*    <label htmlFor="my-drawer-3" className="drawer-overlay"></label>*/}
-                {/*    <ul className="menu p-4 w-80 bg-base-100">*/}
-                {/*        <!-- Sidebar content here -->*/}
-                {/*        <li><a>Sidebar Item 1</a></li>*/}
-                {/*        <li><a>Sidebar Item 2</a></li>*/}
-
-                {/*    </ul>*/}
-
-                {/*</div>*/}
             </div>
         </div>
 

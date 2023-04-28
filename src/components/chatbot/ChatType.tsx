@@ -10,15 +10,6 @@ export default function ChatType() {
     }
 
     return (<div className={"flex flex-col prose max-w-none justify-center align-middle "}>
-        <div className={"lg:mt-0 lg:mb-5"}>
-
-        </div>
-        <div className={"flex flex-col"}>
-            <div>
-                <p className={"text-xl font-bold mt-0 mb-0"}>选择对话模式</p>
-            </div>
-            <div className={"divider"}></div>
-        </div>
         {
             BotTypes.map(botType => {
                 return (

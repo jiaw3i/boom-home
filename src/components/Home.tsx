@@ -20,7 +20,6 @@ export default function Home() {
         englishName: "Owen Han",
         skill: "Java / Typescript / Python",
         aboutMe:
-            "2016-2020 西安科技大学 软件工程专业💻。\n" +
             "主业后端开发工程师，熟悉SpringBoot、SpringCloud、Mybatis、SpringMVC等JavaWeb开发框架🚀。\n" +
             "也是一名前端爱好者，会一丢丢的React、Vue、Ant Design、TailWind Css等框架✨。\n" +
             "还是一名业余Python开发者，了解一点Gunicorn、Flask、Django等框架🐍。\n" +
@@ -37,10 +36,6 @@ export default function Home() {
 
     return (
         <div className={"home overflow-auto prose block max-w-none no-scrollbar"}>
-            <div className={"mt-2"}>
-                <p className={"font-bold text-2xl "}>😊ABOUT ME😊</p>
-            </div>
-            <div className="divider mt-2"></div>
             <div className={"content flex flex-col items-center"}>
                 <div className={"flex flex-col text-left font-bold text-3xl font-mono pl-5"}>
                     <span>Hello,</span>
