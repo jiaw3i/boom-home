@@ -18,12 +18,12 @@ export default function ChatType() {
                             <div className={"bg-blue-700 w-1 h-full"}></div>
                             <div className={"font-bold ml-2"}>{botType.toUpperCase()}🐶</div>
                         </div>
-                        <div className={"flex flex-row not-prose flex-wrap mb-10"}>
+                        <div className={"flex flex-row not-prose  flex-wrap"}>
                             {
                                 AllBots.get(botType)?.map((bot: BotInfo) => {
                                     return (
                                         <div key={bot.id}
-                                             className="card p-0 w-full lg:w-[31%] justify-start bg-base-300 shadow-xl m-[1%] hover:shadow-2xl">
+                                             className="card p-0 w-full m-3 lg:w-[31%] justify-start bg-base-300 shadow-xl m-[1%] hover:shadow-2xl">
                                             {/*<figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">*/}
                                             {/*    <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>*/}
                                             {/*</figure>*/}
