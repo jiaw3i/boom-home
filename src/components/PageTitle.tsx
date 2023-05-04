@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 
-export default function Header (props:any){
+export default function PageTitle (props:any){
     const {title} = props;
     return (
         // <div>

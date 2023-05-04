@@ -1,29 +1,41 @@
 import {ManageMenusData, MenusData, Links} from "../datas/menus";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {log} from "vditor/dist/ts/util/log";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
-    const [theme, setTheme] = useState("light");
+    const {theme, setTheme} = props;
+    // const [theme, setTheme] = useState("light");
     const {type, setType} = props;
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
+    const switchTheme = () => {
+        if (theme === "light") {
+            setTheme("dark");
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            setTheme("light");
+            document.documentElement.setAttribute("data-theme", "light");
+        }
 
+        const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
+        const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
+        if (logoCheckbox!=null && logoCheckbox.checked!=themeCheckbox.checked) {
+            themeCheckbox.checked = logoCheckbox.checked;
+        }
+    }
     return (
         <div className="drawer-side flex-shrink-0  h-screen">
             <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
             <aside className="flex flex-col bg-base-200 pt-10 w-80 lg:w-60">
                 <label className="swap swap-flip text-5xl h-auto">
 
-                    <input type="checkbox"/>
+                    <input id={"logoCheckbox"} type="checkbox" onClick={switchTheme}/>
 
-                    <div className="swap-on tooltip" data-tip={"点击切换页面主题"} onClick={() => {
-                        document.documentElement.setAttribute("data-theme", "light");
-                    }}>😈
+                    <div className="swap-on tooltip" data-tip={"点击切换页面主题"}>😈
                     </div>
-                    <div className="swap-off tooltip" data-tip={"点击切换页面主题"} onClick={() => {
-                        document.documentElement.setAttribute("data-theme", "dark");
-                    }}>😇
+                    <div className="swap-off tooltip" data-tip={"点击切换页面主题"}>😇
                     </div>
                 </label>
                 {/*<div className="w-60">*/}
