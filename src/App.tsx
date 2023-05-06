@@ -5,6 +5,7 @@ import ChatBot from "./components/chatbot/ChatBot";
 import ChatType from "./components/chatbot/ChatType";
 import PageTitle from "./components/PageTitle";
 import {set} from "react-hook-form";
+import NotFound from "./components/NotFound";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -135,6 +136,9 @@ function App() {
                             }>
                             </Route>
                             <Route path={"/chatbot/:type"} element={<ChatBot/>}/>
+
+                            <Route path={"*"} element={<NotFound/>}>
+                            </Route>
                         </Routes>
                     </div>
                 </div>
