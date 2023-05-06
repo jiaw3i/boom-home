@@ -37,6 +37,7 @@ const apis = [
     }
 ]
 
+// const BOOM_HOME_BASE = "/api"
 const BOOM_HOME_BASE = "/api/home/portal"
 // components /Projects.tsx
 export const PROJECT_LIST = BOOM_HOME_BASE + "/project/list"
