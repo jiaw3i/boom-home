@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {CommonBotConfig} from "../../datas/constants";
-import useCommonBotConfigStore from "../../store/BotConfigStore";
-import CommonBotConfigForm from "./BotConfigForms";
+import CommonBotConfigForm, {ContextBotConfigForm} from "./BotConfigForms";
 
 export default function BotConfigDialog(props: any) {
-
+    const botConfigFormMap:Map<string,JSX.Element> = new Map<string,JSX.Element>(
+        [
+            ["context", <ContextBotConfigForm/>],
+            ["common", <CommonBotConfigForm/>]]
+    );
     const {type} = props;
     useEffect(() => {
         console.log("BotConfigDialog type: ", type);
@@ -16,7 +18,7 @@ export default function BotConfigDialog(props: any) {
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <div className={""}>
-                        <CommonBotConfigForm/>
+                        {botConfigFormMap.get(type)}
                     </div>
                 </div>
             </div>
