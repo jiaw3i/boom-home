@@ -1,10 +1,9 @@
-import React from "react";
-import {useForm} from "react-hook-form"
+import React, {useState} from "react";
+import {set, useForm} from "react-hook-form"
 import {CommonBotConfig} from "../../datas/constants";
-
 export default function CommonBotConfigDialog() {
 
-    const {register, handleSubmit, formState: {errors}} = useForm<CommonBotConfig>({
+    const {setValue,reset,register, handleSubmit, formState: {errors},getValues} = useForm<CommonBotConfig>({
         values: {
             temperature: 0.9,
             model: "gpt2",
@@ -12,9 +11,12 @@ export default function CommonBotConfigDialog() {
             compressSize: 3000,
         }
     });
-
+    const commonBotConfig = getValues();
+    const [temperature, setTemperature] = useState(commonBotConfig.temperature);
     const formSubmit = (data: CommonBotConfig) => {
+        // temperature
         console.log(data);
+        // console.log(temperature);
     }
 
     return (
@@ -26,12 +28,16 @@ export default function CommonBotConfigDialog() {
                         <form id={"commonBotForm"} onSubmit={handleSubmit(formSubmit)}>
                             <label className="label">
                                 <span className="label-text">随机性</span>
-                                <span className="label-text-alt">temperature</span>
+                                <span className="label-text-alt text-l">{commonBotConfig.temperature}</span>
                             </label>
                             <div>
-                                <input type="range" {...register("temperature", {required: true})}
+                                <input type="range" min={0} max={1} step={0.1} {...register("temperature", {required: true})}
+                                        onChange={(e)=>{
+                                            setTemperature(e.target.valueAsNumber);
+                                            setValue("temperature",e.target.valueAsNumber);
+                                        }}
                                        className="w-full max-w-full"/>
-                                {errors.temperature && <p className={"text-red-500"}>name is required.</p>}
+                                {errors.temperature && <p className={"text-red-500"}>temperature is required.</p>}
                             </div>
 
                             <label className="label">
@@ -41,6 +47,7 @@ export default function CommonBotConfigDialog() {
                             <select className="select select-primary w-full max-w-full">
                                 {/*<option disabled selected>Pick your favorite Simpson</option>*/}
                                 <option>GPT-3.5-turbo</option>
+                                <option>GPT-3</option>
                                 <option disabled={true}>GPT-4</option>
                             </select>
 
@@ -58,13 +65,16 @@ export default function CommonBotConfigDialog() {
                             <input type="text" {...register("compressSize")}
                                    className="input input-primary w-full max-w-full"/>
                             <div className={"divider"}></div>
+                            <input id={"botConfigSubmit"} type={"submit"} hidden={true}/>
 
-                            <input type={"submit"} value={"确认修改"} className={"btn"}/>
+                            <div className="modal-action">
+                                <label htmlFor="commonBotConfig" className="btn" onClick={()=>reset()}>取消</label>
+                                <label htmlFor="commonBotConfig" className="btn" onClick={()=>{
+                                    document.getElementById("botConfigSubmit")?.click();
+                                }}>提交</label>
+                            </div>
                         </form>
-                    </div> 
-                    {/*<div className="modal-action">*/}
-                    {/*    <label htmlFor="common-bot-config" className="btn">Yay!</label>*/}
-                    {/*</div>*/}
+                    </div>
                 </div>
             </div>
         </div>
