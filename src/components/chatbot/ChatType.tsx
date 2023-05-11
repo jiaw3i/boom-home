@@ -1,13 +1,21 @@
 import React from "react";
 import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../datas/bots";
 import {useNavigate} from "react-router-dom";
+import {create} from 'zustand';
+import {CommonBotConfig} from "../../datas/constants";
+import CommonBotConfigDialog from "./BotConfig";
 
+const useBearStore = create((set) => ({
+    botConfig: {} as CommonBotConfig
+}))
 export default function ChatType() {
 
     const navigate = useNavigate();
     const toChat = (type: string) => {
         navigate(`/chatbot/${type}`);
     }
+
+    // const botConfigDialog = ()
 
     return (<div className={"flex flex-col prose max-w-none justify-center align-middle "}>
         {
@@ -23,25 +31,18 @@ export default function ChatType() {
                                 AllBots.get(botType)?.map((bot: BotInfo) => {
                                     return (
                                         <div key={bot.id}
-                                             className="card p-0 w-full m-3 lg:w-[31%] justify-start bg-base-300 shadow-xl m-[1%] hover:shadow-2xl">
+                                             className="card p-0 w-full lg:w-[31%] justify-start bg-base-300 shadow-xl m-[1%] hover:shadow-2xl">
                                             {/*<figure className="hidden mt-0 mb-0 lg:px-10 lg:pt-10 lg:flex">*/}
                                             {/*    <img src="/OIP.jpg" alt="Shoes" className="hidden lg:rounded-xl lg:block"/>*/}
                                             {/*</figure>*/}
                                             <div className="card-body p-6 items-center text-center">
                                                 <h2 className="card-title">{bot.name}</h2>
                                                 <p className={"text-left overflow-ellipsis"}>{bot.description}</p>
-                                                <div className="card-actions flex flex-row w-full flex-row-reverse">
-                                                    <div className={bot.enable?"":"hover:cursor-not-allowed"}>
+                                                <div className="card-actions flex w-full flex-row-reverse">
+                                                    <div className={bot.enable ? "" : "hover:cursor-not-allowed"}>
                                                         <button className={"btn btn-primary "} disabled={!bot.enable}
                                                                 onClick={() => {
                                                                     toChat(bot.type);
-                                                                    // setIsContext(false);
-                                                                    // setIsSelected(true);
-                                                                    // setMessages([{
-                                                                    //     role: 1,
-                                                                    //     time: new Date().toLocaleTimeString(),
-                                                                    //     content: "您将使用普通模式与我对话。"
-                                                                    // } as Message]);
                                                                 }}>
                                                             <svg className="h-7 w-7 text-white" fill="none"
                                                                  viewBox="0 0 24 24" stroke="currentColor">
@@ -53,10 +54,8 @@ export default function ChatType() {
                                                         </button>
                                                     </div>
 
-                                                    <div className={" hover:cursor-not-allowed"}>
-                                                        <button
-                                                            className="btn btn-primary text-l"
-                                                            disabled={true}>
+                                                    <div className={""}>
+                                                        <label htmlFor="commonBotConfig" className="btn btn-primary text-l" >
                                                             <svg className="h-6 w-6 text-white" viewBox="0 0 24 24"
                                                                  fill="none" stroke="currentColor" strokeWidth="2"
                                                                  strokeLinecap="round" strokeLinejoin="round">
@@ -64,7 +63,7 @@ export default function ChatType() {
                                                                 <path
                                                                     d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                                                             </svg>
-                                                        </button>
+                                                        </label>
                                                     </div>
 
                                                 </div>
@@ -79,7 +78,7 @@ export default function ChatType() {
                 )
             })
         }
-
+        <CommonBotConfigDialog/>
 
     </div>)
 }
