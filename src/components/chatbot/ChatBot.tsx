@@ -9,7 +9,7 @@ import RemarkMath from "remark-math";
 import CodeBlock from "./CodeBlock";
 import {GPT_STREAM_CHAT} from "../../datas/apis";
 import {useParams} from "react-router-dom";
-import CommonBotConfigDialog from "./BotConfig";
+import BotConfigDialog from "./BotConfig";
 
 
 type Message = {
@@ -242,7 +242,7 @@ export default function ChatBot() {
                         </form>
                     </div>
                 </div>
-                <CommonBotConfigDialog/>
+                {/*<BotConfigDialog type={params.type}/>*/}
             </div>)
     )
 }

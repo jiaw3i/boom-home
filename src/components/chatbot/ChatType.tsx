@@ -1,19 +1,15 @@
 import React from "react";
 import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../datas/bots";
 import {useNavigate} from "react-router-dom";
-import {create} from 'zustand';
-import {CommonBotConfig} from "../../datas/constants";
-import CommonBotConfigDialog from "./BotConfig";
+import BotConfigDialog from "./BotConfig";
 
-const useBearStore = create((set) => ({
-    botConfig: {} as CommonBotConfig
-}))
 export default function ChatType() {
 
     const navigate = useNavigate();
     const toChat = (type: string) => {
         navigate(`/chatbot/${type}`);
     }
+    const [settingType, setSettingType] = React.useState<string>("");
 
     // const botConfigDialog = ()
 
@@ -55,7 +51,9 @@ export default function ChatType() {
                                                     </div>
 
                                                     <div className={""}>
-                                                        <label htmlFor="commonBotConfig" className="btn btn-primary text-l" >
+                                                        <label htmlFor="commonBotConfig"
+                                                               onClick={() => setSettingType(bot.type)}
+                                                               className="btn btn-primary text-l">
                                                             <svg className="h-6 w-6 text-white" viewBox="0 0 24 24"
                                                                  fill="none" stroke="currentColor" strokeWidth="2"
                                                                  strokeLinecap="round" strokeLinejoin="round">
@@ -78,7 +76,7 @@ export default function ChatType() {
                 )
             })
         }
-        <CommonBotConfigDialog/>
+        <BotConfigDialog type={settingType}/>
 
     </div>)
 }
