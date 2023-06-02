@@ -12,3 +12,17 @@ export type ContextBotConfig = CommonBotConfig & {
 export type interviewBotConfig = CommonBotConfig & {
     prompt: string,
 }
+
+export type Record = {
+    id: string,
+    content: string,
+    tags: string[],
+    createTime: string,
+    updateTime: string,
+    permission: number
+}
+
+export enum Permission {
+    PRIVATE = 0,
+    PUBLIC = 1,
+}
