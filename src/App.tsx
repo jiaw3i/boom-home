@@ -6,6 +6,8 @@ import ChatType from "./components/chatbot/ChatType";
 import PageTitle from "./components/PageTitle";
 import {set} from "react-hook-form";
 import NotFound from "./components/NotFound";
+import Login from "./components/Login";
+import {Link} from "@chakra-ui/react";
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -53,7 +55,7 @@ function App() {
         }
         const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
         const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
-        if (logoCheckbox!=null && logoCheckbox.checked!=themeCheckbox.checked) {
+        if (logoCheckbox != null && logoCheckbox.checked != themeCheckbox.checked) {
             logoCheckbox.checked = themeCheckbox.checked;
         }
     };
