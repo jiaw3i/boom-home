@@ -22,6 +22,11 @@ export type Record = {
     permission: number
 }
 
+export type UserInfo = {
+    id: string,
+    username: string,
+}
+
 export enum Permission {
     PRIVATE = 0,
     PUBLIC = 1,

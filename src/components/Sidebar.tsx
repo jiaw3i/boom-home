@@ -1,7 +1,8 @@
 import {ManageMenusData, MenusData, Links} from "../datas/menus";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {log} from "vditor/dist/ts/util/log";
+import {UserInfoStore} from "../store/UserInfoStore";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
@@ -10,6 +11,14 @@ function Sidebar(props: any) {
     const {type, setType} = props;
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
+
+    const userInfo = UserInfoStore((state: any) => state.userInfo);
+    useEffect(() => {
+        console.log("sidebar,{}", userInfo);
+        // @ts-ignore
+        // UserInfoStore.getState().setUserInfo({username:"owen"})
+        console.log("sidebar2,{}", UserInfoStore.getState());
+    })
     const switchTheme = () => {
         if (theme === "light") {
             setTheme("dark");
@@ -21,7 +30,7 @@ function Sidebar(props: any) {
 
         const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
         const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
-        if (logoCheckbox!=null && logoCheckbox.checked!=themeCheckbox.checked) {
+        if (logoCheckbox != null && logoCheckbox.checked != themeCheckbox.checked) {
             themeCheckbox.checked = logoCheckbox.checked;
         }
     }
@@ -77,7 +86,8 @@ function Sidebar(props: any) {
                                             <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24"
                                                  strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                                                  strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line
-                                                x1="17" y1="7" x2="7" y2="17"/>  <polyline points="8 7 17 7 17 16"/></svg>
+                                                x1="17" y1="7" x2="7" y2="17"/>  <polyline
+                                                points="8 7 17 7 17 16"/></svg>
                                         </span>
                                     </a>
                                 </li>
@@ -88,26 +98,19 @@ function Sidebar(props: any) {
                 <div className="footer mt-auto">
                     <footer className="footer items-center justify-center p-2 text-neutral-content">
                         <div className="items-center font-mono align-middle gap-0">
+                            {/*如果username==jiawei.me@hotmail.com，那么就显示已登录*/}
+                            {userInfo.username === "jiawei.me@hotmail.com" &&
+                                <p className={"prose"}>已登录</p>
+                            }
                             <p className={"prose"}>Copyright©2023 Owen</p>
-                            <a href="https://icp.gov.moe/?keyword=20233353" className={"prose"} target="_blank">💖萌ICP备20233353号</a>
+                            <a href="https://icp.gov.moe/?keyword=20233353" className={"prose"}
+                               target="_blank">💖萌ICP备20233353号</a>
                         </div>
                     </footer>
                 </div>
                 {/*</div>*/}
             </aside>
-
-
         </div>
-
-        // <div className="drawer-side">
-        //     <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        //     <ul className="menu p-4 w-80 bg-base-100">
-        //         <li><a>Sidebar Item 1</a></li>
-        //         <li><a>Sidebar Item 2</a></li>
-        //
-        //     </ul>
-        //
-        // </div>
     )
 }
 

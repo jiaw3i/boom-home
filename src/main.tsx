@@ -8,16 +8,9 @@ import Login from "./components/Login";
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
         <Routes>
-            <Route path={"/login"} element={
-                <React.Suspense>
-                    <Login/>
-                </React.Suspense>
-            }/>
-            <Route path={"/"} element={
-                <React.Suspense>
-                    <App/>
-                </React.Suspense>
-            }/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="*" element={<App/>}/>
+            {/*<App/>*/}
         </Routes>
     </BrowserRouter>
 )

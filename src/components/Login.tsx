@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import {post} from "../util/request";
 import {LOGIN_API} from "../datas/apis";
+import {UserInfoStore} from "../store/UserInfoStore";
 
 type LoginProp = {
     username: string,
@@ -12,11 +13,19 @@ export default function Login() {
     // const
     const {register, handleSubmit, formState: {errors}} = useForm<LoginProp>();
 
+    const setUserInfo = UserInfoStore((state: any) => state.setUserInfo);
     const login = (login: LoginProp) => {
         console.log(login);
         post(LOGIN_API, login).then((res: any) => {
             console.log(res);
             if (res.success) {
+                console.log("start setUserInfo")
+                setUserInfo({
+                    username: login.username,
+                    id: 1
+                });
+                // @ts-ignore
+                console.log(UserInfoStore.getState().userInfo)
                 window.location.href = "/home";
             }
         });
@@ -24,9 +33,10 @@ export default function Login() {
     return (
         <div className="flex items-center w-screen h-screen">
             <div
-                className="flex w-full h-auto bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+                className="flex w-full h-auto bg-base-200 rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
                 <div className="hidden lg:block lg:w-1/2 bg-cover"
-                     style={{backgroundImage: 'url("https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80")'}}
+                    // style={{backgroundImage: 'url("https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80")'}}
+                     style={{backgroundImage: 'url("https://img.hanjiawei.com/thumbnails/5e44dfe855da0026cf011f2a31898e81.png")'}}
                 ></div>
                 <div className="w-full p-8 lg:w-1/2">
                     <h2 className="text-2xl font-semibold text-gray-700 text-center">Hello.</h2>
