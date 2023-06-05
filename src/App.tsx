@@ -1,29 +1,42 @@
-import React, {lazy, Suspense, useEffect, useState} from 'react'
+import React, {lazy, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
 import ChatBot from "./components/chatbot/ChatBot";
 import ChatType from "./components/chatbot/ChatType";
 import PageTitle from "./components/PageTitle";
-import {set} from "react-hook-form";
 import NotFound from "./components/NotFound";
-import Login from "./components/Login";
-import {Link} from "@chakra-ui/react";
+import Loader from "./components/Loader";
+import Home from "./components/Home";
+import Sidebar from "./components/Sidebar";
+import {get} from "./util/request";
+import {CURRENT_USER} from "./datas/apis";
+import {UseUserStore} from "./components/store";
+
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
 const APIList = lazy(() => import('./components/APIList'));
-// const ChatBot = import('./components/ChatBot');
-const Home = lazy(() => import('./components/Home'));
-const Sidebar = lazy(() => import('./components/Sidebar'));
+
+// const Sidebar = lazy(() => import('./components/Sidebar'));
 
 function App() {
     const location = useLocation();
     const [type, setType] = useState(location.pathname.match("/manage/*") ? "admin" : "common");
     const [title, setTitle] = useState("Home");
     const [theme, setTheme] = useState("light");
+    const {setUsername, setId, username} = UseUserStore();
     useEffect(() => {
+        console.log("app,{}", username);
         setTitle(currentTitle());
+        if (username === "") {
+            get(CURRENT_USER).then((res: any) => {
+                if (res.success) {
+                    setUsername(res.data.username);
+                }
+            });
+        }
     });
+
     const currentTitle = () => {
         // console.log("enter,{}", location.pathname)
         let title = "Home";
@@ -96,33 +109,29 @@ function App() {
                         <div className={"divider mt-0"}></div>
                         <Routes>
                             <Route path={"/projects"} element={
-                                <React.Suspense>
+                                <React.Suspense fallback={<Loader/>}>
                                     <Projects/>
                                 </React.Suspense>
                             }/>
                             <Route path={"/"} element={
-                                <React.Suspense>
-                                    <Home/>
-                                </React.Suspense>
+                                <Home/>
                             }/>
                             <Route path={"/home"} element={
-                                <React.Suspense>
-                                    <Home/>
-                                </React.Suspense>
+                                <Home/>
                             }/>
                             <Route path={"/manage"} element={
-                                <React.Suspense>
+                                <React.Suspense fallback={<Loader/>}>
                                     <ManageProject/>
                                 </React.Suspense>
                             }>
                                 <Route path={"project"} element={
-                                    <React.Suspense>
+                                    <React.Suspense fallback={<Loader/>}>
                                         <ManageProject/>
                                     </React.Suspense>
                                 }/>
                             </Route>
                             <Route path={"/apis"} element={
-                                <React.Suspense>
+                                <React.Suspense fallback={<Loader/>}>
                                     <APIList/>
                                 </React.Suspense>
                             }/>
@@ -132,7 +141,7 @@ function App() {
                             {/*    // </React.Suspense>*/}
                             {/*}/>*/}
                             <Route path={"/chatbot"} element={
-                                <React.Suspense>
+                                <React.Suspense fallback={<Loader/>}>
                                     <ChatType/>
                                 </React.Suspense>
                             }>

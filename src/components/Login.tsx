@@ -1,7 +1,9 @@
 import {useForm} from "react-hook-form";
 import {post} from "../util/request";
 import {LOGIN_API} from "../datas/apis";
-import {UserInfoStore} from "../store/UserInfoStore";
+import {UseUserStore} from "./store";
+import {useEffect, useState} from "react";
+import {Navigate, useNavigate} from "react-router-dom";
 
 type LoginProp = {
     username: string,
@@ -9,24 +11,23 @@ type LoginProp = {
 }
 export default function Login() {
 
-    // useForm()
-    // const
     const {register, handleSubmit, formState: {errors}} = useForm<LoginProp>();
-
-    const setUserInfo = UserInfoStore((state: any) => state.setUserInfo);
+    // const [username, setUsernameState] = useState("");
+    let navigate = useNavigate();
+    const {setUsername, setId} = UseUserStore();
+    useEffect(() => {
+        console.log("login,{}", UseUserStore.getState());
+    })
     const login = (login: LoginProp) => {
         console.log(login);
         post(LOGIN_API, login).then((res: any) => {
             console.log(res);
             if (res.success) {
                 console.log("start setUserInfo")
-                setUserInfo({
-                    username: login.username,
-                    id: 1
-                });
-                // @ts-ignore
-                console.log(UserInfoStore.getState().userInfo)
-                window.location.href = "/home";
+                setUsername(login.username);
+                console.log(UseUserStore.getState());
+                navigate('/home');
+                // window.location.href = "/home";
             }
         });
     }
@@ -74,7 +75,7 @@ export default function Login() {
                     </form>
                     <div className="mt-4 flex items-center justify-between">
                         <span className="border-b w-1/5 md:w-1/4"></span>
-                        <a href="#"
+                        <a href=""
                            className="text-xs text-gray-500 uppercase hover:cursor-not-allowed">暂未开放注册</a>
                         <span className="border-b w-1/5 md:w-1/4"></span>
                     </div>

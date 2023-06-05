@@ -1,8 +1,7 @@
 import {ManageMenusData, MenusData, Links} from "../datas/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {log} from "vditor/dist/ts/util/log";
-import {UserInfoStore} from "../store/UserInfoStore";
+import {UseUserStore} from "./store";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
@@ -12,13 +11,14 @@ function Sidebar(props: any) {
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
 
-    const userInfo = UserInfoStore((state: any) => state.userInfo);
-    useEffect(() => {
-        console.log("sidebar,{}", userInfo);
-        // @ts-ignore
-        // UserInfoStore.getState().setUserInfo({username:"owen"})
-        console.log("sidebar2,{}", UserInfoStore.getState());
-    })
+    const {username} = UseUserStore();
+
+    // useEffect(() => {
+    //     console.log("sidebar,{}", username);
+    //     // @ts-ignore
+    //     // UserInfoStore.getState().setUserInfo({username:"owen"})
+    //     console.log("sidebar2,{}", UseUserStore.getState());
+    // })
     const switchTheme = () => {
         if (theme === "light") {
             setTheme("dark");
@@ -99,7 +99,7 @@ function Sidebar(props: any) {
                     <footer className="footer items-center justify-center p-2 text-neutral-content">
                         <div className="items-center font-mono align-middle gap-0">
                             {/*如果username==jiawei.me@hotmail.com，那么就显示已登录*/}
-                            {userInfo.username === "jiawei.me@hotmail.com" &&
+                            {username === "jiawei.me@hotmail.com" &&
                                 <p className={"prose"}>已登录</p>
                             }
                             <p className={"prose"}>Copyright©2023 Owen</p>

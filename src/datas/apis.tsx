@@ -50,5 +50,6 @@ export const PROJECT_DELETE = BOOM_HOME_BASE + "/project/delete"
 export const GPT_STREAM_CHAT = BOOM_HOME_BASE + "/gpt/streamchat"
 
 export const LOGIN_API = "/api/auth/login"
+export const CURRENT_USER = "/api/auth/current"
 
 export default apis;
