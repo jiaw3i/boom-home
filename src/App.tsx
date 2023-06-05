@@ -11,6 +11,7 @@ import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./datas/apis";
 import {UseUserStore} from "./components/store";
+import RecordWall from "./components/recordwall/RecodeWall";
 
 
 const Projects = lazy(() => import('./components/Projects'));
@@ -130,9 +131,9 @@ function App() {
                                     </React.Suspense>
                                 }/>
                             </Route>
-                            <Route path={"/apis"} element={
+                            <Route path={"/recordwall"} element={
                                 <React.Suspense fallback={<Loader/>}>
-                                    <APIList/>
+                                    <RecordWall/>
                                 </React.Suspense>
                             }/>
                             {/*<Route path={"/chatbot"} element={*/}
