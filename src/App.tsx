@@ -11,7 +11,7 @@ import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./datas/apis";
 import {UseUserStore} from "./components/store";
-import RecordWall from "./components/recordwall/RecodeWall";
+import RecordWall from "./components/recordwall/RecordWall";
 
 
 const Projects = lazy(() => import('./components/Projects'));
