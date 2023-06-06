@@ -30,7 +30,7 @@ export default function RecordEditor() {
     }
 
     return (
-        <div className={"mb-2 write-box flex flex-col justify-between bg-base-300 w-full rounded-xl"}>
+        <div className={"mb-5 write-box flex flex-col justify-between bg-base-300 w-full rounded-xl"}>
             <form className={"max-h-full p-1 bg-transparent shadow-xl rounded-xl"}
                   onSubmit={handleSubmit(publishRecord)}>
                 <textarea
