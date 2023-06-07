@@ -1,40 +1,40 @@
 import toast, {Toaster} from "react-hot-toast";
 import React, {ReactNode, useCallback, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
+import {post} from "@/util/request";
+import {ADD_RECORD} from "@/util/apis";
 
 
 type RecordProp = {
-    record: string,
+    content: string,
     permission: string,
 }
 const publishSuccess = () => toast.success('发布成功');
 const publishFailed = () => toast.error('发布失败，请检查内容');
 
 
-export default function RecordEditor() {
+export default function RecordEditor(props: any) {
+    const {refreshRecords} = props;
     const {register, handleSubmit, formState: {errors}} = useForm<RecordProp>();
-    const [highlightedText, setHighlightedText] = useState("");
-    const editorRef = useRef<HTMLTextAreaElement>(null);
     const publishRecord = (data: RecordProp) => {
         console.log(data);
-        if (data.record === "") {
+        if (data.content === "") {
             publishFailed()
         } else {
-            publishSuccess();
+            post(ADD_RECORD, data).then((res: any) => {
+                if (res.success) {
+                    refreshRecords();
+                    publishSuccess();
+                }
+            });
         }
     }
-
-    const handleEditorInput = (e: any) => {
-        const target = e.target;
-        console.log(e.target.innerHTML);
-    }
-
     return (
-        <div className={"mb-5 prose write-box flex flex-col justify-between bg-base-300 flex-grow rounded-xl"}>
+        <div className={"mb-5 prose write-box flex flex-col justify-between bg-base-300 w-full max-w-full rounded-xl"}>
             <form className={"max-h-full p-1 bg-transparent shadow-xl rounded-xl w-full"}
                   onSubmit={handleSubmit(publishRecord)}>
                 <textarea
-                    {...register("record", {required: false})}
+                    {...register("content", {required: false})}
                     placeholder={"Write here..."}
                     className={"text-left bg-base-300 textarea resize-none w-full focus-visible:outline-0 no-scrollbar break-all"}>
                 </textarea>

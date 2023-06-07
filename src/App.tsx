@@ -12,6 +12,7 @@ import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "./components/store";
 import RecordWall from "./components/recordwall/RecordWall";
+import RecordSidebar from "@/components/recordwall/RecordSidebar";
 
 
 const Projects = lazy(() => import('./components/Projects'));
@@ -75,14 +76,15 @@ function App() {
     };
     return (
 
-        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen">
+        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen">
             <div className="drawer drawer-mobile lg:drawer-open">
-                <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
-                <div className="drawer-content flex flex-col">
+                <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
+                {/*<input id="my-drawer-record" type="checkbox" className="drawer-toggle"/>*/}
+                <div className="drawer-content max-h-screen flex flex-col">
                     <div className="flex flex-col pt-1 flex-grow max-h-full">
                         <div className="lg:w-full flex justify-between max-w-full">
                             <div className="flex-none lg:hidden left-0 prose">
-                                <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
+                                <label htmlFor="my-drawer-menu" className="btn btn-square btn-ghost">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          className="inline-block w-6 h-6 stroke-current">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
@@ -91,7 +93,7 @@ function App() {
                                 </label>
                             </div>
                             <PageTitle title={title}></PageTitle>
-                            <div className={"lg:ml-auto prose lg:mr-8"}>
+                            <div className={"lg:ml-auto prose lg:mr-8 flex"}>
                                 <label className="swap swap-rotate w-[3rem] h-[3rem]">
                                     <input id={"themeCheckbox"} type="checkbox" onClick={switchTheme}/>
                                     <svg className="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg"

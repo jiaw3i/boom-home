@@ -35,8 +35,8 @@ function Sidebar(props: any) {
         }
     }
     return (
-        <div className="drawer-side flex-shrink-0  h-screen lg:drawer-open">
-            <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
+        <div className="drawer-side flex-shrink-0  h-screen">
+            <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
             <aside className="flex flex-col bg-base-200 h-full pt-10 w-80 lg:w-60">
                 <label className="swap swap-flip text-5xl h-auto">
 
