@@ -1,5 +1,5 @@
 import React from "react";
-import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../datas/bots";
+import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../util/bots";
 import {useNavigate} from "react-router-dom";
 import BotConfigDialog from "./BotConfig";
 

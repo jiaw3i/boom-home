@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
 import {post} from "../util/request";
-import {LOGIN_API} from "../datas/apis";
+import {LOGIN_API} from "../util/apis";
 import {UseUserStore} from "./store";
 import {useEffect, useState} from "react";
 import {Navigate, useNavigate} from "react-router-dom";

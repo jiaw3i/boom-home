@@ -1,4 +1,4 @@
-import apis from "../datas/apis";
+import apis from "../util/apis";
 import {useState} from "react";
 
 export default function APIList() {

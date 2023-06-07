@@ -1,4 +1,4 @@
-import {ManageMenusData, MenusData, Links} from "../datas/menus";
+import {ManageMenusData, MenusData, Links} from "../util/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseUserStore} from "./store";
@@ -35,9 +35,9 @@ function Sidebar(props: any) {
         }
     }
     return (
-        <div className="drawer-side flex-shrink-0  h-screen">
+        <div className="drawer-side flex-shrink-0  h-screen lg:drawer-open">
             <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-            <aside className="flex flex-col bg-base-200 pt-10 w-80 lg:w-60">
+            <aside className="flex flex-col bg-base-200 h-full pt-10 w-80 lg:w-60">
                 <label className="swap swap-flip text-5xl h-auto">
 
                     <input id={"logoCheckbox"} type="checkbox" onClick={switchTheme}/>
@@ -53,7 +53,7 @@ function Sidebar(props: any) {
                     {
                         menus.filter(menuItem => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
-                                <a className={"hover:[hsl(var(--p)/var(--tw-bg-opacity))] font-bold text-l " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
+                                <div className={"hover:text-black hover:bg-gray-300 font-bold text-l " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
                                    key={menuItem.title} onClick={() => {
                                     if (type === "common") {
                                         setTitle(menuItem.title);
@@ -66,7 +66,7 @@ function Sidebar(props: any) {
                                 }}>
                                     {menuItem.icon}
                                     {menuItem.title}
-                                </a></li>
+                                </div></li>
                         })
                     }
 
@@ -75,7 +75,7 @@ function Sidebar(props: any) {
                     {
                         Links.filter(link => link.isShow).map(link => {
                                 return <li className="" key={link.title}>
-                                    <a className={"hover:[hsl(var(--p)/var(--tw-bg-opacity))] font-bold text-l "}
+                                    <div className={"hover:text-black hover:bg-gray-300 font-bold text-l"}
                                        key={link.title} onClick={() => {
                                         window.open(link.url, "_blank");
                                     }}>
@@ -89,7 +89,7 @@ function Sidebar(props: any) {
                                                 x1="17" y1="7" x2="7" y2="17"/>  <polyline
                                                 points="8 7 17 7 17 16"/></svg>
                                         </span>
-                                    </a>
+                                    </div>
                                 </li>
                             }
                         )

@@ -1,4 +1,4 @@
-import projects from "../../datas/projects";
+import projects from "../../util/projects";
 import {useForm} from "react-hook-form"
 import message from "../../util/message";
 import request, {get, post} from "../../util/request";

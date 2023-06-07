@@ -1,33 +1,56 @@
-import React, {useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 // import { isNumber, last, uniq } from "lodash";
 // import { useTranslation } from "react-i18next";
 import RecordEditor from "@/components/recordwall/RecordEditor";
-import RecordsData from "@/datas/records";
+import RecordsData from "@/util/records";
+import {get} from "@/util/request";
+import {LIST_PUBLIC_RECORD} from "@/util/apis";
+import {Simulate} from "react-dom/test-utils";
+import load = Simulate.load;
 
-
-interface State {
-    memoVisibility: boolean;
-    fullscreen: boolean;
-    isUploadingResource: boolean;
-    isRequesting: boolean;
+interface RecordInfo {
+    id: number,
+    content: string,
+    permission: number,
+    tag: string,
+    createTime: string,
 }
 
 export default function RecordWall() {
+
+    const [records, setRecords] = useState<RecordInfo[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        setLoading(true)
+        get(LIST_PUBLIC_RECORD, {}).then((res: any) => {
+            console.log(res);
+            setRecords(res.data);
+            setLoading(false)
+        });
+    }, []);
+
+    const highlightTag = (content: string, tag: string) => {
+        tag.split(",").forEach((t) => {
+            content = content.replace(t, `<span class="text-blue-500 hover:cursor-pointer">${t}</span>`)
+        });
+        return content;
+    }
+
     return (
         <div className={"flex flex-row w-full"}>
-            <div className={"flex flex-col flex-grow h-full w-full pl-5 pr-5"}>
+            <div className={"flex flex-col h-full w-full pl-5 pr-5"}>
 
                 <RecordEditor/>
-
-                <div className={"record-line flex flex-col  flex-grow"}>
+                <div className={"prose record-line flex flex-col w-full flex-grow"}>
                     {
-                        RecordsData.map((record) =>
+                        records.map((record) =>
                             (
                                 <div key={record.id}
                                      className={"text-left record-line-item flex flex-col bg-base-300 shadow-xl rounded-xl justify-between items-center p-2 mb-5"}>
                                     <div className={"flex flex-row w-full"}>
-                                        <div className={"time text-left font-mono text-gray-500 flex-grow"}>2023-06-06
-                                            18:32:43
+                                        <div
+                                            className={"time text-left font-mono text-gray-500 flex-grow"}>{record.createTime.replace("T", " ")}
                                         </div>
                                         <div className={"btn btn-xs p-0 bg-transparent border-0 hover:bg-base-200"}>
                                             <svg className="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none"
@@ -40,12 +63,23 @@ export default function RecordWall() {
                                         </div>
                                     </div>
                                     <div className={"divider m-0"}></div>
-                                    <div className={"w-full text-left"}>{record.content}</div>
+                                    <div dangerouslySetInnerHTML={{__html: highlightTag(record.content, record.tag)}}
+                                         className={"w-full text-left"}></div>
                                 </div>
                             )
                         )
                     }
+                    {loading &&
+                        <div>
+                            <span className={"loading loading-dots loading-sm"}></span>
+                        </div>
+                    }
                 </div>
+
+                {
+                    !loading &&
+                    <div className={"prose divider"}>已经到底了🎈🎈🎈</div>
+                }
             </div>
 
 

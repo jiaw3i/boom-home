@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import {CommonBotConfig, ContextBotConfig} from "../../datas/constants";
+import {CommonBotConfig, ContextBotConfig} from "../../util/constants";
 import {useCommonBotConfigStore, useContextBotConfigStore} from "../../store/BotConfigStore";
 
 const CommonBotConfigForm = (props: any) => {

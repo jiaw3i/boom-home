@@ -30,15 +30,11 @@ export default function RecordEditor() {
     }
 
     return (
-        <div className={"mb-5 write-box flex flex-col justify-between bg-base-300 w-full rounded-xl"}>
-            <form className={"max-h-full p-1 bg-transparent shadow-xl rounded-xl"}
+        <div className={"mb-5 prose write-box flex flex-col justify-between bg-base-300 flex-grow rounded-xl"}>
+            <form className={"max-h-full p-1 bg-transparent shadow-xl rounded-xl w-full"}
                   onSubmit={handleSubmit(publishRecord)}>
                 <textarea
-                    // contentEditable={true}
-                    // onInput={handleEditorInput}
-
                     {...register("record", {required: false})}
-                    // onChange={handleTextTextareaChange}
                     placeholder={"Write here..."}
                     className={"text-left bg-base-300 textarea resize-none w-full focus-visible:outline-0 no-scrollbar break-all"}>
                 </textarea>
@@ -63,9 +59,9 @@ export default function RecordEditor() {
                 <div className={"w-full flex flex-row justify-between pl-1 pr-1 mb-1"}>
 
                     <select {...register("permission", {required: true})}
-                            className="select select-primary select-sm w-1/6 max-w-xs" defaultValue={"public"}>
-                        <option value={"public"}>公开</option>
-                        <option value={"private"}>私有</option>
+                            className="select select-primary select-sm w-2/6 max-w-xs" defaultValue={"public"}>
+                        <option value={1}>所有人可见</option>
+                        <option value={2}>仅自己可见</option>
                     </select>
                     <input type={"submit"} className={"btn-primary btn-sm rounded hover:cursor-pointer"}
                            value={"发布✍️"}/>

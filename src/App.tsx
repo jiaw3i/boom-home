@@ -9,7 +9,7 @@ import Loader from "./components/Loader";
 import Home from "./components/Home";
 import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
-import {CURRENT_USER} from "./datas/apis";
+import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "./components/store";
 import RecordWall from "./components/recordwall/RecordWall";
 
@@ -76,7 +76,7 @@ function App() {
     return (
 
         <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen">
-            <div className="drawer drawer-mobile">
+            <div className="drawer drawer-mobile lg:drawer-open">
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col">
                     <div className="flex flex-col pt-1 flex-grow max-h-full">

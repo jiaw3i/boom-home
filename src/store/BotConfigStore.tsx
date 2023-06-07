@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {CommonBotConfig, ContextBotConfig} from "../datas/constants";
+import {CommonBotConfig, ContextBotConfig} from "../util/constants";
 
 const useCommonBotConfigStore = create((set) => ({
     commonBotConfig: {

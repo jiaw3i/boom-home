@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
-import {GPT_STREAM_CHAT} from "../../datas/apis";
+import {GPT_STREAM_CHAT} from "../../util/apis";
 import {useParams} from "react-router-dom";
 import BotConfigDialog from "./BotConfig";
 
