@@ -1,7 +1,7 @@
 import {ManageMenusData, MenusData, Links} from "../util/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {UseUserStore} from "./store";
+import {UseUserStore} from "@/store/UserInfoStore";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;

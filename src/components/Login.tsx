@@ -1,9 +1,9 @@
 import {useForm} from "react-hook-form";
-import {post} from "../util/request";
-import {LOGIN_API} from "../util/apis";
-import {UseUserStore} from "./store";
-import {useEffect, useState} from "react";
-import {Navigate, useNavigate} from "react-router-dom";
+import {post} from "@/util/request";
+import {LOGIN_API} from "@/util/apis";
+import {UseUserStore} from "@/store/UserInfoStore";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 type LoginProp = {
     username: string,

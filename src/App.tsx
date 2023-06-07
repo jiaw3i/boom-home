@@ -10,16 +10,13 @@ import Home from "./components/Home";
 import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
-import {UseUserStore} from "./components/store";
+import {UseUserStore} from "@/store/UserInfoStore";
 import RecordWall from "./components/recordwall/RecordWall";
-import RecordSidebar from "@/components/recordwall/RecordSidebar";
 
 
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
-const APIList = lazy(() => import('./components/APIList'));
 
-// const Sidebar = lazy(() => import('./components/Sidebar'));
 
 function App() {
     const location = useLocation();
