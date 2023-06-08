@@ -24,22 +24,30 @@ export default function RecordWall() {
     const [records, setRecords] = useState<RecordInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const username = UseUserStore((state) => state.username);
-    const [isLogin, setIsLogin] = useState<boolean>(false);
+    const [isLogin, setIsLogin] = useState<boolean>();
     useEffect(() => {
-        refreshRecords()
-    }, [isLogin]);
-
-    useEffect(() => {
+        console.log(username);
         if (username === "jiawei.me@hotmail.com") {
-            setIsLogin(true)
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
         }
     }, [username])
+
+    useEffect(() => {
+        if (isLogin !== undefined) {
+            console.log(isLogin)
+            refreshRecords()
+        }
+    }, [isLogin]);
 
     const refreshRecords = () => {
         setLoading(true)
         let api = isLogin ? LIST_ALL_RECORD : LIST_PUBLIC_RECORD;
         get(api, {}).then((res: any) => {
-            setRecords(res.data);
+            if (res.success) {
+                setRecords(res.data);
+            }
             setLoading(false)
         });
     }

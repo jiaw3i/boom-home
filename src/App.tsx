@@ -34,7 +34,7 @@ function App() {
                 }
             });
         }
-    });
+    },[]);
 
     const currentTitle = () => {
         // console.log("enter,{}", location.pathname)
