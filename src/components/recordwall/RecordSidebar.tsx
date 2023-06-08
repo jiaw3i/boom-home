@@ -1,6 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {get} from "@/util/request";
+import {LIST_TAGS} from "@/util/apis";
+
+export interface Tag {
+    id: number,
+    tagName: string,
+    createTime: string,
+}
 
 export default function RecordSidebar() {
+
+    const [tags, setTags] = useState<Tag[]>([]);
+    useEffect(() => {
+        get(LIST_TAGS, {}).then((res: any) => {
+            console.log(res);
+            setTags(res.data);
+        });
+    }, [])
     return (
         <div className={"side mr-5 w-2/6 "}>
             <label htmlFor="my-drawer-record" className="drawer-overlay"></label>
@@ -24,6 +40,18 @@ export default function RecordSidebar() {
                         </button>
                     </div>
                 </form>
+            </div>
+            <div className={"mt-5 font-mono text-gray-400 text-left"}>标签</div>
+            <div className={"tag-area flex flex-row mt-1"}>
+                {
+                    tags.map((tag: Tag) => tag.tagName).filter(tag=>tag!="").map(tag => {
+                        return (
+                            <div key={tag} className={"pl-1 pr-1"}>
+                                <span className={"text-blue-500 hover:cursor-pointer"}>{tag}</span>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     )

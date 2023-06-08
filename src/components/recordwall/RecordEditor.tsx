@@ -15,18 +15,40 @@ const publishFailed = () => toast.error('发布失败，请检查内容');
 
 export default function RecordEditor(props: any) {
     const {refreshRecords} = props;
-    const {register, handleSubmit, formState: {errors}} = useForm<RecordProp>();
+    const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<RecordProp>();
     const publishRecord = (data: RecordProp) => {
-        console.log(data);
         if (data.content === "") {
             publishFailed()
         } else {
+            let toastId = toast.loading('发布中...');
             post(ADD_RECORD, data).then((res: any) => {
                 if (res.success) {
                     refreshRecords();
+                    toast.dismiss(toastId);
                     publishSuccess();
+                }else {
+                    toast.dismiss(toastId);
+                    toast.error(res.message);
                 }
             });
+        }
+    }
+
+    const handleEditorPower = (type: string) => {
+        let oldValue = getValues("content");
+        console.log(getValues("content"));
+        if (oldValue !== "") {
+            oldValue = oldValue + "\n"
+        }
+        // 给表单赋值
+        if (type === "todo") {
+            setValue("content", oldValue + "* [ ] todo" + "\n" + "* [x] finished todo");
+        }
+        if (type === "image") {
+            setValue("content", oldValue + "![](https://img.hanjiawei.com/owen/2023/05/25/646ed03933b34.png)");
+        }
+        if (type === "code") {
+            setValue("content", oldValue + "```\n\n```");
         }
     }
     return (
@@ -41,17 +63,33 @@ export default function RecordEditor(props: any) {
                 {/*<div dangerouslySetInnerHTML={{__html: highlightedText}}></div>*/}
                 <div className={"p-1 flex flex-row"}>
                     <div
+                        onClick={() => handleEditorPower("todo")}
                         className={"btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
-                        <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                  d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             className="icon-img h-5 w-5">
+                            <polyline points="9 11 12 14 22 4"></polyline>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
                         </svg>
                     </div>
                     <div
+                        onClick={() => handleEditorPower("image")}
                         className={"btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
-                        <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                  d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
+                        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <div
+                        onClick={() => handleEditorPower("code")}
+                        className={"btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             className="icon-img h-5 w-5">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
                     </div>
                 </div>

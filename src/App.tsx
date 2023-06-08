@@ -73,12 +73,12 @@ function App() {
     };
     return (
 
-        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen">
-            <div className="drawer drawer-mobile lg:drawer-open">
+        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen no-scrollbar">
+            <div className="drawer drawer-mobile lg:drawer-open no-scrollbar">
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
                 {/*<input id="my-drawer-record" type="checkbox" className="drawer-toggle"/>*/}
-                <div className="drawer-content max-h-screen flex flex-col">
-                    <div className="flex flex-col pt-1 flex-grow max-h-full">
+                <div className="drawer-content max-h-screen flex flex-col no-scrollbar">
+                    <div className="flex flex-col pt-1 flex-grow max-h-full no-scrollbar">
                         <div className="lg:w-full flex justify-between max-w-full">
                             <div className="flex-none lg:hidden left-0 prose">
                                 <label htmlFor="my-drawer-menu" className="btn btn-square btn-ghost">

@@ -52,6 +52,8 @@ export const ADD_RECORD = BOOM_HOME_BASE + "/record/addRecord"
 
 export const UPDATE_RECORD = BOOM_HOME_BASE + "/record/updateRecord"
 export const DELETE_RECORD = BOOM_HOME_BASE + "/record/deleteRecord"
+
+export const LIST_TAGS = BOOM_HOME_BASE + "/record/listTags"
 // components /ChatBot.tsx
 
 export const GPT_STREAM_CHAT = BOOM_HOME_BASE + "/gpt/streamchat"
