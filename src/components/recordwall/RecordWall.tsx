@@ -42,6 +42,7 @@ export default function RecordWall() {
 
     const refreshRecords = () => {
         setLoading(true)
+        setRecords([])
         get(LIST_ALL_RECORD, {}).then((res: any) => {
             if (res.success) {
                 setRecords(res.data);
@@ -52,6 +53,7 @@ export default function RecordWall() {
 
     const filterRecords = (tags: Array<string>) => {
         setLoading(true)
+        setRecords([])
         post(LIST_RECORD_BY_TAG, {
             "tags": tags
         }).then((res: any) => {
@@ -67,13 +69,14 @@ export default function RecordWall() {
             <div className={"flex flex-col w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
 
                 {isLogin && <RecordEditor refreshRecords={refreshRecords}/>}
-                <RecordList loading={loading} records={records} refreshRecords={refreshRecords}></RecordList>
+                <RecordList isLogin={isLogin} loading={loading} records={records}
+                            refreshRecords={refreshRecords}></RecordList>
                 {
                     !loading &&
                     <div className={"prose divider max-w-full"}>已经到底了🎈🎈🎈</div>
                 }
             </div>
-            <RecordSidebar filterRecords={filterRecords}/>
+            <RecordSidebar filterRecords={filterRecords} refreshRecords={refreshRecords}/>
         </div>
 
     );
