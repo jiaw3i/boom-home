@@ -25,16 +25,16 @@ function App() {
     const [theme, setTheme] = useState("light");
     const {setUsername, setId, username} = UseUserStore();
     useEffect(() => {
-        console.log("app,{}", username);
         setTitle(currentTitle());
         if (username === "") {
             get(CURRENT_USER).then((res: any) => {
-                if (res.success) {
+                if (res.success && res.data.username !== username) {
+                    console.log("app,{}", res.data.username);
                     setUsername(res.data.username);
                 }
             });
         }
-    },[]);
+    });
 
     const currentTitle = () => {
         // console.log("enter,{}", location.pathname)

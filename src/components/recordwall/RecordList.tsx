@@ -94,6 +94,10 @@ const RecordList = (props: RecordListProps) => {
                     <span className={"loading loading-dots loading-sm"}></span>
                 </div>
             }
+            {
+                !loading &&
+                <div className={"prose divider max-w-full"}>已经到底了🎈🎈🎈</div>
+            }
         </div>
     )
 }
