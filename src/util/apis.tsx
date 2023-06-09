@@ -48,6 +48,9 @@ export const PROJECT_DELETE = BOOM_HOME_BASE + "/project/delete"
 export const LIST_PUBLIC_RECORD = BOOM_HOME_BASE + "/record/listAllPublicRecords"
 
 export const LIST_ALL_RECORD = BOOM_HOME_BASE + "/record/listAllRecords"
+
+export const LIST_RECORD_BY_TAG = BOOM_HOME_BASE + "/record/listRecordsByTags"
+
 export const ADD_RECORD = BOOM_HOME_BASE + "/record/addRecord"
 
 export const UPDATE_RECORD = BOOM_HOME_BASE + "/record/updateRecord"

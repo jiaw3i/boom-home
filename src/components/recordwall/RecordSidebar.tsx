@@ -8,15 +8,38 @@ export interface Tag {
     createTime: string,
 }
 
-export default function RecordSidebar() {
+interface RecordSidebarProps {
+    filterRecords: Function,
+    refreshRecords: Function
+}
+
+export default function RecordSidebar(Props: RecordSidebarProps) {
+    const {filterRecords, refreshRecords} = Props;
 
     const [tags, setTags] = useState<Tag[]>([]);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
     useEffect(() => {
         get(LIST_TAGS, {}).then((res: any) => {
             console.log(res);
             setTags(res.data);
         });
     }, [])
+
+    useEffect(() => {
+        if (selectedTags.length === 0) {
+            refreshRecords();
+            return;
+        }
+        filterRecords(selectedTags);
+    }, [selectedTags])
+
+    const onclickTag = (tag: string) => {
+        if (selectedTags.includes(tag)) {
+            setSelectedTags(selectedTags.filter(item => item !== tag));
+            return;
+        }
+        setSelectedTags([...selectedTags, tag]);
+    }
     return (
         <div className={"side mr-5 w-2/6 "}>
             <label htmlFor="my-drawer-record" className="drawer-overlay"></label>
@@ -42,12 +65,13 @@ export default function RecordSidebar() {
                 </form>
             </div>
             <div className={"mt-5 font-mono text-gray-400 text-left"}>标签</div>
-            <div className={"tag-area flex flex-row mt-1"}>
+            <div className={"tag-area flex flex-row mt-1 flex-wrap"}>
                 {
-                    tags.map((tag: Tag) => tag.tagName).filter(tag=>tag!="").map(tag => {
+                    tags.map((tag: Tag) => tag.tagName).filter(tag => tag != "").map(tag => {
                         return (
-                            <div key={tag} className={"pl-1 pr-1"}>
-                                <span className={"text-blue-500 hover:cursor-pointer"}>{tag}</span>
+                            <div key={tag} className={"pl-1 pr-1"} onClick={() => onclickTag(tag)}>
+                                <span
+                                    className={"text-blue-500 hover:cursor-pointer"}>{selectedTags.includes(tag) ? tag + "🎈" : tag} </span>
                             </div>
                         )
                     })
