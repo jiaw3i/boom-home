@@ -79,7 +79,7 @@ export default function RecordWall() {
             <input id="record-drawer" type="checkbox" className="drawer-toggle"/>
             <div className={"flex flex-col w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
                 <div className={"flex flex-row justify-between mb-1 pb-1 lg:hidden"}>
-                    <div className={"font-bold text-2xl"}>RECORD✍️</div>
+                    <div className={"font-bold text-2xl prose"}>✍️👀💻📓</div>
                     <label htmlFor="record-drawer" className="drawer-button">
                         <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,11 +88,10 @@ export default function RecordWall() {
                         </svg>
                     </label>
                 </div>
-                {isLogin && <RecordEditor refreshRecords={refreshRecords}/>}
+                {isLogin && <RecordEditor refreshRecords={refreshRecords} refreshTags={refreshTags}/>}
                 <RecordList isLogin={isLogin} loading={loading} records={records}
-                            refreshRecords={refreshRecords}></RecordList>
-
-
+                            refreshRecords={refreshRecords}
+                            refreshTags={refreshTags}/>
             </div>
             <RecordSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filterRecords={filterRecords}
                            refreshRecords={refreshRecords}/>

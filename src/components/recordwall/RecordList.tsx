@@ -6,16 +6,18 @@ import {RecordInfo} from "@/components/recordwall/RecordWall";
 import {get} from "@/util/request";
 import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
+import {Permission} from "@/util/constants";
 
 interface RecordListProps {
     records: RecordInfo[],
     loading: boolean,
     isLogin: boolean | undefined,
     refreshRecords: () => void,
+    refreshTags: () => void,
 }
 
 const RecordList = (props: RecordListProps) => {
-    const {records, loading, isLogin, refreshRecords} = props;
+    const {records, loading, isLogin, refreshRecords, refreshTags} = props;
     const highlightTag = (content: string, tag: string) => {
         if (tag === "") {
             return content;
@@ -32,6 +34,7 @@ const RecordList = (props: RecordListProps) => {
         get(DELETE_RECORD, {id: record.id}).then((res: any) => {
             if (res.success) {
                 refreshRecords();
+                refreshTags();
                 toast.dismiss(toastId);
                 toast.success("Delete Success");
             } else {
@@ -49,8 +52,13 @@ const RecordList = (props: RecordListProps) => {
                         <div key={record.id}
                              className={"text-left record-line-item flex flex-col bg-base-300 shadow-xl rounded-xl justify-between items-center p-2 mb-5"}>
                             <div className={"flex flex-row w-full"}>
-                                <div
-                                    className={"time text-left font-mono text-gray-500 flex-grow"}>{record.createTime.replace("T", " ")}
+                                <div className={"text-left flex flex-row font-mono text-gray-500 flex-grow"}>
+                                    <div
+                                        className={"time mr-2"}>{record.createTime.replace("T", " ")}
+                                    </div>
+                                    <div>
+                                        <div className={"badge badge-outline "  + (record.permission === 1?"badge-primary":"badge-accent")}>{record.permission === 1 ? "所有人可见" : "仅自己可见"}</div>
+                                    </div>
                                 </div>
                                 {
                                     isLogin && <div className={"dropdown dropdown-left"}>

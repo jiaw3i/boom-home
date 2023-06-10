@@ -14,7 +14,7 @@ const publishFailed = () => toast.error('发布失败，请检查内容');
 
 
 export default function RecordEditor(props: any) {
-    const {refreshRecords} = props;
+    const {refreshRecords, refreshTags} = props;
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<RecordProp>();
     const publishRecord = (data: RecordProp) => {
         if (data.content === "") {
@@ -24,9 +24,10 @@ export default function RecordEditor(props: any) {
             post(ADD_RECORD, data).then((res: any) => {
                 if (res.success) {
                     refreshRecords();
+                    refreshTags();
                     toast.dismiss(toastId);
                     publishSuccess();
-                }else {
+                } else {
                     toast.dismiss(toastId);
                     toast.error(res.message);
                 }
