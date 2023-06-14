@@ -6,8 +6,6 @@ import {RecordInfo} from "@/components/recordwall/RecordWall";
 import {get} from "@/util/request";
 import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
-import {Permission} from "@/util/constants";
-import RecordsData from "@/util/records";
 
 interface RecordListProps {
     records: RecordInfo[],
