@@ -85,6 +85,13 @@ button:focus-visible {
     padding: 0;
 }
 
+.record-line-item img{
+    display: inline-block;
+    max-height: 96px;
+    margin: 10px 10px 10px 0;
+    border-radius: 5px;
+}
+
 /*a:hover {*/
 /*    color: #ccaf66;*/
 /*}*/

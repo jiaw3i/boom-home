@@ -24,6 +24,8 @@ function App() {
     const [title, setTitle] = useState("Home");
     const [theme, setTheme] = useState("light");
     const {setUsername, setId, username} = UseUserStore();
+
+    const [imgUrl, setImgUrl] = useState<string>("");
     useEffect(() => {
         setTitle(currentTitle());
         if (username === "") {
@@ -132,7 +134,7 @@ function App() {
                             </Route>
                             <Route path={"/recordwall"} element={
                                 <React.Suspense fallback={<Loader/>}>
-                                    <RecordWall/>
+                                    <RecordWall setImgUrl={setImgUrl}/>
                                 </React.Suspense>
                             }/>
                             {/*<Route path={"/chatbot"} element={*/}
@@ -156,6 +158,15 @@ function App() {
 
                 <Sidebar type={type} setTitle={setTitle} setTheme={setTheme} theme={theme} title={title}></Sidebar>
             </div>
+
+            <dialog id="view_image" className="modal">
+                <form method="dialog" className="modal-box p-0">
+                    <img src={imgUrl} alt={"loading..."} className={"w-full"}/>
+                </form>
+                <form method="dialog" className="modal-backdrop opacity-0">
+                    <button className={"border-none"}>close</button>
+                </form>
+            </dialog>
         </div>
 
 

@@ -19,8 +19,9 @@ export interface RecordInfo {
     createTime: string,
 }
 
-export default function RecordWall() {
+export default function RecordWall(props: any) {
 
+    const {setImgUrl} = props;
     const [records, setRecords] = useState<RecordInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
@@ -91,7 +92,9 @@ export default function RecordWall() {
                 {isLogin && <RecordEditor refreshRecords={refreshRecords} refreshTags={refreshTags}/>}
                 <RecordList isLogin={isLogin} loading={loading} records={records}
                             refreshRecords={refreshRecords}
-                            refreshTags={refreshTags}/>
+                            refreshTags={refreshTags}
+                            setImgUrl={setImgUrl}
+                />
             </div>
             <RecordSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filterRecords={filterRecords}
                            refreshRecords={refreshRecords}/>

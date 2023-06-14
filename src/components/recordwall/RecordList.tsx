@@ -1,12 +1,13 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import React from "react";
+import React, {useState} from "react";
 import {RecordInfo} from "@/components/recordwall/RecordWall";
 import {get} from "@/util/request";
 import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
 import {Permission} from "@/util/constants";
+import RecordsData from "@/util/records";
 
 interface RecordListProps {
     records: RecordInfo[],
@@ -14,10 +15,12 @@ interface RecordListProps {
     isLogin: boolean | undefined,
     refreshRecords: () => void,
     refreshTags: () => void,
+    setImgUrl: Function,
 }
 
+declare const window: any;
 const RecordList = (props: RecordListProps) => {
-    const {records, loading, isLogin, refreshRecords, refreshTags} = props;
+    const {records, loading, isLogin, refreshRecords, refreshTags, setImgUrl} = props;
     const highlightTag = (content: string, tag: string) => {
         if (tag === "") {
             return content;
@@ -44,6 +47,15 @@ const RecordList = (props: RecordListProps) => {
         })
     }
 
+    const viewImage = (imgUrl: string) => {
+        console.log(imgUrl);
+        setImgUrl(imgUrl);
+
+        if (imgUrl !== "" && window.view_image !== undefined) {
+            window.view_image.showModal();
+        }
+    }
+
     return (
         <div className={"prose record-line flex flex-col w-full max-w-full flex-grow"}>
             {
@@ -57,7 +69,8 @@ const RecordList = (props: RecordListProps) => {
                                         className={"time mr-2"}>{record.createTime.replace("T", " ")}
                                     </div>
                                     <div>
-                                        <div className={"badge badge-outline "  + (record.permission === 1?"badge-primary":"badge-accent")}>{record.permission === 1 ? "所有人可见" : "仅自己可见"}</div>
+                                        <div
+                                            className={"badge badge-outline " + (record.permission === 1 ? "badge-primary" : "badge-accent")}>{record.permission === 1 ? "所有人可见" : "仅自己可见"}</div>
                                     </div>
                                 </div>
                                 {
@@ -91,7 +104,14 @@ const RecordList = (props: RecordListProps) => {
                                 className={"w-full break-word"}>
                                 <ReactMarkdown className={"not-prose"}
                                                children={highlightTag(record.content, record.tag)}
-                                               rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>
+                                               rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}
+                                               components={{
+                                                   img: ({node, ...props}) => {
+                                                       return <img {...props} onClick={() => {
+                                                           viewImage(props.src ? props.src : "")
+                                                       }} alt={"loading..."}/>
+                                                   },
+                                               }}/>
                             </div>
                         </div>
                     )
