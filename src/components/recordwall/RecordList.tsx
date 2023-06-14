@@ -88,7 +88,7 @@ const RecordList = (props: RecordListProps) => {
                             </div>
                             <div className={"divider m-0"}></div>
                             <div
-                                className={"w-full"}>
+                                className={"w-full break-word"}>
                                 <ReactMarkdown className={"not-prose"}
                                                children={highlightTag(record.content, record.tag)}
                                                rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}></ReactMarkdown>

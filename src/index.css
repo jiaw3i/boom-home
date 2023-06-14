@@ -98,12 +98,16 @@ button:focus-visible {
 
         /* Hide scrollbar for IE, Edge and Firefox */
         .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .break-word {
+            word-break: break-word;
         }
     }
 }
 
-.rmd ol{
+.rmd ol {
     display: grid;
 }
