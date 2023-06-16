@@ -1,6 +1,6 @@
 import toast, {Toaster} from "react-hot-toast";
 import React, {ReactNode, useCallback, useEffect, useImperativeHandle, useRef, useState} from "react";
-import {useForm} from "react-hook-form";
+import {set, useForm} from "react-hook-form";
 import {post} from "@/util/request";
 import {ADD_RECORD} from "@/util/apis";
 
@@ -14,8 +14,10 @@ const publishFailed = () => toast.error('发布失败，请检查内容');
 
 
 export default function RecordEditor(props: any) {
-    const {refreshRecords, refreshTags} = props;
+    const {refreshRecords, refreshTags, tags} = props;
+    // const
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<RecordProp>();
+    const [tagTipHidden, setTagTipHidden] = useState<boolean>(true);
     const publishRecord = (data: RecordProp) => {
         if (data.content === "") {
             publishFailed()
@@ -35,10 +37,10 @@ export default function RecordEditor(props: any) {
         }
     }
 
-    const handleEditorPower = (type: string) => {
+    const handleEditorPower = (type: string, value: string = "") => {
         let oldValue = getValues("content");
         console.log(getValues("content"));
-        if (oldValue !== "") {
+        if (oldValue !== "" && type != "tag") {
             oldValue = oldValue + "\n"
         }
         // 给表单赋值
@@ -50,6 +52,9 @@ export default function RecordEditor(props: any) {
         }
         if (type === "code") {
             setValue("content", oldValue + "```\n\n```");
+        }
+        if (type === "tag") {
+            setValue("content", oldValue + `${value} `)
         }
     }
     return (
@@ -63,6 +68,32 @@ export default function RecordEditor(props: any) {
                 </textarea>
                 {/*<div dangerouslySetInnerHTML={{__html: highlightedText}}></div>*/}
                 <div className={"p-1 flex flex-row"}>
+                    <div
+                        className={"relative group btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                             className="icon-img h-5 w-5">
+                            <line x1="4" y1="9" x2="20" y2="9"></line>
+                            <line x1="4" y1="15" x2="20" y2="15"></line>
+                            <line x1="10" y1="3" x2="8" y2="21"></line>
+                            <line x1="16" y1="3" x2="14" y2="21"></line>
+                        </svg>
+                        <div
+                            className={"tags-tip text-xl w-52 top-6 mt-1 p-1 left-0 overflow-y-scroll no-scrollbar shadow rounded absolute justify-start flex-wrap hidden group-hover:flex bg-gray-400"}>
+                            {
+                                tags.filter((tag: any) => tag.tagName != "").map((tag: any) => {
+                                    return (
+                                        <div key={tag.id}
+                                             onClick={() => handleEditorPower("tag", tag.tagName)}
+                                             className={"tag-item w-auto max-w-full truncate text-black dark:text-gray-300 cursor-pointer rounded text-sm leading-6 px-2 hover:bg-zinc-300 dark:hover:bg-zinc-700 shrink-0"}>
+                                            <span className={"hover:cursor-pointer"}>{tag.tagName}</span>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+
+                    </div>
                     <div
                         onClick={() => handleEditorPower("todo")}
                         className={"btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>

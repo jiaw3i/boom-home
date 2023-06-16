@@ -93,7 +93,7 @@ export default function RecordWall(props: any) {
                         </svg>
                     </label>
                 </div>
-                {isLogin && <RecordEditor refreshRecords={refreshRecords} refreshTags={refreshTags}/>}
+                {isLogin && <RecordEditor tags={tags} refreshRecords={refreshRecords} refreshTags={refreshTags}/>}
                 <RecordList isLogin={isLogin} loading={loading} records={records}
                             refreshRecords={refreshRecords}
                             refreshTags={refreshTags}
