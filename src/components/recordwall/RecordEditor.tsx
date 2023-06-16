@@ -3,6 +3,7 @@ import React, {ReactNode, useCallback, useEffect, useImperativeHandle, useRef, u
 import {set, useForm} from "react-hook-form";
 import {post} from "@/util/request";
 import {ADD_RECORD} from "@/util/apis";
+import {UploadFile} from "@/components/uploadFile/UploadFile";
 
 
 type RecordProp = {
@@ -12,7 +13,7 @@ type RecordProp = {
 const publishSuccess = () => toast.success('发布成功');
 const publishFailed = () => toast.error('发布失败，请检查内容');
 
-
+declare const window: any;
 export default function RecordEditor(props: any) {
     const {refreshRecords, refreshTags, tags} = props;
     // const
@@ -105,7 +106,7 @@ export default function RecordEditor(props: any) {
                         </svg>
                     </div>
                     <div
-                        onClick={() => handleEditorPower("image")}
+                        onClick={() => window.upload_file.showModal()}
                         className={"btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
                         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -138,6 +139,10 @@ export default function RecordEditor(props: any) {
                     <Toaster></Toaster>
                 </div>
             </form>
+
+            <dialog id="upload_file" className="modal w-50%">
+                <UploadFile></UploadFile>
+            </dialog>
         </div>
     )
 }
