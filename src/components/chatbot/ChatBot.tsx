@@ -1,15 +1,14 @@
 import {useForm} from "react-hook-form";
 import React, {useEffect, useRef, useState} from "react";
-import {get} from "../../util/request";
+import {get} from "@/util/request";
 import {v4 as uuidv4} from 'uuid';
 import {fetchEventSource} from "@microsoft/fetch-event-source";
 import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
-import {GPT_STREAM_CHAT} from "../../util/apis";
+import {GPT_STREAM_CHAT} from "@/util/apis";
 import {useParams} from "react-router-dom";
-import BotConfigDialog from "./BotConfig";
 
 
 type Message = {

@@ -15,11 +15,12 @@ interface RecordSidebarProps {
     refreshTags: Function,
     tags: Tag[],
     isLoading: boolean,
-    allRecords: Array<RecordInfo>
+    allRecords: Array<RecordInfo>,
+    setRecords: Function,
 }
 
 export default function RecordSidebar(Props: RecordSidebarProps) {
-    const {filterRecords, refreshRecords,allRecords, refreshTags, tags, isLoading = false} = Props;
+    const {filterRecords, refreshRecords, allRecords, refreshTags, tags, isLoading = false, setRecords} = Props;
 
     const [selectedTags, setSelectedTags] = useState<string[] | undefined>(undefined);
     useEffect(() => {
@@ -31,7 +32,7 @@ export default function RecordSidebar(Props: RecordSidebarProps) {
             return;
         }
         if (selectedTags.length === 0) {
-            refreshRecords();
+            setRecords([...allRecords]);
             return;
         }
         filterRecords(selectedTags);

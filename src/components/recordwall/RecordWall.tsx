@@ -101,7 +101,7 @@ export default function RecordWall(props: any) {
                 />
             </div>
             <RecordSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filterRecords={filterRecords}
-                           refreshRecords={refreshRecords} allRecords={allRecords}/>
+                           refreshRecords={refreshRecords} allRecords={allRecords} setRecords={setRecords}/>
         </div>
 
     );

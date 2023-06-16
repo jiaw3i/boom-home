@@ -1,22 +1,20 @@
 import React, {lazy, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
-import ChatBot from "./components/chatbot/ChatBot";
-import ChatType from "./components/chatbot/ChatType";
 import PageTitle from "./components/PageTitle";
-import NotFound from "./components/NotFound";
-import Loader from "./components/Loader";
 import Home from "./components/Home";
 import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
-import RecordWall from "./components/recordwall/RecordWall";
 
-
+const RecordWall = lazy(() => import('./components/recordwall/RecordWall'));
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
-
+const NotFound = lazy(() => import('./components/NotFound'));
+const Loader = lazy(() => import('./components/Loader'));
+const ChatBot = lazy(() => import('./components/chatbot/ChatBot'));
+const ChatType = lazy(() => import('./components/chatbot/ChatType'));
 
 function App() {
     const location = useLocation();
@@ -137,11 +135,6 @@ function App() {
                                     <RecordWall setImgUrl={setImgUrl}/>
                                 </React.Suspense>
                             }/>
-                            {/*<Route path={"/chatbot"} element={*/}
-                            {/*    // <React.Suspense>*/}
-                            {/*        <ChatBot/>*/}
-                            {/*    // </React.Suspense>*/}
-                            {/*}/>*/}
                             <Route path={"/chatbot"} element={
                                 <React.Suspense fallback={<Loader/>}>
                                     <ChatType/>
