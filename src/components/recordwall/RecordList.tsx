@@ -66,10 +66,13 @@ const RecordList = (props: RecordListProps) => {
                                     <div
                                         className={"time mr-2"}>{record.createTime.replace("T", " ")}
                                     </div>
-                                    <div>
-                                        <div
-                                            className={"badge badge-outline " + (record.permission === 1 ? "badge-primary" : "badge-accent")}>{record.permission === 1 ? "所有人可见" : "仅自己可见"}</div>
-                                    </div>
+
+                                    {
+                                        record.permission === 0 &&
+                                        <div>
+                                            <div className={"badge badge-outline badge-primary"}>仅自己可见</div>
+                                        </div>
+                                    }
                                 </div>
                                 {
                                     isLogin && <div className={"dropdown dropdown-left"}>

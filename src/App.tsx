@@ -159,8 +159,8 @@ function App() {
                 <Sidebar type={type} setTitle={setTitle} setTheme={setTheme} theme={theme} title={title}></Sidebar>
             </div>
 
-            <dialog id="view_image" className="modal">
-                <form method="dialog" className="modal-box p-0">
+            <dialog id="view_image" className="modal ">
+                <form method="dialog" className="modal-box p-0 no-scrollbar">
                     <img src={imgUrl} alt={"loading..."} className={"w-full"}/>
                 </form>
                 <form method="dialog" className="modal-backdrop opacity-0">

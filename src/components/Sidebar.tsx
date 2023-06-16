@@ -1,4 +1,4 @@
-import {ManageMenusData, MenusData, Links} from "../util/menus";
+import {ManageMenusData, MenusData, Links, IMenu} from "../util/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";
@@ -49,9 +49,9 @@ function Sidebar(props: any) {
                 </label>
                 {/*<div className="w-60">*/}
                 <ul className="menu p-4 text-base-content ">
-                    <div className={"divider"}>Pages</div>
+                    <div className={"divider font-mono text-lg"}>Pages</div>
                     {
-                        menus.filter(menuItem => menuItem.isShow).map(menuItem => {
+                        menus.filter((menuItem:IMenu) => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
                                 <div className={"hover:text-black hover:bg-gray-300 font-bold text-l " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
                                    key={menuItem.title} onClick={() => {
@@ -65,12 +65,12 @@ function Sidebar(props: any) {
                                     }
                                 }}>
                                     {menuItem.icon}
-                                    {menuItem.title}
+                                    {menuItem.cnTitle}
                                 </div></li>
                         })
                     }
 
-                    <div className={"divider"}>Links</div>
+                    <div className={"divider font-mono text-lg"}>Links</div>
 
                     {
                         Links.filter(link => link.isShow).map(link => {

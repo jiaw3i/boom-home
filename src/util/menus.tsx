@@ -1,6 +1,14 @@
-const MenusData = [
+export interface IMenu {
+    title: string,
+    cnTitle: string,
+    icon: any,
+    isShow: boolean
+}
+
+const MenusData: Array<IMenu> = [
     {
         title: "Home",
+        cnTitle: "主页",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24"
                    strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                    strokeLinejoin="round">
@@ -13,6 +21,7 @@ const MenusData = [
     },
     {
         title: "RecordWall",
+        cnTitle: "记录墙",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                    strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -23,6 +32,7 @@ const MenusData = [
     },
     {
         title: "Apis",
+        cnTitle: "接口",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                    strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -33,6 +43,7 @@ const MenusData = [
     },
     {
         title: "ChatBot",
+        cnTitle: "聊天机器人",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                    strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7M16 11V7"/>
@@ -41,6 +52,7 @@ const MenusData = [
     },
     {
         title: "Projects",
+        cnTitle: "项目",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path
@@ -55,6 +67,7 @@ const MenusData = [
     },
     {
         title: "Links",
+        cnTitle: "链接",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -66,9 +79,10 @@ const MenusData = [
         isShow: false,
     },
 ]
-const ManageMenusData = [
+const ManageMenusData: Array<IMenu> = [
     {
         title: "Manage Profile",
+        cnTitle: "个人信息",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24"
                    strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                    strokeLinejoin="round">
@@ -81,6 +95,7 @@ const ManageMenusData = [
     },
     {
         title: "Manage Project",
+        cnTitle: "项目管理",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path
@@ -95,6 +110,7 @@ const ManageMenusData = [
     },
     {
         title: "Manage Blog",
+        cnTitle: "博客管理",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -106,6 +122,7 @@ const ManageMenusData = [
     },
     {
         title: "Manage Link",
+        cnTitle: "链接管理",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -118,9 +135,9 @@ const ManageMenusData = [
     },
 ]
 
-const Links=[
+const Links = [
     {
-        title: "Blog",
+        title: "博客",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -143,4 +160,4 @@ const Links=[
     },
 ]
 // export default MenusData;
-export {MenusData,ManageMenusData,Links};
+export {MenusData, ManageMenusData, Links};

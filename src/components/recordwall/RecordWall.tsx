@@ -1,14 +1,9 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import RecordEditor from "@/components/recordwall/RecordEditor";
-import {get, post} from "@/util/request";
-import {DELETE_RECORD, LIST_ALL_RECORD, LIST_PUBLIC_RECORD, LIST_RECORD_BY_TAG, LIST_TAGS} from "@/util/apis";
-import {Simulate} from "react-dom/test-utils";
+import {get} from "@/util/request";
+import {LIST_ALL_RECORD, LIST_TAGS} from "@/util/apis";
 import RecordSidebar, {Tag} from "@/components/recordwall/RecordSidebar";
 import {UseUserStore} from "@/store/UserInfoStore";
-import toast from "react-hot-toast";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
 import {RecordList} from "@/components/recordwall/RecordList";
 
 export interface RecordInfo {
@@ -23,6 +18,7 @@ export default function RecordWall(props: any) {
 
     const {setImgUrl} = props;
     const [records, setRecords] = useState<RecordInfo[]>([]);
+    const [allRecords, setAllRecords] = useState<RecordInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
     const [tags, setTags] = useState<Tag[]>([]);
@@ -49,6 +45,7 @@ export default function RecordWall(props: any) {
         get(LIST_ALL_RECORD, {}).then((res: any) => {
             if (res.success) {
                 setRecords(res.data);
+                setAllRecords(res.data)
             }
             setLoading(false)
         });
@@ -56,15 +53,22 @@ export default function RecordWall(props: any) {
 
     const filterRecords = (tags: Array<string>) => {
         setLoading(true)
-        setRecords([])
-        post(LIST_RECORD_BY_TAG, {
-            "tags": tags
-        }).then((res: any) => {
-            if (res.success) {
-                setRecords(res.data);
+        let filterRecords = allRecords.filter((record: RecordInfo) => {
+            let recordTags = record.tag.split(",");
+            console.log(recordTags, tags)
+            // recordTags和tags有无并集
+            for (let i = 0; i < recordTags.length; i++) {
+                for (let j = 0; j < tags.length; j++) {
+                    if (recordTags[i] === tags[j]) {
+                        return true;
+                    }
+                }
             }
-            setLoading(false)
+            return false;
         });
+        console.log(filterRecords);
+        setRecords([...filterRecords]);
+        setLoading(false);
     }
 
     const refreshTags = () => {
@@ -80,8 +84,8 @@ export default function RecordWall(props: any) {
             <input id="record-drawer" type="checkbox" className="drawer-toggle"/>
             <div className={"flex flex-col w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
                 <div className={"flex flex-row justify-between mb-1 pb-1 lg:hidden"}>
-                    <div className={"font-bold text-2xl prose"}>✍️👀💻📓</div>
-                    <label htmlFor="record-drawer" className="drawer-button">
+                    <div className={"font-bold text-2xl prose"}>✍️👀💻</div>
+                    <label htmlFor="record-drawer" className="drawer-button hover:cursor-pointer prose">
                         <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"/>
@@ -97,7 +101,7 @@ export default function RecordWall(props: any) {
                 />
             </div>
             <RecordSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filterRecords={filterRecords}
-                           refreshRecords={refreshRecords}/>
+                           refreshRecords={refreshRecords} allRecords={allRecords}/>
         </div>
 
     );
