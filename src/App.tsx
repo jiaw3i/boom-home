@@ -1,13 +1,17 @@
-import React, {lazy, useEffect, useState} from 'react'
+import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
 import {Route, Routes, useLocation} from "react-router-dom";
-import PageTitle from "./components/PageTitle";
-import Home from "./components/Home";
-import Sidebar from "./components/Sidebar";
+// import PageTitle from "./components/PageTitle";
+// import Home from "./components/Home";
+// import Sidebar from "./components/Sidebar";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
+import AForm from "@/components/recordwall/Btn";
 
+const Home = lazy(() => import('./components/Home'));
+const Sidebar = lazy(() => import('./components/Sidebar'));
+const PageTitle = lazy(() => import('./components/PageTitle'));
 const RecordWall = lazy(() => import('./components/recordwall/RecordWall'));
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
@@ -72,11 +76,9 @@ function App() {
         }
     };
     return (
-
         <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen no-scrollbar">
             <div className="drawer drawer-mobile lg:drawer-open no-scrollbar">
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
-                {/*<input id="my-drawer-record" type="checkbox" className="drawer-toggle"/>*/}
                 <div className="drawer-content max-h-screen flex flex-col no-scrollbar">
                     <div className="flex flex-col pt-1 flex-grow max-h-full no-scrollbar">
                         <div className="lg:w-full flex justify-between max-w-full">
@@ -107,45 +109,51 @@ function App() {
                             </div>
                         </div>
                         <div className={"divider mt-0"}></div>
-                        <Routes>
-                            <Route path={"/projects"} element={
-                                <React.Suspense fallback={<Loader/>}>
+                        <Suspense fallback={<Loader/>}>
+
+
+                            <Routes>
+                                <Route path={"/projects"} element={
                                     <Projects/>
-                                </React.Suspense>
-                            }/>
-                            <Route path={"/"} element={
-                                <Home/>
-                            }/>
-                            <Route path={"/home"} element={
-                                <Home/>
-                            }/>
-                            <Route path={"/manage"} element={
-                                <React.Suspense fallback={<Loader/>}>
-                                    <ManageProject/>
-                                </React.Suspense>
-                            }>
-                                <Route path={"project"} element={
+                                }/>
+                                <Route path={"/"} element={<Home/>}/>
+                                <Route path={"/home"} element={<Home/>}/>
+                                <Route path={"/manage"} element={
                                     <React.Suspense fallback={<Loader/>}>
                                         <ManageProject/>
                                     </React.Suspense>
+                                }>
+                                    <Route path={"project"} element={
+                                        <React.Suspense fallback={<Loader/>}>
+                                            <ManageProject/>
+                                        </React.Suspense>
+                                    }/>
+                                </Route>
+                                <Route path={"/recordwall"} element={
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <RecordWall setImgUrl={setImgUrl}/>
+                                    </React.Suspense>
                                 }/>
-                            </Route>
-                            <Route path={"/recordwall"} element={
-                                <React.Suspense fallback={<Loader/>}>
-                                    <RecordWall setImgUrl={setImgUrl}/>
-                                </React.Suspense>
-                            }/>
-                            <Route path={"/chatbot"} element={
-                                <React.Suspense fallback={<Loader/>}>
-                                    <ChatType/>
-                                </React.Suspense>
-                            }>
-                            </Route>
-                            <Route path={"/chatbot/:type"} element={<ChatBot/>}/>
+                                <Route path={"/chatbot"} element={
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <ChatType/>
+                                    </React.Suspense>
+                                }>
+                                </Route>
+                                <Route path={"/chatbot/:type"} element={
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <ChatBot/>
+                                    </React.Suspense>
+                                }/>
 
-                            <Route path={"*"} element={<NotFound/>}>
-                            </Route>
-                        </Routes>
+                                <Route path={"*"} element={
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <NotFound/>
+                                    </React.Suspense>
+                                }>
+                                </Route>
+                            </Routes>
+                        </Suspense>
                     </div>
                 </div>
 

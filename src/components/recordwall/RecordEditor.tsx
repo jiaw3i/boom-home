@@ -140,9 +140,7 @@ export default function RecordEditor(props: any) {
                 </div>
             </form>
 
-            <dialog id="upload_file" className="modal w-50%">
-                <UploadFile></UploadFile>
-            </dialog>
+            <UploadFile/>
         </div>
     )
 }
