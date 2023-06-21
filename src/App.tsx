@@ -7,7 +7,6 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
-import AForm from "@/components/recordwall/Btn";
 
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
@@ -160,7 +159,7 @@ function App() {
                 <Sidebar type={type} setTitle={setTitle} setTheme={setTheme} theme={theme} title={title}></Sidebar>
             </div>
 
-            <dialog id="view_image" className="modal ">
+            <dialog id="view_image" className="modal">
                 <form method="dialog" className="modal-box p-0 no-scrollbar">
                     <img src={imgUrl} alt={"loading..."} className={"w-full"}/>
                 </form>
@@ -174,4 +173,4 @@ function App() {
     )
 }
 
-export default App
+export default App;

@@ -132,7 +132,7 @@ export default function RecordEditor(props: any) {
                     <select {...register("permission", {required: true})}
                             className="select select-primary select-sm w-2/6 max-w-xs" defaultValue={"public"}>
                         <option value={1}>所有人可见</option>
-                        <option value={2}>仅自己可见</option>
+                        <option value={0}>仅自己可见</option>
                     </select>
                     <input type={"submit"} className={"btn-primary btn-sm rounded hover:cursor-pointer"}
                            value={"发布✍️"}/>
