@@ -22,7 +22,7 @@ const ChatType = lazy(() => import('./components/chatbot/ChatType'));
 function App() {
     const location = useLocation();
     const [type, setType] = useState(location.pathname.match("/manage/*") ? "admin" : "common");
-    const [title, setTitle] = useState("Home");
+    const [title, setTitle] = useState("Recordwall");
     const [theme, setTheme] = useState("light");
     const {setUsername, setId, username} = UseUserStore();
 
@@ -53,7 +53,7 @@ function App() {
         } else {
             title = location.pathname.split("/")[1];
             if (title === undefined || title === "") {
-                title = "Home";
+                title = "Recordwall";
             }
             finalTitle = title.replace(/^\S/, s => s.toUpperCase());
         }
@@ -112,11 +112,15 @@ function App() {
 
 
                             <Routes>
-                                <Route path={"/projects"} element={
+                                <Route path={"/lab"} element={
                                     <Projects/>
                                 }/>
-                                <Route path={"/"} element={<Home/>}/>
-                                <Route path={"/home"} element={<Home/>}/>
+                                <Route path={"/"} element={<RecordWall/>}/>
+                                <Route path={"/aboutme"} element={
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <Home/>
+                                    </React.Suspense>
+                                }/>
                                 <Route path={"/manage"} element={
                                     <React.Suspense fallback={<Loader/>}>
                                         <ManageProject/>
@@ -129,9 +133,7 @@ function App() {
                                     }/>
                                 </Route>
                                 <Route path={"/recordwall"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <RecordWall setImgUrl={setImgUrl}/>
-                                    </React.Suspense>
+                                    <RecordWall setImgUrl={setImgUrl}/>
                                 }/>
                                 <Route path={"/chatbot"} element={
                                     <React.Suspense fallback={<Loader/>}>

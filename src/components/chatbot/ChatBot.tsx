@@ -7,9 +7,8 @@ import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
-import {AZURE_CHAT, GPT_STREAM_CHAT} from "@/util/apis";
+import {AZURE_CHAT, AZURE_CHAT_CLEAR, GPT_STREAM_CHAT} from "@/util/apis";
 import {useParams} from "react-router-dom";
-import moment from "moment";
 
 
 type Message = {
@@ -139,7 +138,7 @@ export default function ChatBot() {
     };
 
     const deleteContext = (id: string) => {
-        get("/api/gpt/clear", {
+        get(AZURE_CHAT_CLEAR, {
             id: id
         }).then((res: any) => {
             console.log(res);
@@ -152,7 +151,7 @@ export default function ChatBot() {
     useEffect(() => {
         const preventUnload = (event: BeforeUnloadEvent) => {
 
-            navigator.sendBeacon("/api/gpt/clear?id=" + curRandomId.current, "");
+            navigator.sendBeacon(AZURE_CHAT_CLEAR + "?id=" + curRandomId.current, "");
             // deleteContext(curRandomId)
             // deleteContext();
             event.preventDefault();

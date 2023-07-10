@@ -66,4 +66,5 @@ export const CURRENT_USER = "/api/auth/current"
 
 const AI_BASE = "/api/ai"
 export const AZURE_CHAT = AI_BASE + "/azure/chat"
+export const AZURE_CHAT_CLEAR = AI_BASE + "/azure/clear"
 export default apis;

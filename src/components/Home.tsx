@@ -34,8 +34,8 @@ export default function Home() {
     } as HOME);
 
     return (
-        <div className={"home overflow-auto prose block max-w-none no-scrollbar"}>
-            <div className={"content flex flex-col items-center"}>
+        <div className={"home overflow-auto flex-grow prose block max-w-none no-scrollbar"}>
+            <div className={"content flex flex-col h-full items-center"}>
                 <div className={"flex flex-col text-left font-bold text-3xl font-mono pl-5"}>
                     <span>Hello,</span>
                     <span>I'm <kbd className="kbd kbd-xl text-sky-700">{home.englishName}</kbd></span>
@@ -54,8 +54,8 @@ export default function Home() {
                         <div className={"title flex mr-5 text-right"}>
                             <span className={"font-bold text-2xl font-mono mt-3"}>about me</span>
                         </div>
-                        <div className={"desc flex text-left"}>
-                            <span className={"text-xl font-mono mt-3 whitespace-pre-wrap"}>{home.aboutMe}</span>
+                        <div className={"desc flex text-left "}>
+                            <span className={"text-xl font-mono mt-3 whitespace-pre-wrap leading-10"}>{home.aboutMe}</span>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@ export default function Home() {
                         <div className={"desc flex text-left justify-between"}>
                             <span className={"text-xl font-mono mt-3"}>
                                 <a href={home.findMe.github} target="_blank">
-                                    <svg className="inline h-6 w-6 text-blue-500" width="24" height="24"
+                                    <svg className="inline h-6 w-6" width="24" height="24"
                                          viewBox="0 0 24 24"
                                          strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                                          strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path
@@ -76,7 +76,7 @@ export default function Home() {
                             </span>
                             <span className={"text-xl font-mono mt-3"}>
                                 <a href={home.findMe.blog} target="_blank">
-                                    <svg className="inline h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
+                                    <svg className="inline h-6 w-6 " fill="none" viewBox="0 0 24 24"
                                          stroke="currentColor">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                             d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
@@ -91,7 +91,7 @@ export default function Home() {
                                     {/*  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"*/}
                                     {/*        d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>*/}
                                     {/*</svg>*/}
-                                    <svg className="inline h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24"
+                                    <svg className="inline h-6 w-6 " fill="none" viewBox="0 0 24 24"
                                          strokeWidth="2" stroke="currentColor" strokeLinecap="round"
                                          strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="3" y="5" width="18" height="14" rx="2"/>  <polyline points="3 7 12 13 21 7"/>
                                     </svg>
@@ -100,7 +100,7 @@ export default function Home() {
                             </span>
                             <span className={"text-xl font-mono mt-3"}>
                                 <a href={home.findMe.twitter} target={"_blank"}>
-                                    <svg className="inline h-6 w-6 text-blue-500" width="24" height="24"
+                                    <svg className="inline h-6 w-6" width="24" height="24"
                                          viewBox="0 0 24 24"
                                          strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                                          strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path
