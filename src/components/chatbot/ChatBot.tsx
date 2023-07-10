@@ -7,8 +7,9 @@ import ReactMarkdown from "react-markdown";
 import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
-import {GPT_STREAM_CHAT} from "@/util/apis";
+import {AZURE_CHAT, GPT_STREAM_CHAT} from "@/util/apis";
 import {useParams} from "react-router-dom";
+import moment from "moment";
 
 
 type Message = {
@@ -98,7 +99,7 @@ export default function ChatBot() {
         const abortController = new AbortController();
         const signal = abortController.signal;
 
-        fetchEventSource(GPT_STREAM_CHAT, {
+        fetchEventSource(AZURE_CHAT, {
             signal: signal,
             method: "POST",
             body: JSON.stringify({
@@ -121,7 +122,6 @@ export default function ChatBot() {
                     return
                 }
                 let partMessage = event.data.replaceAll("&#32;", " ").replaceAll("&#92n;&#92n;", "\n").replaceAll("&#92n;", "\n");
-
                 botMessage.current = botMessage.current.concat(partMessage);
                 handleMessages();
             },
@@ -181,9 +181,9 @@ export default function ChatBot() {
     };
 
     return (
-        (<div className={"m-5 p-3 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow max-h-[85%] justify-between"}>
+        (<div className={"m-3 lg:m-5 lg:p-5 mt-0 pt-0 lg:pt-2 flex flex-col flex-grow max-h-[85%] justify-between"}>
             <div
-                className={"chat-gpt prose max-w-none overflow-y-auto card flex-grow bg-base-300 relative justify-between"}>
+                className={"chat-gpt prose max-w-none overflow-y-auto card p-[1em] lg:p-[2em] flex-grow bg-base-300 relative justify-between"}>
                 <div id={"chats"} className={"overflow-auto h-full mb-10 chat-area no-scrollbar"}>
                     {
                         messages.map((msg, index) => {
