@@ -26,7 +26,7 @@ export default function Login() {
                 console.log("start setUserInfo")
                 setUsername(login.username);
                 console.log(UseUserStore.getState());
-                navigate('/home');
+                navigate('/recordwall');
                 // window.location.href = "/home";
             }
         });
