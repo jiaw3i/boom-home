@@ -22,7 +22,7 @@ export default function Projects(){
         w.location.href = url //这样就可以跳转了
     }
     return (
-        <div className={"overflow-y-scroll no-scrollbar"}>
+        <div className={"overflow-y-scroll h-full no-scrollbar"}>
             <div className={"flex projects not-prose flex-wrap align-middle max-w-none justify-center"}>
                 {
                     ProjectsData.map(project=>{

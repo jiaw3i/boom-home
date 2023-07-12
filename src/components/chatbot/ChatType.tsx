@@ -14,7 +14,7 @@ export default function ChatType() {
     // const botConfigDialog = ()
 
     return (
-        <div className={"overflow-y-scroll no-scrollbar"}>
+        <div className={"overflow-y-scroll h-full no-scrollbar"}>
             <div className={"flex flex-col prose max-w-none justify-center align-middle "}>
                 {
                     BotTypes.map(botType => {
