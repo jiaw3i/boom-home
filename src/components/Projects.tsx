@@ -22,13 +22,13 @@ export default function Projects(){
         w.location.href = url //这样就可以跳转了
     }
     return (
-        <div>
-            <div className={"flex projects not-prose flex-wrap align-middle justify-center"}>
+        <div className={"overflow-y-scroll no-scrollbar"}>
+            <div className={"flex projects not-prose flex-wrap align-middle max-w-none justify-center"}>
                 {
                     ProjectsData.map(project=>{
                         return (
-                            <div key={project.id} className="card p-0 ml-3 mr-3 mb-3 mt-3 lg:w-2/5 w-96 bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
-                                <div className="card-body p-5 text-left">
+                            <div key={project.id} className="card p-0 m-3 lg:w-2/5 w-full justify-start bg-base-300 shadow-xl hover:cursor-pointer hover:shadow-2xl">
+                                <div className="card-body p-5 text-left break-word">
                                     <h2 className="card-title prose">{project.name}</h2>
                                     <p className={"prose"}>{project.description}</p>
                                     <div className="card-actions justify-end w-full">
