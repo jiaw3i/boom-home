@@ -5,6 +5,8 @@ name: Node.js CI
 
 on:
   push:
+    branches:
+      - 'master'
     tags:
       - '*'
 
@@ -25,7 +27,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm run build:release
+    - run: |
+        npm i
+        npm run build:release
     
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
