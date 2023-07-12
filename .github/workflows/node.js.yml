@@ -38,7 +38,7 @@ jobs:
         port: 30121
         username: nginx_root
         password: ${{ secrets.ftp_password }}
-        local-dir: ./dist
-        server-dir: /html/dist
+        local-dir: ./dist/
+        server-dir: /html/dist/
       
 
