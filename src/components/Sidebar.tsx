@@ -1,4 +1,4 @@
-import {ManageMenusData, MenusData, Links, IMenu} from "../util/menus";
+import {ManageMenusData, MenusData, Links, IMenu} from "@/util/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";

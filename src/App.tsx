@@ -108,7 +108,7 @@ function App() {
                             </div>
                         </div>
                         <div className={"divider mt-0"}></div>
-                        <Suspense fallback={<Loader/>}>
+                        <Suspense>
 
 
                             <Routes>
