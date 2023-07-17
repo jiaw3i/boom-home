@@ -11,7 +11,6 @@ export default function Verify(props: VerifyProps) {
     const {register, handleSubmit, formState: {errors}} = useForm();
 
     const verifySubmit = (data: any) => {
-        console.log(data)
         post("/api/verify", data).then((res: any) => {
             console.log(res)
             if (res.success) {
