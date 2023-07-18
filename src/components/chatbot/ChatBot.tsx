@@ -8,7 +8,8 @@ import RemarkMath from "remark-math";
 
 import CodeBlock from "./CodeBlock";
 import {AZURE_CHAT, AZURE_CHAT_CLEAR, GPT_STREAM_CHAT} from "@/util/apis";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {UseVerifyStore} from "@/store/VerifyStateStore";
 
 
 type Message = {
@@ -24,11 +25,14 @@ export default function ChatBot() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const curRandomId = useRef<string>(uuidv4());
     const [temperature, setTemperature] = useState("0.9");
-
+    const navigate = useNavigate();
     const params = useParams();
 
 
     useEffect(() => {
+        if (!UseVerifyStore.getState().state) {
+            navigate("/chatbot");
+        }
         console.log(params.type);
         if (params.type === "context") {
             setIsContext(true);
@@ -103,6 +107,7 @@ export default function ChatBot() {
             method: "POST",
             body: JSON.stringify({
                 "message": message,
+                "verifyToken": UseVerifyStore.getState().verifyToken,
                 "id": id,
                 "isContext": isContext,
                 "temperature": temperature
