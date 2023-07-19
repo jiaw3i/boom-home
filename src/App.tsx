@@ -115,9 +115,11 @@ function App() {
 
                             <Routes>
                                 <Route path={"/lab"} element={
-                                    <Projects/>
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <Projects/>
+                                    </React.Suspense>
                                 }/>
-                                <Route path={"/"} element={<RecordWall/>}/>
+                                <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl}/>}/>
                                 <Route path={"/aboutme"} element={
                                     <React.Suspense fallback={<Loader/>}>
                                         <Home/>
