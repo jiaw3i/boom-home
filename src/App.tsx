@@ -7,6 +7,7 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
+import {Toaster} from "react-hot-toast";
 
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
@@ -76,6 +77,7 @@ function App() {
     };
     return (
         <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen no-scrollbar">
+            <div><Toaster/></div>
             <div className="drawer drawer-mobile lg:drawer-open no-scrollbar">
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content max-h-screen flex flex-col no-scrollbar">
@@ -113,9 +115,11 @@ function App() {
 
                             <Routes>
                                 <Route path={"/lab"} element={
-                                    <Projects/>
+                                    <React.Suspense fallback={<Loader/>}>
+                                        <Projects/>
+                                    </React.Suspense>
                                 }/>
-                                <Route path={"/"} element={<RecordWall/>}/>
+                                <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl}/>}/>
                                 <Route path={"/aboutme"} element={
                                     <React.Suspense fallback={<Loader/>}>
                                         <Home/>

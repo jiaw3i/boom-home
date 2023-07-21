@@ -3,12 +3,12 @@ import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../util
 import {useNavigate} from "react-router-dom";
 import BotConfigDialog from "./BotConfig";
 import Verify from "@/components/VerifyPage";
-import {UseVerifyStateStore} from "@/store/VerifyStateStore";
+import {UseVerifyStore} from "@/store/VerifyStateStore";
 
 export default function ChatType() {
 
     const navigate = useNavigate();
-    const [isVerify,setIsVerify] = useState(UseVerifyStateStore.getState);
+    const [isVerify,setIsVerify] = useState(UseVerifyStore.getState().state);
     const toChat = (type: string) => {
         navigate(`/chatbot/${type}`);
     }
