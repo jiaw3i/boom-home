@@ -8,6 +8,7 @@ import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {Toaster} from "react-hot-toast";
+import ThemeChange from "@/components/theme/ThemeChange";
 
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
@@ -94,6 +95,7 @@ function App() {
                             </div>
                             <PageTitle title={title}></PageTitle>
                             <div className={"lg:ml-auto prose lg:mr-8 flex"}>
+                                <ThemeChange></ThemeChange>
                                 <label className="swap swap-rotate w-[3rem] h-[3rem]">
                                     <input id={"themeCheckbox"} type="checkbox" onClick={switchTheme}/>
                                     <svg className="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg"
