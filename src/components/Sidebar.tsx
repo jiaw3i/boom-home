@@ -37,16 +37,37 @@ function Sidebar(props: any) {
     return (
         <div className="drawer-side flex-shrink-0  h-screen max-h-screen no-scrollbar">
             <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
-            <aside className="flex flex-col bg-base-200 h-full pt-10 w-80 lg:w-60">
-                <label className="swap swap-flip text-5xl h-auto">
-
-                    <input id={"logoCheckbox"} type="checkbox" onClick={switchTheme}/>
-
-                    <div className="swap-on tooltip" data-tip={"点击切换页面主题"}>😈
+            <aside className="flex flex-col bg-base-200 h-full pt-8 w-80 lg:w-60">
+                <div className="chat chat-start flex h-auto pl-4 pr-4 items-end">
+                    <div className="chat-image avatar">
+                        <div className="w-12 rounded-full">
+                            <img src="../../huahua.webp"  alt={"loading"}/>
+                        </div>
                     </div>
-                    <div className="swap-off tooltip" data-tip={"点击切换页面主题"}>😇
+                    <div className="chat-bubble font-bold font-mono text-sm flex flex-col justify-center">
+                        <label className={"text-left"}>头像是一只柴犬，叫花花。</label>
                     </div>
-                </label>
+                </div>
+                {/*<div className={"flex h-auto pl-4 pr-4"}>*/}
+                {/*    <div className={"avatar mr-2"}>*/}
+                {/*        <div className={"w-16"}>*/}
+                {/*            <img src={"../../huahua.webp"} alt={"loading"}/>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*    <div className={"flex flex-col font-mono font-bold justify-end"}>*/}
+                {/*        <label className={"text-left"}>状态：</label>*/}
+                {/*        <label className={"text-left"}>头像是一只小柴犬，叫花花</label>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<label className="swap swap-flip text-5xl h-auto">*/}
+
+                {/*    <input id={"logoCheckbox"} type="checkbox" onClick={switchTheme}/>*/}
+
+                {/*    <div className="swap-on tooltip" data-tip={"点击切换页面主题"}>😈*/}
+                {/*    </div>*/}
+                {/*    <div className="swap-off tooltip" data-tip={"点击切换页面主题"}>😇*/}
+                {/*    </div>*/}
+                {/*</label>*/}
                 {/*<div className="w-60">*/}
                 <ul className="menu p-4 text-base-content ">
                     <div className={"divider font-mono text-lg"}>Pages</div>
