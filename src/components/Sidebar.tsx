@@ -41,7 +41,7 @@ function Sidebar(props: any) {
                 <div className="chat chat-start flex h-auto pl-4 pr-4 items-end">
                     <div className="chat-image avatar">
                         <div className="w-12 rounded-full">
-                            <img src="../../huahua.webp"  alt={"loading"}/>
+                            <img src="../../huahua.png"  alt={"loading"}/>
                         </div>
                     </div>
                     <div className="chat-bubble font-bold font-mono text-sm flex flex-col justify-center">
