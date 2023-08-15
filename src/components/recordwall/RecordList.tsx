@@ -1,11 +1,13 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import React, {useState} from "react";
+import React from "react";
 import {RecordInfo} from "@/components/recordwall/RecordWall";
 import {get} from "@/util/request";
 import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
+import {PhotoProvider, PhotoView} from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 interface RecordListProps {
     records: RecordInfo[],
@@ -103,16 +105,19 @@ const RecordList = (props: RecordListProps) => {
                             <div className={"divider m-0"}></div>
                             <div
                                 className={"w-full break-word"}>
-                                <ReactMarkdown className={"not-prose"}
-                                               children={highlightTag(record.content, record.tag)}
-                                               rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}
-                                               components={{
-                                                   img: ({node, ...props}) => {
-                                                       return <img {...props} onClick={() => {
-                                                           viewImage(props.src ? props.src : "")
-                                                       }} alt={"loading..."}/>
-                                                   },
-                                               }}/>
+                                <PhotoProvider>
+                                    <ReactMarkdown className={"not-prose"}
+                                                   children={highlightTag(record.content, record.tag)}
+                                                   rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}
+                                                   components={{
+                                                       img: ({node, ...props}) => {
+                                                           return <PhotoView src={props.src}>
+                                                               <img {...props} alt={"loading..."}/>
+                                                           </PhotoView>
+                                                       },
+                                                   }}/>
+                                </PhotoProvider>
+
                             </div>
                         </div>
                     )

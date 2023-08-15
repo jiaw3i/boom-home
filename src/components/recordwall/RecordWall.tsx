@@ -55,7 +55,6 @@ export default function RecordWall(props: any) {
         setLoading(true)
         let filterRecords = allRecords.filter((record: RecordInfo) => {
             let recordTags = record.tag.split(",");
-            console.log(recordTags, tags)
             // recordTags和tags有无并集
             for (let i = 0; i < recordTags.length; i++) {
                 for (let j = 0; j < tags.length; j++) {
@@ -66,7 +65,6 @@ export default function RecordWall(props: any) {
             }
             return false;
         });
-        console.log(filterRecords);
         setRecords([...filterRecords]);
         setLoading(false);
     }
