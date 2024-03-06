@@ -8,7 +8,7 @@ RUN mkdir app
 WORKDIR /app
 
 COPY package.json .
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm install --registry=http://mirrors.cloud.tencent.com/npm/
 
 COPY . .
 RUN npm run build:release
