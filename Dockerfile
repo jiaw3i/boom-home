@@ -1,4 +1,4 @@
-FROM node:lts as builder
+FROM node:16.20 as builder
 LABEL authors="hanjiawei"
 
 # 设置时区
@@ -16,3 +16,4 @@ RUN npm run build:release
 
 FROM nginx:1.25.1
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/home-nginx.conf etc/nginx/conf.d/home-nginx.conf
