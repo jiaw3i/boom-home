@@ -1,41 +1,3 @@
-const apis = [
-    {
-        id: 1,
-        name: "查询15日天气",
-        url: "https://api.hanjiawei.com/weather",
-        description: "从今天开始，查询往后15日的天气",
-    },
-    {
-        id: 2,
-        name: "夸夸我",
-        url: "https://api.hanjiawei.com/goodme",
-        description: "随机一句夸夸你的话",
-    },
-    {
-        id: 3,
-        name: "励志语录",
-        url: "https://api.hanjiawei.com/upup",
-        description: "随机一句励志语录",
-    },
-    {
-        id: 4,
-        name: "查询15日天气",
-        url: "https://api.hanjiawei.com/weather",
-        description: "从今天开始，查询往后15日的天气",
-    },
-    {
-        id: 5,
-        name: "夸夸我",
-        url: "https://api.hanjiawei.com/goodme",
-        description: "随机一句夸夸你的话",
-    },
-    {
-        id: 6,
-        name: "励志语录",
-        url: "https://api.hanjiawei.com/upup",
-        description: "随机一句励志语录",
-    }
-]
 
 const BOOM_HOME_BASE = "/api"
 // const BOOM_HOME_BASE = "/api/home/portal"
@@ -68,4 +30,9 @@ const AI_BASE = "/api/ai"
 export const AZURE_CHAT = AI_BASE + "/azure/chat"
 export const AZURE_CHAT_CLEAR = AI_BASE + "/azure/clear"
 export const AZURE_CHAT_VERIFY = AI_BASE + "/azure/verify"
-export default apis;
+
+
+const IMG_BASE = "https://img.hanjiawei.com/api/v1"
+
+export const GEN_TOKENS = IMG_BASE + "/tokens"
+export const IMG_UPLOAD = IMG_BASE + "/upload"

@@ -4,10 +4,12 @@ import {set, useForm} from "react-hook-form";
 import {post} from "@/util/request";
 import {ADD_RECORD} from "@/util/apis";
 import {UploadFile} from "@/components/uploadFile/UploadFile";
+import Images from "@/components/Images";
 
 
 type RecordProp = {
     content: string,
+    images: Array<any>,
     permission: string,
 }
 const publishSuccess = () => toast.success('发布成功');
@@ -17,6 +19,7 @@ declare const window: any;
 export default function RecordEditor(props: any) {
     const {refreshRecords, refreshTags, tags} = props;
     // const
+    const [images, setImages] = useState([]);
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<RecordProp>();
     const [tagTipHidden, setTagTipHidden] = useState<boolean>(true);
     const publishRecord = (data: RecordProp) => {
@@ -24,6 +27,7 @@ export default function RecordEditor(props: any) {
             publishFailed()
         } else {
             let toastId = toast.loading('发布中...');
+            data.images = images;
             post(ADD_RECORD, data).then((res: any) => {
                 if (res.success) {
                     refreshRecords();
@@ -68,6 +72,8 @@ export default function RecordEditor(props: any) {
                     className={"text-left bg-base-300 textarea resize-none w-full focus-visible:outline-0 no-scrollbar break-all"}>
                 </textarea>
                 {/*<div dangerouslySetInnerHTML={{__html: highlightedText}}></div>*/}
+                <Images images={images} setImages={setImages}/>
+
                 <div className={"p-1 flex flex-row"}>
                     <div
                         className={"relative group btn p-1 h-auto btn-xs bg-transparent border-none hover:border-none hover:bg-base-200"}>
@@ -140,7 +146,8 @@ export default function RecordEditor(props: any) {
                 </div>
             </form>
 
-            <UploadFile/>
+
+            <UploadFile images={images} setImages={setImages}/>
         </div>
     )
 }

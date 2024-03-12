@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import {data} from "autoprefixer";
 import {filterProps} from "framer-motion";
+import {post} from "@/util/request";
+import {IMG_UPLOAD} from "@/util/apis";
 
 interface FileInfo {
     name: string,
@@ -9,12 +11,21 @@ interface FileInfo {
     base64: string,
 }
 
-const UploadFile = () => {
+const UploadFile = (props:any) => {
 
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<any>();
     const [files, setFiles] = React.useState<FileInfo[]>([]);
+    const {images, setImages} = props;
     const formSubmit = (data: any) => {
-        console.log("upload", data)
+        console.log("data", data)
+        let formData = new FormData();
+        formData.append("files", data);
+        setImages(files);
+        document.getElementById("close_modal")?.click()
+        // post(IMG_UPLOAD, formData).then((res) => {
+        //     console.log("upload", res)
+        // })
+        // post()
     }
 
     const formChange = (event: any) => {
@@ -66,18 +77,19 @@ const UploadFile = () => {
                                className="hidden"/>
                     </label>
 
-                    <div className={"chosen-files mt-5 pl-5 pr-5 bg-g file-item flex-col w-full items-center"}>
+                    <div className={"mt-3 mb-1 w-full text-left"}>待上传文件列表</div>
+                    <div className={"chosen-files pl-3 pr-3 bg-gray-50 rounded-lg file-item flex-col w-full max-h-48  items-center overflow-y-scroll no-scrollbar"}>
                         {
                             files.map((file, index) => {
                                 return (
-                                    <div key={index} className={"flex flex-row bg-gray-50 rounded-xl mb-3"}>
-                                        <div className={"w-10 h-10"}>
-                                            <img className={"h-full rounded-xl w-full m-0"} src={file.base64}
-                                                 alt={"loading..."}></img>
-                                        </div>
-                                        <div className={"flex flex-col flex-wrap overflow-hidden"}>
-                                            <p className={"m-0"}>{file.name}</p>
-                                            <p className={"m-0"}>{file.size},等待上传</p>
+                                    <div key={index} className={"flex flex-row bg-gray-50 text-gray-600 font-mono"}>
+                                        {/*<div className={"w-10 h-10"}>*/}
+                                        {/*    <img className={"h-full rounded-xl w-full m-0"} src={file.base64}*/}
+                                        {/*         alt={"loading..."}></img>*/}
+                                        {/*</div>*/}
+                                        <div className={"flex flex-col flex-wrap text-left text-wrap break-all overflow-hidden"}>
+                                            <p className={"m-0"}>{"- " + file.name}</p>
+                                            {/*<p className={"m-0"}>{file.size},等待上传</p>*/}
                                         </div>
                                     </div>
                                 )
@@ -85,10 +97,10 @@ const UploadFile = () => {
                         }
                     </div>
                     <div className={"flex mt-5 w-full justify-end"}>
-                        <button className={"btn mr-2 btn-primary"}>Submit</button>
+                        <button className={"btn mr-2 btn-primary"}>确认选择</button>
                         <button type="button" className={"btn btn-primary"} onClick={()=>{
                             document.getElementById("close_modal")?.click()
-                        }}>Close</button>
+                        }}>关闭</button>
                     </div>
                 </form>
 

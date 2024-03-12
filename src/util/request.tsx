@@ -61,6 +61,7 @@ export function get(url: string, params = {}) {
 
 export function post(url: string, data: any) {
     return new Promise((resolve, reject) => {
+        // TODO: 支持表单提交
         axios.post(url, data).then(
             (response) => {
                 //关闭进度条
