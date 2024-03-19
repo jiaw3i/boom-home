@@ -8,10 +8,13 @@ axios.defaults.baseURL = "/";
  */
 axios.interceptors.request.use(
     (config) => {
-        config.data = JSON.stringify(config.data);
-        config.headers = {
-            "Content-Type": "application/json",
-        } as any;
+        if (!config.headers) {
+            config.data = JSON.stringify(config.data);
+            console.log("!config.headers")
+            config.headers = {
+                "Content-Type": "application/json",
+            } as any;
+        }
         return config;
     },
     (error) => {
@@ -22,17 +25,17 @@ axios.interceptors.request.use(
 /**
  * http response 拦截器
  */
-axios.interceptors.response.use(
-    (response) => {
-        if (response.data.errCode === 2) {
-            console.log("过期");
-        }
-        return response;
-    },
-    (error) => {
-        console.log("请求出错：", error);
-    }
-);
+// axios.interceptors.response.use(
+//     (response) => {
+//         if (response.data.errCode === 2) {
+//             console.log("过期");
+//         }
+//         return response;
+//     },
+//     (error) => {
+//         console.log("请求出错：", error);
+//     }
+// );
 
 /**
  * 封装get方法
@@ -56,15 +59,16 @@ export function get(url: string, params = {}) {
  * 封装post请求
  * @param url
  * @param data
+ * @param headers
  * @returns {Promise}
  */
-
-export function post(url: string, data: any) {
+export function post(url: string, data: any, headers?: any) {
     return new Promise((resolve, reject) => {
-        // TODO: 支持表单提交
-        axios.post(url, data).then(
+        axios.post(url, data, {
+            headers: headers
+        }).then(
             (response) => {
-                //关闭进度条
+                // 关闭进度条
                 resolve(response.data);
             },
             (err) => {

@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {data} from "autoprefixer";
 import {filterProps} from "framer-motion";
 import {post} from "@/util/request";
 import {IMG_UPLOAD} from "@/util/apis";
+import {fileToBase64} from "@/util/records";
 
 interface FileInfo {
     name: string,
@@ -11,16 +12,18 @@ interface FileInfo {
     base64: string,
 }
 
-const UploadFile = (props:any) => {
+const UploadFile = (props: any) => {
 
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<any>();
     const [files, setFiles] = React.useState<FileInfo[]>([]);
-    const {images, setImages} = props;
+    const {setImages} = props;
     const formSubmit = (data: any) => {
-        console.log("data", data)
-        let formData = new FormData();
-        formData.append("files", data);
-        setImages(files);
+        // let formData = new FormData();
+        // formData.append("files", data);
+        // setImages(files);
+        // console.log("uploadfile formsubmit data", data.file)
+
+        setImages(data.files)
         document.getElementById("close_modal")?.click()
         // post(IMG_UPLOAD, formData).then((res) => {
         //     console.log("upload", res)
@@ -28,30 +31,25 @@ const UploadFile = (props:any) => {
         // post()
     }
 
-    const formChange = (event: any) => {
-        let file = event.target.files[0]
-        let fileInfo: FileInfo = {
-            name: file.name,
-            size: file.size,
-            base64: ""
-        }
-        fileToBase64(file).then((base64: string) => {
-            fileInfo.base64 = base64;
-            setFiles([...files, fileInfo]);
-        })
-    }
+    const formChange = async (event: any) => {
+        const fileList = event.target.files;
+        let arr: FileInfo[] = [];
 
-    function fileToBase64(file: File): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => {
-                const result = reader.result as string;
-                resolve(result);
+        for (let i = 0; i < fileList.length; i++) {
+            const file = fileList[i];
+
+            let fileInfo: FileInfo = {
+                name: file.name,
+                size: file.size,
+                base64: ""
             };
-            reader.onerror = (error) => reject(error);
-        });
-    }
+
+            fileInfo.base64 = await fileToBase64(file);
+            arr.push(fileInfo);
+        }
+
+        setFiles(arr);
+    };
 
     return (
         <dialog id={"upload_file"} className={"modal"}>
@@ -73,12 +71,13 @@ const UploadFile = (props:any) => {
                                 className="font-semibold">Click to upload</span> or
                                 drag and drop</p>
                         </div>
-                        <input id="dropzone-file" type="file"  {...register("file", {required: false})}
+                        <input id="dropzone-file" type="file" multiple={true}  {...register("files", {required: false})}
                                className="hidden"/>
                     </label>
 
-                    <div className={"mt-3 mb-1 w-full text-left"}>待上传文件列表</div>
-                    <div className={"chosen-files pl-3 pr-3 bg-gray-50 rounded-lg file-item flex-col w-full max-h-48  items-center overflow-y-scroll no-scrollbar"}>
+                    <div className={"mt-3 mb-1 w-full text-left"}>文件列表</div>
+                    <div
+                        className={"chosen-files pl-3 pr-3 bg-gray-50 rounded-lg file-item flex-col w-full max-h-48  items-center overflow-y-scroll no-scrollbar"}>
                         {
                             files.map((file, index) => {
                                 return (
@@ -87,7 +86,8 @@ const UploadFile = (props:any) => {
                                         {/*    <img className={"h-full rounded-xl w-full m-0"} src={file.base64}*/}
                                         {/*         alt={"loading..."}></img>*/}
                                         {/*</div>*/}
-                                        <div className={"flex flex-col flex-wrap text-left text-wrap break-all overflow-hidden"}>
+                                        <div
+                                            className={"flex flex-col flex-wrap text-left text-wrap break-all overflow-hidden"}>
                                             <p className={"m-0"}>{"- " + file.name}</p>
                                             {/*<p className={"m-0"}>{file.size},等待上传</p>*/}
                                         </div>
@@ -98,9 +98,10 @@ const UploadFile = (props:any) => {
                     </div>
                     <div className={"flex mt-5 w-full justify-end"}>
                         <button className={"btn mr-2 btn-primary"}>确认选择</button>
-                        <button type="button" className={"btn btn-primary"} onClick={()=>{
+                        <button type="button" className={"btn btn-primary"} onClick={() => {
                             document.getElementById("close_modal")?.click()
-                        }}>关闭</button>
+                        }}>关闭
+                        </button>
                     </div>
                 </form>
 

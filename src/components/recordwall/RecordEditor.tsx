@@ -9,7 +9,7 @@ import Images from "@/components/Images";
 
 type RecordProp = {
     content: string,
-    images: Array<any>,
+    images: any,
     permission: string,
 }
 const publishSuccess = () => toast.success('发布成功');
@@ -19,7 +19,7 @@ declare const window: any;
 export default function RecordEditor(props: any) {
     const {refreshRecords, refreshTags, tags} = props;
     // const
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState<any>([]);
     const {register, getValues, setValue, handleSubmit, formState: {errors}} = useForm<RecordProp>();
     const [tagTipHidden, setTagTipHidden] = useState<boolean>(true);
     const publishRecord = (data: RecordProp) => {
@@ -27,8 +27,13 @@ export default function RecordEditor(props: any) {
             publishFailed()
         } else {
             let toastId = toast.loading('发布中...');
-            data.images = images;
-            post(ADD_RECORD, data).then((res: any) => {
+            const formData = new FormData();
+            for (let i = 0; i < images.length; i++) {
+                formData.append("images", images[i]);
+            }
+            formData.append("content", data.content)
+            formData.append("permission", data.permission)
+            post(ADD_RECORD, formData, {'content-type': 'multipart/form-data'}).then((res: any) => {
                 if (res.success) {
                     refreshRecords();
                     refreshTags();
