@@ -9,6 +9,9 @@ import toast from "react-hot-toast";
 import {PhotoProvider, PhotoView} from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
 import {log} from "vditor/dist/ts/util/log";
+import rehypeHighlight from "rehype-highlight";
+import {Terminal} from "lucide-react";
+import CopyButton from "@/components/CopyBtn";
 
 interface RecordListProps {
     records: RecordInfo[],
@@ -107,14 +110,47 @@ const RecordList = (props: RecordListProps) => {
                             <div
                                 className={"w-full break-word"}>
                                 <PhotoProvider>
-                                    <ReactMarkdown className={"not-prose"}
+                                    <ReactMarkdown className={"prose max-w-none prose-invert"}
                                                    children={highlightTag(record.content, record.tag)}
-                                                   rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}
+                                                   rehypePlugins={[rehypeRaw, rehypeHighlight as any]}
+                                                   remarkPlugins={[remarkGfm]}
                                                    components={{
                                                        img: ({node, ...props}) => {
                                                            return <PhotoView src={props.src}>
                                                                <img {...props} alt={"loading..."}/>
                                                            </PhotoView>
+                                                       },
+                                                       pre: ({children}) => <pre className="not-prose p-0">{children}</pre>,
+                                                       code: ({node, className, children, ...props}) => {
+                                                           const match = /language-(\w+)/.exec(className || "");
+                                                           if (match?.length) {
+                                                               const id = Math.random().toString(36).substr(2, 9);
+                                                               return (
+                                                                   <div className="not-prose rounded-md">
+                                                                       <div
+                                                                           className="flex h-9 items-center justify-between px-4 bg-neutral-600">
+                                                                           <div className="flex items-center gap-2">
+                                                                               <Terminal size={18}/>
+                                                                           </div>
+                                                                           <CopyButton id={id}/>
+                                                                       </div>
+                                                                       <div className="overflow-x-auto">
+                                                                           <div id={id} className="pl-4 pr-4 pt-1 pb-1">
+                                                                               {children}
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                               );
+                                                           } else {
+                                                               return (
+                                                                   <code
+                                                                       {...props}
+                                                                       className="not-prose rounded bg-gray-100 px-1 dark:bg-zinc-900"
+                                                                   >
+                                                                       {children}
+                                                                   </code>
+                                                               );
+                                                           }
                                                        },
                                                    }}/>
                                 </PhotoProvider>
@@ -125,7 +161,6 @@ const RecordList = (props: RecordListProps) => {
                                     {
                                         record.imgs !== undefined && record.imgs !== "" &&
                                         JSON.parse(record.imgs).map((imgUrl: string, index: number) => {
-                                            console.log("aaaa" + imgUrl)
                                             return <img key={index} src={imgUrl}
                                                         className={"w-30 h-30 mb-0 hover:cursor-pointer"}
                                                         alt={"loading..."} onClick={() => viewImage(imgUrl)}></img>
