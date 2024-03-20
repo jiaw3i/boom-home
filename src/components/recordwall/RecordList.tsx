@@ -120,13 +120,13 @@ const RecordList = (props: RecordListProps) => {
                                                                <img {...props} alt={"loading..."}/>
                                                            </PhotoView>
                                                        },
-                                                       pre: ({children}) => <pre className="not-prose p-0">{children}</pre>,
+                                                       pre: ({children}) => <pre className="p-0">{children}</pre>,
                                                        code: ({node, className, children, ...props}) => {
                                                            const match = /language-(\w+)/.exec(className || "");
                                                            if (match?.length) {
                                                                const id = Math.random().toString(36).substr(2, 9);
                                                                return (
-                                                                   <div className="not-prose rounded-md">
+                                                                   <div className="rounded-md">
                                                                        <div
                                                                            className="flex h-9 items-center justify-between px-4 bg-neutral-600">
                                                                            <div className="flex items-center gap-2">
