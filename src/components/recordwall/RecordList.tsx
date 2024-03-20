@@ -8,6 +8,7 @@ import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
 import {PhotoProvider, PhotoView} from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
+import {log} from "vditor/dist/ts/util/log";
 
 interface RecordListProps {
     records: RecordInfo[],
@@ -118,6 +119,19 @@ const RecordList = (props: RecordListProps) => {
                                                    }}/>
                                 </PhotoProvider>
 
+                            </div>
+                            <div className={"record-images w-full"}>
+                                <div className={"flex flex-row w-1/3 flex-wrap"}>
+                                    {
+                                        record.imgs !== undefined && record.imgs !== "" &&
+                                        JSON.parse(record.imgs).map((imgUrl: string, index: number) => {
+                                            console.log("aaaa" + imgUrl)
+                                            return <img key={index} src={imgUrl}
+                                                        className={"w-30 h-30 mb-0 hover:cursor-pointer"}
+                                                        alt={"loading..."} onClick={() => viewImage(imgUrl)}></img>
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     )

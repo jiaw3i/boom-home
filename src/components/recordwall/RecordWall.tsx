@@ -12,6 +12,7 @@ export interface RecordInfo {
     permission: number,
     tag: string,
     createTime: string,
+    imgs: string,
 }
 
 export default function RecordWall(props: any) {

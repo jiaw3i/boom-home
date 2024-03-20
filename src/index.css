@@ -88,7 +88,7 @@ button:focus-visible {
 .record-line-item img{
     display: inline-block;
     max-height: 96px;
-    margin: 10px 10px 10px 0;
+    margin: 0 10px 10px 0;
     border-radius: 5px;
 }
 
