@@ -110,7 +110,7 @@ const RecordList = (props: RecordListProps) => {
                             <div
                                 className={"w-full break-word"}>
                                 <PhotoProvider>
-                                    <ReactMarkdown className={"prose max-w-none prose-invert"}
+                                    <ReactMarkdown className={"prose max-w-full prose-invert"}
                                                    children={highlightTag(record.content, record.tag)}
                                                    rehypePlugins={[rehypeRaw, rehypeHighlight as any]}
                                                    remarkPlugins={[remarkGfm]}
@@ -120,7 +120,7 @@ const RecordList = (props: RecordListProps) => {
                                                                <img {...props} alt={"loading..."}/>
                                                            </PhotoView>
                                                        },
-                                                       pre: ({children}) => <pre className="p-0">{children}</pre>,
+                                                       pre: ({children}) => <pre className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                                        code: ({node, className, children, ...props}) => {
                                                            const match = /language-(\w+)/.exec(className || "");
                                                            if (match?.length) {
@@ -135,7 +135,7 @@ const RecordList = (props: RecordListProps) => {
                                                                            <CopyButton id={id}/>
                                                                        </div>
                                                                        <div className="overflow-x-auto">
-                                                                           <div id={id} className="pl-4 pr-4 pt-1 pb-1">
+                                                                           <div id={id} className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
                                                                                {children}
                                                                            </div>
                                                                        </div>
