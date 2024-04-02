@@ -157,7 +157,7 @@ const RecordList = (props: RecordListProps) => {
 
                             </div>
                             <div className={"record-images w-full"}>
-                                <div className={"flex flex-row w-1/3 flex-wrap"}>
+                                <div className={"flex w-full flex-row flex-wrap"}>
                                     {
                                         record.imgs !== undefined && record.imgs !== "" &&
                                         JSON.parse(record.imgs).map((imgUrl: string, index: number) => {
