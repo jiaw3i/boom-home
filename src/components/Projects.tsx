@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 import ProjectsData from "../util/projects";
-import {post} from "../util/request";
+import {post} from "@/util/request";
 import {useNavigate} from "react-router-dom";
-import {PROJECT_LIST} from "../util/apis";
+import {PROJECT_LIST} from "@/util/apis";
 export default function Projects(){
     const [projects,setProjects] = useState<Array<any>>([]);
     const navigate = useNavigate();

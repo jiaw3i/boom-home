@@ -147,7 +147,7 @@ const Links = [
             <line x1="13" y1="12" x2="15" y2="12"/>
         </svg>,
         isShow: true,
-        url: "https://hanjiawei.com"
+        url: "https://tnbai.com"
     },
     {
         title: "网盘",

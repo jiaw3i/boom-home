@@ -5,35 +5,11 @@ import {UseUserStore} from "@/store/UserInfoStore";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
-    const {theme, setTheme} = props;
-    // const [theme, setTheme] = useState("light");
     const {type, setType} = props;
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
 
     const {username} = UseUserStore();
-
-    // useEffect(() => {
-    //     console.log("sidebar,{}", username);
-    //     // @ts-ignore
-    //     // UserInfoStore.getState().setUserInfo({username:"owen"})
-    //     console.log("sidebar2,{}", UseUserStore.getState());
-    // })
-    const switchTheme = () => {
-        if (theme === "light") {
-            setTheme("dark");
-            document.documentElement.setAttribute("data-theme", "dark");
-        } else {
-            setTheme("light");
-            document.documentElement.setAttribute("data-theme", "light");
-        }
-
-        const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
-        const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
-        if (logoCheckbox != null && logoCheckbox.checked != themeCheckbox.checked) {
-            themeCheckbox.checked = logoCheckbox.checked;
-        }
-    }
     return (
         <div className="drawer-side flex-shrink-0  h-screen max-h-screen no-scrollbar">
             <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
@@ -48,27 +24,6 @@ function Sidebar(props: any) {
                         <label className={"text-left"}>头像是一只柴犬，叫花花。</label>
                     </div>
                 </div>
-                {/*<div className={"flex h-auto pl-4 pr-4"}>*/}
-                {/*    <div className={"avatar mr-2"}>*/}
-                {/*        <div className={"w-16"}>*/}
-                {/*            <img src={"../../huahua.webp"} alt={"loading"}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*    <div className={"flex flex-col font-mono font-bold justify-end"}>*/}
-                {/*        <label className={"text-left"}>状态：</label>*/}
-                {/*        <label className={"text-left"}>头像是一只小柴犬，叫花花</label>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<label className="swap swap-flip text-5xl h-auto">*/}
-
-                {/*    <input id={"logoCheckbox"} type="checkbox" onClick={switchTheme}/>*/}
-
-                {/*    <div className="swap-on tooltip" data-tip={"点击切换页面主题"}>😈*/}
-                {/*    </div>*/}
-                {/*    <div className="swap-off tooltip" data-tip={"点击切换页面主题"}>😇*/}
-                {/*    </div>*/}
-                {/*</label>*/}
-                {/*<div className="w-60">*/}
                 <ul className="menu p-4 text-base-content ">
                     <div className={"divider font-mono text-lg"}>Pages</div>
                     {
@@ -129,7 +84,6 @@ function Sidebar(props: any) {
                         </div>
                     </footer>
                 </div>
-                {/*</div>*/}
             </aside>
         </div>
     )
