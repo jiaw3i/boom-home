@@ -25,11 +25,11 @@ function Sidebar(props: any) {
                     </div>
                 </div>
                 <ul className="menu p-4 text-base-content ">
-                    <div className={"divider font-mono text-lg"}>Pages</div>
+                    <div className={"divider text-lg"}>Pages</div>
                     {
                         menus.filter((menuItem:IMenu) => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
-                                <div className={"hover:text-black hover:bg-gray-300 font-bold text-l " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
+                                <div className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
                                    key={menuItem.title} onClick={() => {
                                     if (type === "common") {
                                         setTitle(menuItem.title);

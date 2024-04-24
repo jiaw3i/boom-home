@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: LXGW, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
 
@@ -11,7 +11,7 @@
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
 
-    font-synthesis: none;
+    /*font-synthesis: none;*/
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -47,7 +47,6 @@ button {
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
-    font-family: inherit;
     background-color: #1a1a1a;
     cursor: pointer;
     transition: border-color 0.25s;
@@ -85,6 +84,10 @@ button:focus-visible {
     padding: 0;
 }
 
+.prose {
+    max-width: 100%;
+}
+
 .record-line-item img{
     display: inline-block;
     max-height: 96px;
@@ -117,4 +120,9 @@ button:focus-visible {
 
 .rmd ol {
     display: grid;
+}
+
+@font-face {
+    font-family: "LXGW";
+    src: url("./fonts/LXGWWenKaiGBScreen.ttf") format("truetype");
 }
