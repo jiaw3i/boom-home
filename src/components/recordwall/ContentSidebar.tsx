@@ -1,7 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {get} from "@/util/request";
-import {LIST_TAGS} from "@/util/apis";
-import {RecordInfo} from "@/components/recordwall/RecordWall";
 
 export interface Tag {
     id: number,
@@ -10,17 +7,16 @@ export interface Tag {
 }
 
 interface RecordSidebarProps {
-    filterRecords: Function,
-    refreshRecords: Function,
+    filter: Function,
     refreshTags: Function,
     tags: Tag[],
     isLoading: boolean,
-    allRecords: Array<RecordInfo>,
-    setRecords: Function,
+    allDate: Array<any>,
+    setDate: Function,
 }
 
-export default function RecordSidebar(Props: RecordSidebarProps) {
-    const {filterRecords, refreshRecords, allRecords, refreshTags, tags, isLoading = false, setRecords} = Props;
+export default function ContentSidebar(Props: RecordSidebarProps) {
+    const {filter, allDate, refreshTags, tags, isLoading = false, setDate} = Props;
 
     const [selectedTags, setSelectedTags] = useState<string[] | undefined>(undefined);
     useEffect(() => {
@@ -32,10 +28,10 @@ export default function RecordSidebar(Props: RecordSidebarProps) {
             return;
         }
         if (selectedTags.length === 0) {
-            setRecords([...allRecords]);
+            setDate([...allDate]);
             return;
         }
-        filterRecords(selectedTags);
+        filter(selectedTags);
     }, [selectedTags])
 
     const onclickTag = (tag: string) => {
@@ -51,11 +47,11 @@ export default function RecordSidebar(Props: RecordSidebarProps) {
     }
     return (
         <div className={"lg:!flex lg:h-full lg:max-h-full lg:!w-3/12 lg:!min-w-[15rem] lg:mr-5 side drawer-side "}>
-            <label htmlFor="record-drawer" className="drawer-overlay"></label>
+            <label htmlFor="sidbar-drawer" className="drawer-overlay"></label>
             <div
                 className={"side-content w-80 bg-base-300 lg:bg-transparent lg:shadow-xl lg:rounded-xl flex h-full lg:pt-0 pt-5 flex-col lg:w-full pl-5 pr-5"}>
 
-                <div className={"prose text-left"}>累计发布了 {allRecords.length} 条记录😜</div>
+                <div className={"prose text-left"}>累计发布了 {allDate.length} 条记录😜</div>
                 <div className={"mt-5 font-mono text-gray-400 text-left"}>标签</div>
                 <div className={"tag-area flex flex-row mt-1 flex-wrap"}>
                     {

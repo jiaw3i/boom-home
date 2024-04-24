@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useRef, useState} from "react";
 import RecordEditor from "@/components/recordwall/RecordEditor";
 import {get} from "@/util/request";
 import {LIST_ALL_RECORD, LIST_TAGS} from "@/util/apis";
-import RecordSidebar, {Tag} from "@/components/recordwall/RecordSidebar";
+import ContentSidebar , {Tag} from "@/components/recordwall/ContentSidebar";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {RecordList} from "@/components/recordwall/RecordList";
 
@@ -99,8 +99,8 @@ export default function RecordWall(props: any) {
                             setImgUrl={setImgUrl}
                 />
             </div>
-            <RecordSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filterRecords={filterRecords}
-                           refreshRecords={refreshRecords} allRecords={allRecords} setRecords={setRecords}/>
+            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filter={filterRecords}
+                           allDate={allRecords} setDate={setRecords}/>
         </div>
 
     );

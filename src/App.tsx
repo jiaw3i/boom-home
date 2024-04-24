@@ -14,6 +14,7 @@ const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
 const PageTitle = lazy(() => import('./components/PageTitle'));
 const RecordWall = lazy(() => import('./components/recordwall/RecordWall'));
+const Blog = lazy(() => import('./pages/blog/Blog'));
 const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./components/manager/ManageProject'));
 const NotFound = lazy(() => import('./components/NotFound'));
@@ -140,6 +141,9 @@ function App() {
                                 </Route>
                                 <Route path={"/recordwall"} element={
                                     <RecordWall setImgUrl={setImgUrl}/>
+                                }/>
+                                <Route path={"/blog"} element={
+                                    <Blog/>
                                 }/>
                                 <Route path={"/chatbot"} element={
                                     <React.Suspense fallback={<Loader/>}>
