@@ -4,11 +4,16 @@ import "vditor/dist/index.css";
 import "./index.css"
 import {useForm} from "react-hook-form";
 import {Post} from "@/pages/blog/Blog";
+import {post, Result} from "@/util/request";
+import {PUBLISH_POST} from "@/util/apis";
+import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
 
 const EditPost = () => {
     const [vd, setVd] = useState<Vditor>();
     // const {editPost} = props;
     const editPost: Post = {} as Post
+    const navigate = useNavigate()
     const {register, handleSubmit, formState: {errors}, setValue} = useForm<Post>();
     useEffect(() => {
         const vditor = new Vditor("vditor", {
@@ -73,7 +78,7 @@ const EditPost = () => {
         if (editPost != undefined) {
             setValue("id", editPost.id)
             setValue("title", editPost.title)
-            setValue("desc", editPost.desc)
+            setValue("description", editPost.description)
             setValue("tag", editPost.tag)
         }
         // Clear the effect
@@ -85,8 +90,24 @@ const EditPost = () => {
 
     const formSubmit = (data: any) => {
         const content = vd?.getValue()
+        console.log(content?.length)
         console.log(content)
         console.log(data)
+        let pubPost: Post = {...data}
+        if (content == undefined || content.length == 1) {
+            toast.error("文章内容不能为空！")
+            return
+        }
+        pubPost.content = content
+
+        post(PUBLISH_POST, pubPost).then((res) => {
+            if (!res.success) {
+                toast.error(res.message)
+                return
+            }
+            toast.success(res.message)
+            // navigate("post/")
+        })
     }
     return (
         <div className={"edit-blog w-full h-full  flex lg:flex-row flex-col-reverse"}>
@@ -116,7 +137,7 @@ const EditPost = () => {
                             <label className="label">
                                 <span className="label-text">文章描述</span>
                             </label>
-                            <textarea  {...register("desc")}
+                            <textarea  {...register("description")}
                                        placeholder="文章描述"
                                        className="overflow-visible textarea textarea-bordered no-scrollbar w-full"/>
                         </div>

@@ -10,7 +10,6 @@ axios.interceptors.request.use(
     (config) => {
         if (!config.headers) {
             config.data = JSON.stringify(config.data);
-            console.log("!config.headers")
             config.headers = {
                 "Content-Type": "application/json",
             } as any;
@@ -43,7 +42,7 @@ axios.interceptors.request.use(
  * @param params  请求参数
  * @returns {Promise}
  */
-export function get(url: string, params = {}) {
+export function get(url: string, params = {}): Promise<Result> {
     return new Promise((resolve, reject) => {
         axios.get(url, {
             params: params,
@@ -62,7 +61,7 @@ export function get(url: string, params = {}) {
  * @param headers
  * @returns {Promise}
  */
-export function post(url: string, data: any, headers?: any) {
+export function post(url: string, data: any, headers?: any): Promise<Result> {
     return new Promise((resolve, reject) => {
         axios.post(url, data, {
             headers: headers
@@ -84,7 +83,7 @@ export function post(url: string, data: any, headers?: any) {
  * @param data
  * @returns {Promise}
  */
-export function patch(url: string, data = {}) {
+export function patch(url: string, data = {}): Promise<Result> {
     return new Promise((resolve, reject) => {
         axios.patch(url, data).then(
             (response) => {
@@ -104,7 +103,7 @@ export function patch(url: string, data = {}) {
  * @returns {Promise}
  */
 
-export function put(url: string, data = {}) {
+export function put(url: string, data = {}): Promise<Result> {
     return new Promise((resolve, reject) => {
         axios.put(url, data).then(
             (response) => {
@@ -118,7 +117,7 @@ export function put(url: string, data = {}) {
 }
 
 //统一接口处理，返回数据
-export default function (fetch: string, url: string, param: any) {
+export default function (fetch: string, url: string, param: any): Promise<Result> {
     let _data = "";
     return new Promise((resolve, reject) => {
         switch (fetch) {
@@ -148,3 +147,11 @@ export default function (fetch: string, url: string, param: any) {
         }
     });
 };
+
+
+export type Result = {
+    code: number;
+    data: any;
+    message: string;
+    success: boolean;
+}
