@@ -121,8 +121,11 @@ button:focus-visible {
 .rmd ol {
     display: grid;
 }
+html:has(.drawer-toggle:checked) {
+    scrollbar-gutter: auto;
+}
 
 @font-face {
     font-family: "LXGW";
-    src: url("./fonts/LXGWWenKaiGBScreen.ttf") format("truetype");
+    src: url("/fonts/LXGWWenKaiGBScreen.ttf") format("truetype");
 }

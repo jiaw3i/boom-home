@@ -16,7 +16,9 @@ const PageTitle = lazy(() => import('./components/PageTitle'));
 const RecordWall = lazy(() => import('./components/recordwall/RecordWall'));
 const Blog = lazy(() => import('./pages/blog/Blog'));
 const Projects = lazy(() => import('./components/Projects'));
-const ManageProject = lazy(() => import('./components/manager/ManageProject'));
+const ManageProject = lazy(() => import('./pages/manage/project/ManageProject'));
+const ManageBlog = lazy(() => import('./pages/manage/blog/ManageBlog'));
+const EditPost = lazy(() => import('./pages/manage/blog/EditPost'));
 const NotFound = lazy(() => import('./components/NotFound'));
 const Loader = lazy(() => import('./components/Loader'));
 const ChatBot = lazy(() => import('./components/chatbot/ChatBot'));
@@ -47,12 +49,13 @@ function App() {
         let title = "Home";
         let finalTitle = "Home";
         if (location.pathname.match("/manage/*")) {
-            title = location.pathname.split("/")[2];
+            let paths = location.pathname.split("/")
+            title = paths[2];
             if (title === undefined || title === "") {
                 title = "Project";
             }
             // 返回首字母大写
-            finalTitle = "Manage " + title.replace(/^\S/, s => s.toUpperCase());
+            finalTitle ="manage " + title.replace(/^\S/, s => s.toUpperCase());
         } else {
             title = location.pathname.split("/")[1];
             if (title === undefined || title === "") {
@@ -67,9 +70,11 @@ function App() {
         if (theme === "light") {
             setTheme("dark");
             document.documentElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme","dark")
         } else {
             setTheme("light");
             document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme","light")
         }
         const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
         const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
@@ -114,8 +119,6 @@ function App() {
                         </div>
                         <div className={"divider mt-0"}></div>
                         <Suspense>
-
-
                             <Routes>
                                 <Route path={"/lab"} element={
                                     <React.Suspense fallback={<Loader/>}>
@@ -128,14 +131,21 @@ function App() {
                                         <Home/>
                                     </React.Suspense>
                                 }/>
-                                <Route path={"/manage"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <ManageProject/>
-                                    </React.Suspense>
-                                }>
+                                <Route path={"/manage"}>
                                     <Route path={"project"} element={
                                         <React.Suspense fallback={<Loader/>}>
                                             <ManageProject/>
+                                        </React.Suspense>
+                                    }/>
+                                    <Route path={"blog"} element={
+                                        <React.Suspense fallback={<Loader/>}>
+                                            <ManageBlog/>
+                                        </React.Suspense>
+                                    }>
+                                    </Route>
+                                    <Route path={"blog/edit"} element={
+                                        <React.Suspense fallback={<Loader/>}>
+                                            <EditPost />
                                         </React.Suspense>
                                     }/>
                                 </Route>

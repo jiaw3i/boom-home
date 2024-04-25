@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form"
-import request, {get, post} from "../../util/request";
+import request, {get, post} from "../../../util/request";
 import {useEffect, useState} from "react";
+import ProjectsData from "@/util/projects";
 
 type Inputs = {
     name: string,
@@ -9,7 +10,7 @@ type Inputs = {
     homeUrl: string
 };
 export default function ManageProject() {
-    const [projects, setProjects] = useState<Array<any>>([]);
+    const [projects, setProjects] = useState<Array<any>>(ProjectsData);
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [editProject, setEditProject] = useState<any>({});
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>({
@@ -21,12 +22,12 @@ export default function ManageProject() {
         }
     });
     // 页面载入时 请求获取项目列表
-    useEffect(() => {
-        post("/api/project/list", {}).then((res: any) => {
-            console.log(res);
-            setProjects(res.data);
-        });
-    }, []);
+    // useEffect(() => {
+    //     post("/api/project/list", {}).then((res: any) => {
+    //         console.log(res);
+    //         setProjects(res.data);
+    //     });
+    // }, []);
     const formSubmit = (editedProject: any) => {
         editedProject.id = editProject.id;
         // message.info("hello", 1500);

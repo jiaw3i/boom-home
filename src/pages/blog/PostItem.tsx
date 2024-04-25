@@ -11,7 +11,7 @@ const PostItem = (props: { post: Post }) => {
                 {post.desc}
             </div>
             <div className={"post-footer flex flex-row justify-between"}>
-                <div className={"post-tag flex flex-row text-gray-400"}>
+                <div className={"post-tag flex flex-row text-gray-400 items-center"}>
                     {
                         post.tag.split(",").map(tag => {
                             return <div className={"mr-2 badge badge-primary"}>
@@ -21,10 +21,7 @@ const PostItem = (props: { post: Post }) => {
                     }
                 </div>
                 <div className={"post-info mb-1 text-gray-500 flex flex-row text-right"}>
-                    <div className={""}>@jiawei 发布于</div>
-                    <div>
-                        {post.createTime.split(" ")[0]}
-                    </div>
+                    <div className={""}>@jiawei 发布于{post.createTime.split(" ")[0]}</div>
                 </div>
             </div>
         </div>
