@@ -45,8 +45,25 @@ const EditPost = () => {
             ],
             height: "85vh",
             upload: {
-                url: "http://localhost:8080/",
+                url: "/api/file/upload",
+                multiple: false,
+                fieldName: "file",
                 max: 1024 * 1024 * 100,
+                format(files: File[], responseText: string): string {
+                    let filename = files[0].name;
+                    let response = JSON.parse(responseText);
+                    let res = {
+                        "msg": response.message,
+                        "code": 0,
+                        "data": {
+                            "errFiles": [],
+                            "succMap": {
+                                [filename]: response.data
+                            }
+                        }
+                    };
+                    return JSON.stringify(res);
+                }
             },
             after: () => {
                 vditor.setValue("");
