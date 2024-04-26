@@ -21,6 +21,7 @@ export const LIST_TAGS = BOOM_HOME_BASE + "/record/listTags"
 
 export const PUBLISH_POST = BOOM_HOME_BASE + "/post/publish"
 export const LIST_POST = BOOM_HOME_BASE + "/post/list"
+export const GET_POST_BY_ID = BOOM_HOME_BASE + "/post"
 
 // components /ChatBot.tsx
 export const GPT_STREAM_CHAT = BOOM_HOME_BASE + "/gpt/streamchat"

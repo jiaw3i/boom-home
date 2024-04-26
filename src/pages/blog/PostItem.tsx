@@ -20,7 +20,7 @@ const PostItem = (props: { post: Post }) => {
                     <div className={"post-tag flex flex-row text-gray-400 items-center"}>
                         {
                             post.tag.split(",").map(tag => {
-                                return <div className={"mr-2 badge  badge-primary w-max"}>
+                                return <div key={tag} className={"mr-2 badge  badge-primary w-max"}>
                                     <span className={"w-full"}>
                                     {tag}
                                     </span>

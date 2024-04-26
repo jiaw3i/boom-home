@@ -83,42 +83,43 @@ export function post(url: string, data: any, headers?: any): Promise<Result> {
  * @param data
  * @returns {Promise}
  */
-export function patch(url: string, data = {}): Promise<Result> {
-    return new Promise((resolve, reject) => {
-        axios.patch(url, data).then(
-            (response) => {
-                resolve(response.data);
-            },
-            (err) => {
-                reject(err);
-            }
-        );
-    });
-}
+// export function patch(url: string, data = {}): Promise<Result> {
+//     return new Promise((resolve, reject) => {
+//         axios.patch(url, data).then(
+//             (response) => {
+//                 resolve(response.data);
+//             },
+//             (err) => {
+//                 reject(err);
+//             }
+//         );
+//     });
+// }
 
 /**
  * 封装put请求
+ * @param fetch
  * @param url
- * @param data
+ * @param param
  * @returns {Promise}
  */
 
-export function put(url: string, data = {}): Promise<Result> {
-    return new Promise((resolve, reject) => {
-        axios.put(url, data).then(
-            (response) => {
-                resolve(response.data);
-            },
-            (err) => {
-                reject(err);
-            }
-        );
-    });
-}
+// export function put(url: string, data = {}): Promise<Result> {
+//     return new Promise((resolve, reject) => {
+//         axios.put(url, data).then(
+//             (response) => {
+//                 resolve(response.data);
+//             },
+//             (err) => {
+//                 reject(err);
+//             }
+//         );
+//     });
+// }
 
 //统一接口处理，返回数据
 export default function (fetch: string, url: string, param: any): Promise<Result> {
-    let _data = "";
+    // let _data = "";
     return new Promise((resolve, reject) => {
         switch (fetch) {
             case "get":

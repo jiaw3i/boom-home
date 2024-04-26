@@ -9,6 +9,7 @@ import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {Toaster} from "react-hot-toast";
 import ThemeChange from "@/components/theme/ThemeChange";
+import PostView from "@/pages/blog/PostView";
 
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
@@ -55,7 +56,7 @@ function App() {
                 title = "Project";
             }
             // 返回首字母大写
-            finalTitle ="manage " + title.replace(/^\S/, s => s.toUpperCase());
+            finalTitle = "manage " + title.replace(/^\S/, s => s.toUpperCase());
         } else {
             title = location.pathname.split("/")[1];
             if (title === undefined || title === "") {
@@ -70,11 +71,11 @@ function App() {
         if (theme === "light") {
             setTheme("dark");
             document.documentElement.setAttribute("data-theme", "dark");
-            localStorage.setItem("theme","dark")
+            localStorage.setItem("theme", "dark")
         } else {
             setTheme("light");
             document.documentElement.setAttribute("data-theme", "light");
-            localStorage.setItem("theme","light")
+            localStorage.setItem("theme", "light")
         }
         const logoCheckbox = document.getElementById("logoCheckbox") as HTMLInputElement;
         const themeCheckbox = document.getElementById("themeCheckbox") as HTMLInputElement;
@@ -145,7 +146,7 @@ function App() {
                                     </Route>
                                     <Route path={"blog/edit"} element={
                                         <React.Suspense fallback={<Loader/>}>
-                                            <EditPost />
+                                            <EditPost/>
                                         </React.Suspense>
                                     }/>
                                 </Route>
@@ -154,6 +155,9 @@ function App() {
                                 }/>
                                 <Route path={"/blog"} element={
                                     <Blog/>
+                                }/>
+                                <Route path={"/blog/:postId"} element={
+                                    <PostView/>
                                 }/>
                                 <Route path={"/chatbot"} element={
                                     <React.Suspense fallback={<Loader/>}>

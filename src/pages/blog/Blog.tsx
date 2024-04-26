@@ -7,6 +7,8 @@ import {LIST_POST, LIST_TAGS} from "@/util/apis";
 import RecordEditor from "@/components/recordwall/RecordEditor";
 import {RecordList} from "@/components/recordwall/RecordList";
 import toast from "react-hot-toast";
+import {Link} from "react-router-dom";
+import {log} from "vditor/dist/ts/util/log";
 
 
 const Blog = () => {
@@ -25,91 +27,9 @@ const Blog = () => {
         tagName: "第三个",
         createTime: "s"
     }]);
-    const [posts, setPosts] = useState<Array<Post>>([
-        {
-            id: "1",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "第一个,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "2",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "3",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "4",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,第一个",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "5",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-    ])
-    const [allPosts, setAllPosts] = useState<Array<Post>>([
-        {
-            id: "1",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "第一个,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "2",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "3",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "4",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,第一个",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "5",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-    ])
-    const pageSize = 2
+    const [posts, setPosts] = useState<Array<Post>>([])
+    const [allPosts, setAllPosts] = useState<Array<Post>>([])
+    const pageSize = 5
     const [totalPage, setTotalPage] = useState(1)
     const [page, setPage] = useState(1)
 
@@ -167,15 +87,18 @@ const Blog = () => {
                     </label>
                 </div>
                 {
+
                     posts.map(post => {
-                        return <PostItem post={post}/>
+                        return <Link key={post.id} to={post.id.toString()}>
+                            <PostItem post={post}/>
+                        </Link>
                     })
                 }
                 <div className={"flex flex-row justify-between"}>
                     <button className="join-item btn" onClick={() => {
                         if (page > 1) {
                             setPage(page - 1);
-                        }else {
+                        } else {
                             toast("已经是第一页了")
                         }
                     }}>上一页
@@ -189,10 +112,11 @@ const Blog = () => {
                     <button className="join-item btn" onClick={() => {
                         if (page < totalPage) {
                             setPage(page + 1);
-                        }else {
+                        } else {
                             toast("已经是最后一页了")
                         }
-                    }}>下一页</button>
+                    }}>下一页
+                    </button>
                 </div>
             </div>
             <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filter={filterPost}
