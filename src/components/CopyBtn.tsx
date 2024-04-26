@@ -21,6 +21,7 @@ const CopyButton = ({id}: { id: string }) => {
 
     return (
         <button
+            id={"copy-btn"}
             onClick={onCopy}
             className="p-2 bg-transparent border-0 transition-all hover:scale-125 focus:outline-none active:outline-0 active:scale-150"
         >

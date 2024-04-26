@@ -85,7 +85,7 @@ const PostView = () => {
                                        return <img {...props} alt={"loading..."}/>
                                    },
                                    pre: ({children}) => <pre
-                                       className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
+                                       className="px-2 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                    code: ({node, className, children, ...props}) => {
                                        const match = /language-(\w+)/.exec(className || "");
                                        if (match?.length) {
@@ -110,7 +110,7 @@ const PostView = () => {
                                        } else {
                                            return (
                                                <code {...props}
-                                                     className="not-prose rounded bg-gray-200 px-1 font-lxgw dark:bg-zinc-900">
+                                                     className="prose rounded px-1 font-lxgw dark:bg-zinc-900">
                                                    {children}
                                                </code>
                                            );
