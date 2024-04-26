@@ -20,6 +20,7 @@ const Blog = () => {
     const pageSize = 8
     const [totalPage, setTotalPage] = useState(1)
     const [page, setPage] = useState(1)
+    const [total, setTotal] = useState(1)
 
 
     // 请求获取列表
@@ -30,7 +31,8 @@ const Blog = () => {
 
     const getPosts = (options?: any) => {
         post(LIST_POST, {page: page, pageSize: pageSize, ...options}).then((res: any) => {
-            setPosts(res.data.posts);
+            setPosts(res.data.posts)
+            setTotal(res.data.total)
             setTotalPage(Math.ceil(res.data.total / pageSize))
         });
     }
@@ -98,8 +100,7 @@ const Blog = () => {
                     </button>
                 </div>
             </div>
-            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost}
-                            allDate={allPosts} setDate={setPosts}/>
+            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total}/>
         </div>
     )
 }
