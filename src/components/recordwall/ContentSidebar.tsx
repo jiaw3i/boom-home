@@ -11,30 +11,22 @@ interface RecordSidebarProps {
     refreshTags: Function,
     tags: Tag[],
     isLoading: boolean,
-    allDate: Array<any>,
-    setDate: Function,
+    total: number
 }
 
 export default function ContentSidebar(Props: RecordSidebarProps) {
-    const {filter, allDate, refreshTags, tags, isLoading = false, setDate} = Props;
+    const {filter, refreshTags, tags, isLoading = false, total} = Props;
 
-    const [selectedTags, setSelectedTags] = useState<string[] | undefined>(undefined);
+    const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
     useEffect(() => {
         refreshTags();
     }, [])
 
     useEffect(() => {
-        if (selectedTags === undefined) {
-            return;
-        }
-        if (selectedTags.length === 0) {
-            setDate([...allDate]);
-            return;
-        }
         filter(selectedTags);
     }, [selectedTags])
 
-    const onclickTag = (tag: string) => {
+    const onclickTag = (tag: Tag) => {
         if (selectedTags == undefined) {
             setSelectedTags([tag]);
             return;
@@ -51,15 +43,15 @@ export default function ContentSidebar(Props: RecordSidebarProps) {
             <div
                 className={"side-content w-80 bg-base-300 lg:bg-transparent lg:shadow-xl lg:rounded-xl flex h-full lg:pt-0 pt-5 flex-col lg:w-full pl-5 pr-5"}>
 
-                <div className={"prose text-left"}>累计发布了 {allDate.length} 条记录😜</div>
+                <div className={"prose text-left"}>累计发布了 {total} 条记录😜</div>
                 <div className={"mt-5 font-mono text-gray-400 text-left"}>标签</div>
                 <div className={"tag-area flex flex-row mt-1 flex-wrap"}>
                     {
-                        tags.map((tag: Tag) => tag.tagName).filter(tag => tag != "").map(tag => {
+                        tags.filter(tag => tag.tagName != "").map(tag => {
                             return (
-                                <div key={tag} className={"pl-1 pr-1"} onClick={() => onclickTag(tag)}>
+                                <div key={tag.tagName} className={"pl-1 pr-1"} onClick={() => onclickTag(tag)}>
                                 <span
-                                    className={"text-blue-500 hover:cursor-pointer"}>{selectedTags?.includes(tag) ? tag + "🎈" : tag} </span>
+                                    className={"text-blue-500 hover:cursor-pointer"}>{selectedTags.map(tag => tag.tagName)?.includes(tag.tagName) ? tag.tagName + "🎈" : tag.tagName} </span>
                                 </div>
                             )
                         })

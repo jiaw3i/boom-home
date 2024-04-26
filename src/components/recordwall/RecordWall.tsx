@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import RecordEditor from "@/components/recordwall/RecordEditor";
-import {get} from "@/util/request";
+import {get, post} from "@/util/request";
 import {LIST_ALL_RECORD, LIST_TAGS} from "@/util/apis";
-import ContentSidebar , {Tag} from "@/components/recordwall/ContentSidebar";
+import ContentSidebar, {Tag} from "@/components/recordwall/ContentSidebar";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {RecordList} from "@/components/recordwall/RecordList";
 
@@ -19,7 +19,6 @@ export default function RecordWall(props: any) {
 
     const {setImgUrl} = props;
     const [records, setRecords] = useState<RecordInfo[]>([]);
-    const [allRecords, setAllRecords] = useState<RecordInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
     const [tags, setTags] = useState<Tag[]>([]);
@@ -36,43 +35,30 @@ export default function RecordWall(props: any) {
 
     useEffect(() => {
         if (isLogin !== undefined) {
-            refreshRecords()
+            getRecords()
         }
     }, [isLogin]);
 
-    const refreshRecords = () => {
+    const getRecords = (options?: any) => {
         setLoading(true)
         setRecords([])
-        get(LIST_ALL_RECORD, {}).then((res: any) => {
+        post(LIST_ALL_RECORD, {...options}).then((res: any) => {
             if (res.success) {
                 setRecords(res.data);
-                setAllRecords(res.data)
             }
             setLoading(false)
         });
     }
 
-    const filterRecords = (tags: Array<string>) => {
+    const filterRecords = (tags: Array<Tag>) => {
         setLoading(true)
-        let filterRecords = allRecords.filter((record: RecordInfo) => {
-            let recordTags = record.tag.split(",");
-            // recordTags和tags有无并集
-            for (let i = 0; i < recordTags.length; i++) {
-                for (let j = 0; j < tags.length; j++) {
-                    if (recordTags[i] === tags[j]) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        });
-        setRecords([...filterRecords]);
+        getRecords({tags: tags})
         setLoading(false);
     }
 
     const refreshTags = () => {
         setTagLoading(true);
-        get(LIST_TAGS, {}).then((res: any) => {
+        get(LIST_TAGS, {"type": "record"}).then((res: any) => {
             setTags(res.data);
             setTagLoading(false);
         });
@@ -92,15 +78,15 @@ export default function RecordWall(props: any) {
                         </svg>
                     </label>
                 </div>
-                {isLogin && <RecordEditor tags={tags} refreshRecords={refreshRecords} refreshTags={refreshTags}/>}
+                {isLogin && <RecordEditor tags={tags} refreshRecords={getRecords} refreshTags={refreshTags}/>}
                 <RecordList isLogin={isLogin} loading={loading} records={records}
-                            refreshRecords={refreshRecords}
+                            refreshRecords={getRecords}
                             refreshTags={refreshTags}
                             setImgUrl={setImgUrl}
                 />
             </div>
             <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filter={filterRecords}
-                           allDate={allRecords} setDate={setRecords}/>
+                            total={records.length}/>
         </div>
 
     );

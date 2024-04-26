@@ -122,8 +122,10 @@ const RecordList = (props: RecordListProps) => {
                                                        },
                                                        pre: ({children}) => <pre className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                                        code: ({node, className, children, ...props}) => {
-                                                           const match = /language-(\w+)/.exec(className || "");
-                                                           if (match?.length) {
+                                                           // const match = /language-(\w+)/.exec(className || "");
+                                                           if (typeof props.inline === "boolean")
+                                                               props.inline = props.inline.toString() as any;
+                                                           if (!props?.inline) {
                                                                const id = Math.random().toString(36).substr(2, 9);
                                                                return (
                                                                    <div className="rounded-md">

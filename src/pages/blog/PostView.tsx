@@ -10,7 +10,6 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
-import {PhotoProvider, PhotoView} from "react-photo-view";
 import {Terminal} from "lucide-react";
 import CopyButton from "@/components/CopyBtn";
 
@@ -18,9 +17,6 @@ const PostView = () => {
 
     const {postId} = useParams()
     const [post, setPost] = useState<Post>()
-    // 定义一个 ref 用于获取渲染 Markdown 的 DOM 容器
-    const vditorPreviewRef = useRef(null);
-    const vditorOutlineRef = useRef(null);
 
     useEffect(() => {
 
@@ -87,8 +83,11 @@ const PostView = () => {
                                    pre: ({children}) => <pre
                                        className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                    code: ({node, className, children, ...props}) => {
-                                       const match = /language-(\w+)/.exec(className || "");
-                                       if (match?.length) {
+
+                                       if (typeof props.inline === "boolean")
+                                           props.inline = props.inline.toString() as any;
+                                       // const match = /language-(\w+)/.exec(className || "");
+                                       if (!props?.inline) {
                                            const id = Math.random().toString(36).substr(2, 9);
                                            return (
                                                <div className="rounded-md">

@@ -17,7 +17,7 @@ function Sidebar(props: any) {
                 <div className="chat chat-start flex h-auto pl-4 pr-4 items-end">
                     <div className="chat-image avatar">
                         <div className="w-12 rounded-full">
-                            <img src="../../huahua.png"  alt={"loading"}/>
+                            <img src="../../huahua.png" alt={"loading"}/>
                         </div>
                     </div>
                     <div className="chat-bubble font-bold font-mono text-sm flex flex-col justify-center">
@@ -27,10 +27,11 @@ function Sidebar(props: any) {
                 <ul className="menu p-4 text-base-content ">
                     <div className={"divider text-lg"}>Pages</div>
                     {
-                        menus.filter((menuItem:IMenu) => menuItem.isShow).map(menuItem => {
+                        menus.filter((menuItem: IMenu) => menuItem.isShow).map(menuItem => {
                             return <li className="" key={menuItem.title}>
-                                <div className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
-                                   key={menuItem.title} onClick={() => {
+                                <div
+                                    className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
+                                    key={menuItem.title} onClick={() => {
                                     if (type === "common") {
                                         setTitle(menuItem.title);
                                         navigate(`/${menuItem.title.toLowerCase()}`)
@@ -42,22 +43,22 @@ function Sidebar(props: any) {
                                 }}>
                                     {menuItem.icon}
                                     {menuItem.cnTitle}
-                                </div></li>
+                                </div>
+                            </li>
                         })
                     }
 
                     <div className={"divider font-mono text-lg"}>Links</div>
 
                     {
-                        Links.filter(link => link.isShow).map(link => {
+                        Links.filter(link => link.isShow && ((link.needLogin && username == "jiawei.me@hotmail.com") || !link.needLogin)).map(link => {
                                 return <li className="" key={link.title}>
                                     <div className={"hover:text-black hover:bg-gray-300 font-bold text-l"}
-                                       key={link.title} onClick={() => {
+                                         key={link.title} onClick={() => {
                                         window.open(link.url, "_blank");
                                     }}>
                                         {link.icon}
                                         {link.title}
-
                                         <span className={"flex-none lowercase absolute right-0 mr-3"}>
                                             <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24"
                                                  strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
