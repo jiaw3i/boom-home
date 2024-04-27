@@ -12,52 +12,7 @@ type Inputs = {
     tag: string
 };
 export default function ManageBLog() {
-    const [posts, setPosts] = useState<Array<Post>>([
-        {
-            id: "1",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "第一个,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-        },
-        {
-            id: "2",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-            // 原创 or 转载
-        },
-        {
-            id: "3",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-            // 原创 or 转载
-        },
-        {
-            id: "4",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,第一个",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-            // 原创 or 转载
-        },
-        {
-            id: "5",
-            title: "原创文章",
-            description: "原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章原创文章",
-            tag: "标签a,技术",
-            createTime: "2024-04-24 13:24:11",
-            updateTime: "2024-04-24 13:24:11",
-            // 原创 or 转载
-        },
-    ])
+    const [posts, setPosts] = useState<Array<Post>>([])
     const navigate = useNavigate()
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [editPost, setEditPost] = useState<Post>({} as any);
@@ -127,8 +82,7 @@ export default function ManageBLog() {
                                         <th>{post.updateTime}</th>
                                         <td>
                                             <label onClick={() => {
-                                                setEditPost(post);
-                                                setIsDrawerOpen(true);
+                                                navigate(`edit/${post.id}`)
                                             }}
                                                    htmlFor={"post-form-drawer"}
                                                    className={"btn btn-sm btn-primary"}

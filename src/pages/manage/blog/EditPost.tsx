@@ -4,18 +4,22 @@ import "vditor/dist/index.css";
 import "./index.css"
 import {useForm} from "react-hook-form";
 import {Post} from "@/pages/blog/Blog";
-import {post, Result} from "@/util/request";
-import {PUBLISH_POST} from "@/util/apis";
+import {get, post, Result} from "@/util/request";
+import {GET_POST_BY_ID, PUBLISH_POST} from "@/util/apis";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const EditPost = () => {
     const [vd, setVd] = useState<Vditor>();
     // const {editPost} = props;
-    const editPost: Post = {} as Post
+    const [editPost, setEditPost] = useState<Post>()
     const navigate = useNavigate()
+    const {postId} = useParams()
     const {register, handleSubmit, formState: {errors}, setValue} = useForm<Post>();
     useEffect(() => {
+        if (postId != null) {
+            getPostById(postId)
+        }
         const vditor = new Vditor("vditor", {
             toolbar: [
                 "emoji",
@@ -71,16 +75,16 @@ const EditPost = () => {
                 }
             },
             after: () => {
-                vditor.setValue("");
+                if (editPost != null) {
+                    vditor.setValue(editPost.content as string);
+                } else {
+                    vditor.setValue("");
+                }
                 setVd(vditor);
+                vditor.focus();
             },
         });
-        if (editPost != undefined) {
-            setValue("id", editPost.id)
-            setValue("title", editPost.title)
-            setValue("description", editPost.description)
-            setValue("tag", editPost.tag)
-        }
+
         // Clear the effect
         return () => {
             vd?.destroy();
@@ -88,11 +92,28 @@ const EditPost = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (editPost != undefined) {
+            setValue("id", editPost.id)
+            setValue("title", editPost.title)
+            setValue("description", editPost.description)
+            setValue("tag", editPost.tag)
+            vd?.setValue(editPost.content as string)
+        }
+    }, [editPost]);
+
+    const getPostById = (id: string) => {
+        get(`${GET_POST_BY_ID}/${id}`).then(res => {
+            if (!res.success) {
+                toast.error(res.message)
+                return
+            }
+            setEditPost(res.data)
+        })
+    }
+
     const formSubmit = (data: any) => {
         const content = vd?.getValue()
-        console.log(content?.length)
-        console.log(content)
-        console.log(data)
         let pubPost: Post = {...data}
         if (content == undefined || content.length == 1) {
             toast.error("文章内容不能为空！")

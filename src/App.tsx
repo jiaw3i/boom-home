@@ -149,6 +149,11 @@ function App() {
                                             <EditPost/>
                                         </React.Suspense>
                                     }/>
+                                    <Route path={"blog/edit/:postId"} element={
+                                        <React.Suspense fallback={<Loader/>}>
+                                            <EditPost/>
+                                        </React.Suspense>
+                                    }/>
                                 </Route>
                                 <Route path={"/recordwall"} element={
                                     <RecordWall setImgUrl={setImgUrl}/>
