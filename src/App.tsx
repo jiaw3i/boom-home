@@ -21,7 +21,7 @@ const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./pages/manage/project/ManageProject'));
 const ManageBlog = lazy(() => import('./pages/manage/blog/ManageBlog'));
 const EditPost = lazy(() => import('./pages/manage/blog/EditPost'));
-const NotFound = lazy(() => import('./components/NotFound'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 const Loader = lazy(() => import('./components/Loader'));
 const ChatBot = lazy(() => import('./components/chatbot/ChatBot'));
 const ChatType = lazy(() => import('./components/chatbot/ChatType'));

@@ -51,10 +51,10 @@ const Blog = () => {
     const categories = ["哈哈", "dashdash", "哈哈", "dashdash", "哈哈", "dashdash"]
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open lg:p-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
-                <div className={"post-links"}>
+            <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full "}>
+                <div className={"post-links overflow-scroll no-scrollbar"}>
 
                     <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
                         <div className={"font-bold text-2xl prose"}>✍️</div>
@@ -75,7 +75,7 @@ const Blog = () => {
                         })
                     }
                 </div>
-                <div className={"flex flex-row justify-between"}>
+                <div className={"flex flex-row justify-between mt-2"}>
                     <button className="join-item btn" onClick={() => {
                         if (page > 1) {
                             setPage(page - 1);

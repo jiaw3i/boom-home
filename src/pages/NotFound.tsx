@@ -32,7 +32,7 @@ export default function NotFound() {
                 </div>
             </center>
             <center className="mt-6">
-                <a href="/"
+                <a href="/client/public"
                    className="text-gray-500 font-mono text-xl bg-gray-200 p-3 rounded-md hover:shadow-md">回到首页</a>
             </center>
         </div>

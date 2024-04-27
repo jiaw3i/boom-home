@@ -2,6 +2,10 @@ import {ManageMenusData, MenusData, Links, IMenu} from "@/util/menus";
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";
+import {get} from "@/util/request";
+import {LOGOUT_API} from "@/util/apis";
+import toast from "react-hot-toast";
+import * as path from "node:path";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
@@ -10,6 +14,14 @@ function Sidebar(props: any) {
     const navigate = useNavigate();
 
     const {username} = UseUserStore();
+    const logout = () => {
+        get(LOGOUT_API).then(res => {
+            if (res.success) {
+                toast.success(res.message)
+                location.reload()
+            }
+        })
+    }
     return (
         <div className="drawer-side flex-shrink-0  h-screen max-h-screen no-scrollbar">
             <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
@@ -77,7 +89,13 @@ function Sidebar(props: any) {
                         <div className="items-center font-mono align-middle gap-0">
                             {/*如果username==jiawei.me@hotmail.com，那么就显示已登录*/}
                             {username === "jiawei.me@hotmail.com" &&
-                                <p className={"prose"}>已登录</p>
+                                <div className={"w-full flex justify-between"}>
+                                    <div className={"prose"}>已登录</div>
+                                    <div className={"prose hover:cursor-pointer text-secondary"}
+                                         onClick={logout}>退出登录
+                                    </div>
+                                </div>
+
                             }
                             <p className={"prose"}>Copyright©2023 Owen</p>
                             <a href="https://icp.gov.moe/?keyword=20233353" className={"prose"}

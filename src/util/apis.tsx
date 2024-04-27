@@ -27,7 +27,7 @@ export const GET_POST_BY_ID = BOOM_HOME_BASE + "/post"
 export const GPT_STREAM_CHAT = BOOM_HOME_BASE + "/gpt/streamchat"
 
 export const LOGIN_API = "/api/auth/login"
-
+export const LOGOUT_API = "/api/auth/logout"
 export const CURRENT_USER = "/api/auth/current"
 
 const AI_BASE = "/api/ai"
