@@ -127,7 +127,7 @@ const EditPost = () => {
                 return
             }
             toast.success(res.message)
-            // navigate("post/")
+            navigate("/manage/blog")
         })
     }
     return (

@@ -78,7 +78,7 @@ const PostView = () => {
                                remarkPlugins={[remarkGfm]}
                                components={{
                                    img: ({node, ...props}) => {
-                                       return <img {...props} alt={"loading..."}/>
+                                       return <img {...props} alt={"loading..."} className={"max-w-xl"}/>
                                    },
                                    pre: ({children}) => <pre
                                        className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
@@ -109,7 +109,7 @@ const PostView = () => {
                                        } else {
                                            return (
                                                <code {...props}
-                                                     className="not-prose rounded bg-gray-200 px-1 font-lxgw dark:bg-zinc-900">
+                                                     className="prose rounded bg-gray-200 px-1 font-lxgw text-sm dark:bg-zinc-900">
                                                    {children}
                                                </code>
                                            );

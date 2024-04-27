@@ -51,7 +51,7 @@ const Blog = () => {
     const categories = ["哈哈", "dashdash", "哈哈", "dashdash", "哈哈", "dashdash"]
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open p-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
+            className={"drawer drawer-end lg:drawer-open lg:p-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
             <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
                 <div className={"post-links"}>

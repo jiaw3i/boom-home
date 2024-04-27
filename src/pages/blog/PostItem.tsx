@@ -30,7 +30,7 @@ const PostItem = (props: { post: Post }) => {
                     </div>
                 }
 
-                <div className={"post-info mb-1 text-gray-500 w-full flex flex-row justify-end text-right"}>
+                <div className={"post-info mb-1 text-gray-500 w-full flex flex-row justify-end text-right text-sm"}>
                     <div className={""}>@jiawei 发布于{post.createTime.split(" ")[0]}</div>
                 </div>
             </div>
