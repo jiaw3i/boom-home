@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import {get} from "@/util/request";
 import {CURRENT_USER} from "@/util/apis";
 import toast from "react-hot-toast";
-import * as path from "node:path";
 
 
 const AuthRoute = ({element}: { element: JSX.Element }) => {

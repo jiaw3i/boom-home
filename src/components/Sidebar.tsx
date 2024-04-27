@@ -1,16 +1,15 @@
 import {ManageMenusData, MenusData, Links, IMenu} from "@/util/menus";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {get} from "@/util/request";
 import {LOGOUT_API} from "@/util/apis";
 import toast from "react-hot-toast";
-import * as path from "node:path";
 
 function Sidebar(props: any) {
     const {title, setTitle} = props;
-    const {type, setType} = props;
-    const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
+    const {type} = props;
+    const [menus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
 
     const {username} = UseUserStore();
