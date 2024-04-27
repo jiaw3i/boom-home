@@ -2,32 +2,32 @@ import {useForm} from "react-hook-form";
 import {post} from "@/util/request";
 import {LOGIN_API} from "@/util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 type LoginProp = {
     username: string,
     password: string,
 }
 export default function Login() {
-
-    const {register, handleSubmit, formState: {errors}} = useForm<LoginProp>();
-    // const [username, setUsernameState] = useState("");
+    const [searchParams] = useSearchParams()
+    const [source, setSource] = useState("/recordwall")
+    const {register, handleSubmit} = useForm<LoginProp>();
     let navigate = useNavigate();
-    const {setUsername, setId} = UseUserStore();
+    const {setUsername} = UseUserStore();
     useEffect(() => {
-        console.log("login,{}", UseUserStore.getState());
-    })
+        let callback = searchParams.get("callback")
+        if (callback != null) {
+            setSource(callback)
+        }
+    }, [])
     const login = (login: LoginProp) => {
         console.log(login);
         post(LOGIN_API, login).then((res: any) => {
             console.log(res);
             if (res.success) {
-                console.log("start setUserInfo")
                 setUsername(login.username);
-                console.log(UseUserStore.getState());
-                navigate('/recordwall');
-                // window.location.href = "/home";
+                navigate(`${source}`);
             }
         });
     }

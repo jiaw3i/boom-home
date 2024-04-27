@@ -83,22 +83,22 @@ const PostView = () => {
                                    pre: ({children}) => <pre
                                        className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                    code: ({node, className, children, ...props}) => {
-
                                        if (typeof props.inline === "boolean")
                                            props.inline = props.inline.toString() as any;
-                                       // const match = /language-(\w+)/.exec(className || "");
+                                       const match = /language-(\w+)/.exec(className || "");
+                                       console.log(match)
                                        if (!props?.inline) {
                                            const id = Math.random().toString(36).substr(2, 9);
                                            return (
                                                <div className="rounded-md">
                                                    <div
                                                        className="flex h-9 items-center justify-between px-4 bg-neutral-600">
-                                                       <div className="flex items-center gap-2">
-                                                           <Terminal size={18}/>
+                                                       <div className="flex items-center gap-2 font-bold">
+                                                           <Terminal size={18}/> {match ? match[1] : ""}
                                                        </div>
                                                        <CopyButton id={id}/>
                                                    </div>
-                                                   <div className="overflow-x-auto">
+                                                   <div className="overflow-x-auto font-lxgw">
                                                        <div id={id}
                                                             className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
                                                            {children}
