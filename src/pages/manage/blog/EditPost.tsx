@@ -4,8 +4,8 @@ import "vditor/dist/index.css";
 import "./index.css"
 import {useForm} from "react-hook-form";
 import {Post} from "@/pages/blog/Blog";
-import {get, post, Result} from "@/util/request";
-import {GET_POST_BY_ID, PUBLISH_POST} from "@/util/apis";
+import {get, post} from "@/util/request";
+import {GET_POST_BY_ID, PUBLISH_POST, UPDATE_POST} from "@/util/apis";
 import toast from "react-hot-toast";
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -114,14 +114,32 @@ const EditPost = () => {
 
     const formSubmit = (data: any) => {
         const content = vd?.getValue()
-        let pubPost: Post = {...data}
-        if (content == undefined || content.length == 1) {
+        let curPost: Post = {...data}
+        if (content == undefined || content.length <= 1) {
             toast.error("文章内容不能为空！")
             return
         }
-        pubPost.content = content
+        curPost.content = content
 
+        if (curPost.id) {
+            updatePost(curPost)
+        } else {
+            publishPost(curPost)
+        }
+
+    }
+    const publishPost = (pubPost: Post) => {
         post(PUBLISH_POST, pubPost).then((res) => {
+            if (!res.success) {
+                toast.error(res.message)
+                return
+            }
+            toast.success(res.message)
+            navigate("/manage/blog")
+        })
+    }
+    const updatePost = (curPost: Post) => {
+        post(UPDATE_POST, curPost).then((res) => {
             if (!res.success) {
                 toast.error(res.message)
                 return
