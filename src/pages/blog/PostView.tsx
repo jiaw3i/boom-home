@@ -78,7 +78,7 @@ const PostView = () => {
                                remarkPlugins={[remarkGfm]}
                                components={{
                                    img: ({node, ...props}) => {
-                                       return <img {...props} alt={"loading..."} className={"max-w-xl"}/>
+                                       return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
                                    },
                                    pre: ({children}) => <pre
                                        className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
