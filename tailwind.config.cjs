@@ -6,7 +6,7 @@ module.exports = {
     ],
     theme: {
         fontFamily: {
-            'lxgw': "LXGW"
+            'lxgw': "LXGW WenKai Screen"
         },
         extend: {},
     },
