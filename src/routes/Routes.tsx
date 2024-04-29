@@ -3,7 +3,7 @@ import React, {lazy} from "react";
 import PostView from "@/pages/blog/PostView";
 import AuthRoute from "@/routes/AuthRoute";
 
-const RecordWall = lazy(() => import('@/components/recordwall/RecordWall'));
+const RecordWall = lazy(() => import('@/pages/recordwall/RecordWall'));
 const Blog = lazy(() => import('@/pages/blog/Blog'));
 const Projects = lazy(() => import('@/components/Projects'));
 const ManageProject = lazy(() => import('@/pages/manage/project/ManageProject'));

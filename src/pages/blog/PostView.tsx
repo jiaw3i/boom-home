@@ -39,7 +39,8 @@ const PostView = () => {
 
 
     return (
-        <div className={"post-view p-5 pt-0 flex flex-col w-full items-center overflow-scroll no-scrollbar"}>
+        <div
+            className={"post-view p-5 lg:pt-0 flex flex-col h-full w-full items-center"}>
             <div className={"prose post-header lg:w-[70vw] mb-3"}>
                 <div className={"font-bold text-xl"}>{post?.title}</div>
                 <div className={"flex flex-row justify-center"}>
@@ -70,7 +71,7 @@ const PostView = () => {
                 {/*<div className={"divider mt-0"}></div>*/}
             </div>
 
-            <div id="previewWrap" className={" rounded-md overflow-scroll no-scrollbar lg:w-[70vw]"}>
+            <div id="previewWrap" className={"rounded-md lg:w-[70vw]"}>
 
                 <ReactMarkdown className={"text-left prose max-w-full prose-invert"}
                                children={post?.content as string}
@@ -117,6 +118,21 @@ const PostView = () => {
                                    }
                                }}/>
             </div>
+            {/*<div className={"max-w-full lg:w-[70vw]"}>*/}
+
+                <ul className={"prose w-full lg:w-[70vw] post-copyright text-left mt-10 border-solid border-2 border-zinc-400 p-2 bg-base-200"}>
+                    <li className={"m-0"}><strong>文章作者：</strong>Jiawei</li>
+                    <li className={"m-0"}><strong>文章地址：</strong>https://tnbai.com/blog/{post?.id}</li>
+                    <li className={"m-0"}><strong>版权声明：</strong>本文采用
+                        <a rel="license"
+                           href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                           target="_blank"
+                           title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC
+                            BY-NC-ND 4.0</a>
+                        许可协议。转载请注明出处。
+                    </li>
+                </ul>
+            {/*</div>*/}
         </div>
     )
 }

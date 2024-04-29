@@ -2,10 +2,10 @@ import PostItem from "@/pages/blog/PostItem";
 import React, {useEffect, useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {get, post} from "@/util/request";
-import ContentSidebar, {Tag} from "@/components/recordwall/ContentSidebar";
+import ContentSidebar, {Tag} from "@/components/ContentSidebar";
 import {LIST_POST, LIST_TAGS} from "@/util/apis";
-import RecordEditor from "@/components/recordwall/RecordEditor";
-import {RecordList} from "@/components/recordwall/RecordList";
+import RecordEditor from "@/pages/recordwall/RecordEditor";
+import {RecordList} from "@/pages/recordwall/RecordList";
 import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
 import {log} from "vditor/dist/ts/util/log";
@@ -48,13 +48,12 @@ const Blog = () => {
         getPosts({tags: tags})
         setLoading(false);
     }
-    const categories = ["哈哈", "dashdash", "哈哈", "dashdash", "哈哈", "dashdash"]
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 flex flex-row flex-grow w-full h-full max-h-fit"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
             <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full "}>
-                <div className={"post-links overflow-scroll no-scrollbar"}>
+                <div className={"post-links"}>
 
                     <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
                         <div className={"font-bold text-2xl prose"}>✍️</div>

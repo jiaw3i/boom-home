@@ -1,10 +1,10 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import RecordEditor from "@/components/recordwall/RecordEditor";
+import RecordEditor from "@/pages/recordwall/RecordEditor";
 import {get, post} from "@/util/request";
 import {LIST_ALL_RECORD, LIST_TAGS} from "@/util/apis";
-import ContentSidebar, {Tag} from "@/components/recordwall/ContentSidebar";
+import ContentSidebar, {Tag} from "@/components/ContentSidebar";
 import {UseUserStore} from "@/store/UserInfoStore";
-import {RecordList} from "@/components/recordwall/RecordList";
+import {RecordList} from "@/pages/recordwall/RecordList";
 
 export interface RecordInfo {
     id: number,
@@ -65,12 +65,12 @@ export default function RecordWall(props: any) {
     }
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
-            <input id="record-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
+            className={"drawer drawer-end lg:drawer-open flex flex-row flex-grow w-full h-full max-h-full"}>
+            <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
+            <div className={"flex flex-col w-full pl-5 pr-5 max-h-full"}>
                 <div className={"flex flex-row justify-between mb-1 pb-1 lg:hidden"}>
                     <div className={"font-bold text-2xl prose"}>✍️👀💻</div>
-                    <label htmlFor="record-drawer" className="drawer-button hover:cursor-pointer prose">
+                    <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">
                         <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"/>

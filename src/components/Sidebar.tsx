@@ -22,7 +22,7 @@ function Sidebar(props: any) {
         })
     }
     return (
-        <div className="drawer-side flex-shrink-0  h-screen max-h-screen no-scrollbar">
+        <div className="drawer-side flex-shrink-0 z-20 h-screen max-h-screen no-scrollbar">
             <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
             <aside className="flex flex-col bg-base-200 h-full pt-8 w-80 lg:w-60">
                 <div className="chat chat-start flex h-auto pl-4 pr-4 items-end">

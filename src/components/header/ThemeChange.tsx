@@ -34,8 +34,8 @@ export default function ThemeChange() {
 
     return (
         <>
-            <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost m-1">
+            <div className="dropdown dropdown-end max-h-full">
+                <label tabIndex={0} className="btn btn-ghost lg:m-1 m-0 max-h-5">
                     主题
                     <svg width="12px" height="12px" className="hidden h-2 w-2 fill-current opacity-60 sm:inline-block"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">

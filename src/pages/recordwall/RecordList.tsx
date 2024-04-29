@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import React from "react";
-import {RecordInfo} from "@/components/recordwall/RecordWall";
+import {RecordInfo} from "@/pages/recordwall/RecordWall";
 import {get} from "@/util/request";
 import {DELETE_RECORD} from "@/util/apis";
 import toast from "react-hot-toast";
