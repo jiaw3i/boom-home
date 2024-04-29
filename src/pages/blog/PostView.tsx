@@ -10,7 +10,6 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
-import {PhotoProvider, PhotoView} from "react-photo-view";
 import {Terminal} from "lucide-react";
 import CopyButton from "@/components/CopyBtn";
 
@@ -18,9 +17,6 @@ const PostView = () => {
 
     const {postId} = useParams()
     const [post, setPost] = useState<Post>()
-    // 定义一个 ref 用于获取渲染 Markdown 的 DOM 容器
-    const vditorPreviewRef = useRef(null);
-    const vditorOutlineRef = useRef(null);
 
     useEffect(() => {
 
@@ -82,24 +78,27 @@ const PostView = () => {
                                remarkPlugins={[remarkGfm]}
                                components={{
                                    img: ({node, ...props}) => {
-                                       return <img {...props} alt={"loading..."}/>
+                                       return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
                                    },
                                    pre: ({children}) => <pre
-                                       className="px-2 w-full max-w-full overflow-x-hidden">{children}</pre>,
+                                       className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                    code: ({node, className, children, ...props}) => {
+                                       if (typeof props.inline === "boolean")
+                                           props.inline = props.inline.toString() as any;
                                        const match = /language-(\w+)/.exec(className || "");
-                                       if (match?.length) {
+                                       console.log(match)
+                                       if (!props?.inline) {
                                            const id = Math.random().toString(36).substr(2, 9);
                                            return (
                                                <div className="rounded-md">
                                                    <div
                                                        className="flex h-9 items-center justify-between px-4 bg-neutral-600">
-                                                       <div className="flex items-center gap-2">
-                                                           <Terminal size={18}/>
+                                                       <div className="flex items-center gap-2 font-bold">
+                                                           <Terminal size={18}/> {match ? match[1] : ""}
                                                        </div>
                                                        <CopyButton id={id}/>
                                                    </div>
-                                                   <div className="overflow-x-auto">
+                                                   <div className="overflow-x-auto font-lxgw">
                                                        <div id={id}
                                                             className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
                                                            {children}
@@ -111,6 +110,7 @@ const PostView = () => {
                                            return (
                                                <code {...props}
                                                      className="prose rounded px-1 font-lxgw dark:bg-zinc-900">
+                                                     className="prose rounded bg-gray-200 px-1 font-lxgw text-sm dark:bg-zinc-900">
                                                    {children}
                                                </code>
                                            );

@@ -10,6 +10,7 @@ import {UseUserStore} from "@/store/UserInfoStore";
 import {Toaster} from "react-hot-toast";
 import ThemeChange from "@/components/theme/ThemeChange";
 import PostView from "@/pages/blog/PostView";
+import MyRoutes from "@/routes/Routes";
 
 const Home = lazy(() => import('./components/Home'));
 const Sidebar = lazy(() => import('./components/Sidebar'));
@@ -20,7 +21,7 @@ const Projects = lazy(() => import('./components/Projects'));
 const ManageProject = lazy(() => import('./pages/manage/project/ManageProject'));
 const ManageBlog = lazy(() => import('./pages/manage/blog/ManageBlog'));
 const EditPost = lazy(() => import('./pages/manage/blog/EditPost'));
-const NotFound = lazy(() => import('./components/NotFound'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 const Loader = lazy(() => import('./components/Loader'));
 const ChatBot = lazy(() => import('./components/chatbot/ChatBot'));
 const ChatType = lazy(() => import('./components/chatbot/ChatType'));
@@ -120,64 +121,7 @@ function App() {
                         </div>
                         <div className={"divider mt-0"}></div>
                         <Suspense>
-                            <Routes>
-                                <Route path={"/lab"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <Projects/>
-                                    </React.Suspense>
-                                }/>
-                                <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl}/>}/>
-                                <Route path={"/aboutme"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <Home/>
-                                    </React.Suspense>
-                                }/>
-                                <Route path={"/manage"}>
-                                    <Route path={"project"} element={
-                                        <React.Suspense fallback={<Loader/>}>
-                                            <ManageProject/>
-                                        </React.Suspense>
-                                    }/>
-                                    <Route path={"blog"} element={
-                                        <React.Suspense fallback={<Loader/>}>
-                                            <ManageBlog/>
-                                        </React.Suspense>
-                                    }>
-                                    </Route>
-                                    <Route path={"blog/edit"} element={
-                                        <React.Suspense fallback={<Loader/>}>
-                                            <EditPost/>
-                                        </React.Suspense>
-                                    }/>
-                                </Route>
-                                <Route path={"/recordwall"} element={
-                                    <RecordWall setImgUrl={setImgUrl}/>
-                                }/>
-                                <Route path={"/blog"} element={
-                                    <Blog/>
-                                }/>
-                                <Route path={"/blog/:postId"} element={
-                                    <PostView/>
-                                }/>
-                                <Route path={"/chatbot"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <ChatType/>
-                                    </React.Suspense>
-                                }>
-                                </Route>
-                                <Route path={"/chatbot/:type"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <ChatBot/>
-                                    </React.Suspense>
-                                }/>
-
-                                <Route path={"*"} element={
-                                    <React.Suspense fallback={<Loader/>}>
-                                        <NotFound/>
-                                    </React.Suspense>
-                                }>
-                                </Route>
-                            </Routes>
+                            <MyRoutes setImgUrl={setImgUrl}/>
                         </Suspense>
                     </div>
                 </div>

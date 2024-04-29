@@ -19,7 +19,7 @@ const MenusData: Array<IMenu> = [
     },
     {
         title: "Blog",
-        cnTitle: "博客",
+        cnTitle: "博客📖",
         icon: <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
@@ -157,6 +157,7 @@ const Links = [
             <line x1="13" y1="12" x2="15" y2="12"/>
         </svg>,
         isShow: true,
+        needLogin:true,
         url: "/manage"
     },
     {

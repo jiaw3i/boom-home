@@ -14,87 +14,68 @@ import {log} from "vditor/dist/ts/util/log";
 const Blog = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
-    const [tags, setTags] = useState<Tag[]>([{
-        id: 1,
-        tagName: "第一个",
-        createTime: "s"
-    }, {
-        id: 2,
-        tagName: "第二个",
-        createTime: "s"
-    }, {
-        id: 3,
-        tagName: "第三个",
-        createTime: "s"
-    }]);
+    const [tags, setTags] = useState<Tag[]>([]);
     const [posts, setPosts] = useState<Array<Post>>([])
     const [allPosts, setAllPosts] = useState<Array<Post>>([])
-    const pageSize = 5
+    const pageSize = 8
     const [totalPage, setTotalPage] = useState(1)
     const [page, setPage] = useState(1)
+    const [total, setTotal] = useState(1)
 
 
     // 请求获取列表
     useEffect(() => {
         getPosts()
+        getTags()
     }, [page]);
 
-    const getPosts = () => {
-        post(LIST_POST, {page: page, pageSize: pageSize}).then((res: any) => {
-            setPosts(res.data.posts);
+    const getPosts = (options?: any) => {
+        post(LIST_POST, {page: page, pageSize: pageSize, ...options}).then((res: any) => {
+            setPosts(res.data.posts)
+            setTotal(res.data.total)
             setTotalPage(Math.ceil(res.data.total / pageSize))
         });
     }
-    const refreshTags = () => {
-        // setTagLoading(true);
-        // get(LIST_TAGS, {}).then((res: any) => {
-        //     setTags(res.data);
-        //     setTagLoading(false);
-        // });
+
+    const getTags = () => {
+        get(LIST_TAGS, {type: "post"}).then((res: any) => {
+            setTags(res.data);
+        });
     }
 
-    const filterPost = (tags: Array<string>) => {
+    const filterPost = (tags: Array<Tag>) => {
         setLoading(true)
-        let filterPosts = posts.filter((post: Post) => {
-            let recordTags = post.tag.split(",");
-            // recordTags和tags有无并集
-            for (let i = 0; i < recordTags.length; i++) {
-                for (let j = 0; j < tags.length; j++) {
-                    if (recordTags[i] === tags[j]) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        });
-        setPosts([...filterPosts]);
+        getPosts({tags: tags})
         setLoading(false);
     }
     const categories = ["哈哈", "dashdash", "哈哈", "dashdash", "哈哈", "dashdash"]
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open p-10 pt-0 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 pb-5 flex flex-row flex-grow w-full h-full max-h-fit overflow-scroll no-scrollbar"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col w-full pl-5 pr-5 max-h-full overflow-scroll no-scrollbar"}>
-                <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
-                    <div className={"font-bold text-2xl prose"}>✍️</div>
-                    <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">
-                        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="11" cy="11" r="8"/>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                        </svg>
-                    </label>
-                </div>
-                {
+            <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full "}>
+                <div className={"post-links overflow-scroll no-scrollbar"}>
 
-                    posts.map(post => {
-                        return <Link key={post.id} to={post.id.toString()}>
-                            <PostItem post={post}/>
-                        </Link>
-                    })
-                }
-                <div className={"flex flex-row justify-between"}>
+                    <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
+                        <div className={"font-bold text-2xl prose"}>✍️</div>
+                        <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">
+                            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                        </label>
+                    </div>
+                    {
+
+                        posts.map(post => {
+                            return <Link key={post.id} to={post.id.toString()}>
+                                <PostItem post={post}/>
+                            </Link>
+                        })
+                    }
+                </div>
+                <div className={"flex flex-row justify-between mt-2"}>
                     <button className="join-item btn" onClick={() => {
                         if (page > 1) {
                             setPage(page - 1);
@@ -119,8 +100,7 @@ const Blog = () => {
                     </button>
                 </div>
             </div>
-            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filter={filterPost}
-                            allDate={allPosts} setDate={setPosts}/>
+            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total}/>
         </div>
     )
 }
