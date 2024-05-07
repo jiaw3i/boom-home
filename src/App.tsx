@@ -63,7 +63,7 @@ function App() {
             <div><Toaster/></div>
             <div className="drawer drawer-mobile lg:drawer-open no-scrollbar">
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
-                <div className="drawer-content max-h-screen flex flex-col no-scrollbar">
+                <div className="drawer-content flex flex-col overflow-y-scroll no-scrollbar">
 
                     <div className="flex flex-col flex-grow max-h-full no-scrollbar">
                         <Header title={title}/>
