@@ -120,7 +120,7 @@ const PostView = () => {
             </div>
             {/*<div className={"max-w-full lg:w-[70vw]"}>*/}
             <div className={"w-full lg:w-auto"}>
-                <div className={"divider w-full lg:w-[70vw]"}>正文结束</div>
+                <div className={"divider w-full lg:w-[70vw] prose"}>正文结束</div>
             </div>
             <ul className={"prose w-full lg:w-[70vw] mb-3 post-copyright text-left border-solid border-2 rounded-md border-zinc-400 p-2 bg-base-200"}>
                 <li className={"m-0"}><strong>文章作者：</strong>Jiawei</li>
