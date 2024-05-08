@@ -22,7 +22,7 @@ const Header = (props:any) => {
         }
     };
     return (
-        <div className="header fixed lg:static lg:border-b-2 lg:mb-1 z-10 lg:z-auto w-full top-0 backdrop-blur-sm bg-white/30 flex items-center lg:w-full justify-between max-w-full">
+        <div className="header fixed lg:static lg:border-b-2 lg:border-base-200 lg:mb-1 z-10 lg:z-auto w-full top-0 backdrop-blur-sm bg-white/30 lg:backdrop-blur-none lg:bg-base-100 flex items-center lg:w-full justify-between max-w-full">
             <div className="flex-none lg:hidden left-0 prose max-h-full">
                 <label htmlFor="my-drawer-menu" className="max-h-full btn btn-square btn-ghost">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

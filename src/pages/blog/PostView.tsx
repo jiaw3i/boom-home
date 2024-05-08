@@ -9,14 +9,25 @@ import "./index.css"
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
+import rehypeSlug from 'rehype-slug'
 import remarkGfm from "remark-gfm";
+import remarkToc from "remark-toc";
 import {Terminal} from "lucide-react";
 import CopyButton from "@/components/CopyBtn";
+import PostToolBar from "@/pages/blog/PostTool";
+import MarkdownNavbar from 'markdown-navbar';
+
+type Heading = {
+    level: number,
+    id: string | undefined
+}
 
 const PostView = () => {
 
     const {postId} = useParams()
     const [post, setPost] = useState<Post>()
+    const [showPostNav, setShowPostNav] = useState<boolean>(false)
+    const [headings, setHeadings] = useState<Array<Heading>>([])
 
     useEffect(() => {
 
@@ -41,7 +52,7 @@ const PostView = () => {
     return (
         <div
             className={"post-view px-5 lg:pt-0 flex flex-col w-full items-center"}>
-            <div className={"prose post-header lg:w-[70vw] mb-3"}>
+            <div className={"prose post-header lg:w-[70%] mb-3"}>
                 <div className={"font-bold text-xl"}>{post?.title}</div>
                 <div className={"flex flex-row justify-center"}>
                     <div className={"flex flex-row mr-3"}>
@@ -71,13 +82,27 @@ const PostView = () => {
                 {/*<div className={"divider mt-0"}></div>*/}
             </div>
 
-            <div id="previewWrap" className={"rounded-md lg:w-[70vw]"}>
+            <div id="previewWrap" className={"rounded-md lg:w-[70%]"}>
 
                 <ReactMarkdown className={"text-left prose max-w-full prose-invert"}
                                children={post?.content as string}
                                rehypePlugins={[rehypeRaw, rehypeHighlight as any]}
-                               remarkPlugins={[remarkGfm]}
+                               remarkPlugins={[remarkGfm, remarkToc]}
+
                                components={{
+                                   h1: ({children, node, ...props}) => {
+                                       let heads = headings
+                                       heads.push({level: props.level, id: props.id})
+                                       setHeadings(heads)
+                                       return (<h1 id={props.id}><a href={`#${props.id}`}>{children}</a></h1>)
+                                   },
+                                   h2: ({children, node, ...props}) => {
+                                       let heads = headings
+                                       heads.push({level: props.level, id: props.id})
+                                       setHeadings(heads)
+                                       console.log(children)
+                                       return (<h2 id={props.id}><a href={`#${props.id}`}>{children}</a></h2>)
+                                   },
                                    img: ({node, ...props}) => {
                                        return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
                                    },
@@ -87,7 +112,6 @@ const PostView = () => {
                                        if (typeof props.inline === "boolean")
                                            props.inline = props.inline.toString() as any;
                                        const match = /language-(\w+)/.exec(className || "");
-                                       console.log(match)
                                        if (!props?.inline) {
                                            const id = Math.random().toString(36).substr(2, 9);
                                            return (
@@ -118,11 +142,17 @@ const PostView = () => {
                                    }
                                }}/>
             </div>
+            {/*<div*/}
+            {/*    className={"prose fixed navigation right-2 text-sm top-[70px] lg:w-[10%] w-[30] shadow-xl lg:shadow-none backdrop-blur-sm lg:block lg:bg-transparent p-2 rounded-md " + (showPostNav ? "" : "hidden ")}>*/}
+            {/*    <MarkdownNavbar source={post?.content as string} ordered={false} headingTopOffset={10} declarative={true}/>*/}
+            {/*    <div><a href="#诸葛古镇">诸葛古镇</a></div>*/}
+            {/*</div>*/}
+
             {/*<div className={"max-w-full lg:w-[70vw]"}>*/}
             <div className={"w-full lg:w-auto"}>
-                <div className={"divider w-full lg:w-[70vw] prose"}>正文结束</div>
+                <div className={"divider w-full lg:w-[70%] prose"}>正文结束</div>
             </div>
-            <ul className={"prose w-full lg:w-[70vw] mb-3 post-copyright text-left border-solid border-2 rounded-md border-zinc-400 p-2 bg-base-200"}>
+            <ul className={"prose w-full lg:w-[70%] mb-3 post-copyright text-left border-solid border-2 rounded-md border-zinc-400 p-2 bg-base-200"}>
                 <li className={"m-0"}><strong>文章作者：</strong>Jiawei</li>
                 <li className={"m-0"}><strong>文章地址：</strong>https://tnbai.com/blog/{post?.id}</li>
                 <li className={"m-0"}><strong>版权声明：</strong>本文采用
@@ -134,6 +164,7 @@ const PostView = () => {
                     许可协议。转载请注明出处。
                 </li>
             </ul>
+            <PostToolBar setShowPostNav={setShowPostNav} showPostNav={showPostNav}></PostToolBar>
         </div>
     )
 }
