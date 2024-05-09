@@ -111,6 +111,7 @@ export type Post = {
     title: string,
     description?: string,
     content: string,
+    publish: string,
     tag: string,
     createTime: string,
     updateTime: string

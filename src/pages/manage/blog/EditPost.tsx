@@ -1,13 +1,14 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
 import "./index.css"
 import {useForm} from "react-hook-form";
 import {Post} from "@/pages/blog/Blog";
 import {get, post} from "@/util/request";
-import {GET_POST_BY_ID, PUBLISH_POST, UPDATE_POST} from "@/util/apis";
+import {GET_POST_BY_ID, LIST_TAGS, PUBLISH_POST, UPDATE_POST} from "@/util/apis";
 import toast from "react-hot-toast";
 import {useNavigate, useParams} from "react-router-dom";
+import {Tag} from "@/components/ContentSidebar";
 
 const EditPost = () => {
     const [vd, setVd] = useState<Vditor>();
@@ -15,6 +16,8 @@ const EditPost = () => {
     const [editPost, setEditPost] = useState<Post>()
     const navigate = useNavigate()
     const {postId} = useParams()
+    const [tags, setTags] = useState<Tag[]>([]);
+
     const {register, handleSubmit, formState: {errors}, setValue} = useForm<Post>();
     useEffect(() => {
         if (postId != null) {
@@ -101,7 +104,11 @@ const EditPost = () => {
             vd?.setValue(editPost.content as string)
         }
     }, [editPost]);
-
+    const getTags = () => {
+        get(LIST_TAGS, {type: "post"}).then((res: any) => {
+            setTags(res.data);
+        });
+    }
     const getPostById = (id: string) => {
         get(`${GET_POST_BY_ID}/${id}`).then(res => {
             if (!res.success) {
@@ -126,7 +133,6 @@ const EditPost = () => {
         } else {
             publishPost(curPost)
         }
-
     }
     const publishPost = (pubPost: Post) => {
         post(PUBLISH_POST, pubPost).then((res) => {
@@ -169,6 +175,7 @@ const EditPost = () => {
                             <label className="label">
                                 <span className="label-text">标签</span>
                             </label>
+                            {/*<MultiSelect></MultiSelect>*/}
                             <input type="text" {...register("tag")}
                                    placeholder="标签" className="input input-bordered w-full"/>
                         </div>
@@ -180,6 +187,17 @@ const EditPost = () => {
                                        placeholder="文章描述"
                                        className="overflow-visible textarea textarea-bordered no-scrollbar w-full"/>
                         </div>
+                        <div>
+                            <label className="label">
+                                <span className="label-text">是否公开</span>
+                            </label>
+                            <select {...register("publish", {required: true})}
+                                    className="lg:w-40 w-full lg:mr-5 select select-bordered" defaultValue={1}>
+                                <option value={1}>公开</option>
+                                <option value={0}>不公开</option>
+                            </select>
+                        </div>
+
 
                     </div>
                     <div className={"flex flex-row justify-start mt-5"}>
