@@ -61,7 +61,7 @@ const PostView = () => {
 
     return (
         <div
-            className={"post-view px-5 lg:pt-0 flex flex-row w-full justify-between"}>
+            className={"post-view lg:px-5 lg:pt-0 flex flex-row w-full justify-between"}>
             <div className={"post-left flex flex-col lg:w-9/12 px-5"}>
 
                 <div className={"prose post-header  mb-3"}>

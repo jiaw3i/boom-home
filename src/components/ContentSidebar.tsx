@@ -39,7 +39,7 @@ export default function ContentSidebar(Props: RecordSidebarProps) {
     }
     return (
         <div
-            className={"lg:!flex lg:sticky  z-20 lg:z-1 lg:top-[60px] lg:max-h-80 lg:!w-3/12 lg:!min-w-[15rem] lg:mr-5 side drawer-side "}>
+            className={"lg:!flex lg:sticky lg:z-1 lg:top-[60px] lg:max-h-80 lg:!w-3/12 lg:!min-w-[15rem] lg:mr-5 side drawer-side "}>
             <label htmlFor="sidbar-drawer" className="drawer-overlay"></label>
             <div
                 className={"side-content w-80 bg-base-300 lg:bg-transparent lg:shadow-xl lg:rounded-xl flex h-full lg:pt-0 pt-5 flex-col lg:w-full pl-5 pr-5"}>
