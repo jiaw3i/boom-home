@@ -65,12 +65,12 @@ function App() {
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
                 <div className="drawer-content flex flex-col overflow-y-scroll no-scrollbar">
 
-                    <div className="flex flex-col flex-grow max-h-full no-scrollbar">
+                    <div className="flex flex-col flex-grow overflow-visible no-scrollbar">
                         <Header title={title}/>
                         {/*<div className={"divider mt-0 mb-1 lg:flex hidden"}></div>*/}
                         <Suspense>
-                            <div className={"content lg:pt-0 pb-2 -z-1 overflow-scroll no-scrollbar"}>
-                                <div className={"h-[50px] w-full lg:hidden"}></div>
+                            <div className={"content lg:pt-0 pt-[50px] pb-2 -z-1"}>
+                                {/*<div className={"h-[50px] w-full lg:hidden"}></div>*/}
                                 <MyRoutes setImgUrl={setImgUrl}/>
                             </div>
                         </Suspense>

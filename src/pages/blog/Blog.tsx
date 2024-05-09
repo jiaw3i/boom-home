@@ -66,7 +66,6 @@ const Blog = () => {
                         </label>
                     </div>
                     {
-
                         posts.map(post => {
                             return <Link key={post.id} to={post.id.toString()}>
                                 <PostItem post={post}/>
