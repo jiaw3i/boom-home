@@ -46,7 +46,6 @@ const PostView = () => {
         if (heads != undefined) {
             setHeadings(heads)
         }
-        console.log(heads)
     }, [post]);
 
     const getPostById = (id: string) => {

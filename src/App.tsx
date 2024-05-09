@@ -29,7 +29,6 @@ function App() {
         if (username === "") {
             get(CURRENT_USER).then((res: any) => {
                 if (res.success && res.data.username !== username) {
-                    console.log("app,{}", res.data.username);
                     setUsername(res.data.username);
                 }
             });

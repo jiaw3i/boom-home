@@ -25,7 +25,6 @@ export default function RecordWall(props: any) {
     const username = UseUserStore((state) => state.username);
     const [isLogin, setIsLogin] = useState<boolean>();
     useEffect(() => {
-        console.log(username);
         if (username === "jiawei.me@hotmail.com") {
             setIsLogin(true);
         } else {
