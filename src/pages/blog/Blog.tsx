@@ -111,7 +111,7 @@ export type Post = {
     id: string,
     title: string,
     description?: string,
-    content?: string,
+    content: string,
     tag: string,
     createTime: string,
     updateTime: string

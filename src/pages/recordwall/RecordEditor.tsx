@@ -145,8 +145,8 @@ export default function RecordEditor(props: any) {
                         <option value={1}>所有人可见</option>
                         <option value={0}>仅自己可见</option>
                     </select>
-                    <input type={"submit"} className={"btn-primary btn-sm rounded hover:cursor-pointer"}
-                           value={"发布✍️"}/>
+                    <input type={"submit"} className={"btn btn-primary btn-sm rounded hover:cursor-pointer"}
+                           value={"发布"}/>
                     <Toaster></Toaster>
                 </div>
             </form>

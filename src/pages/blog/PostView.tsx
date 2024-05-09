@@ -15,11 +15,11 @@ import remarkToc from "remark-toc";
 import {Terminal} from "lucide-react";
 import CopyButton from "@/components/CopyBtn";
 import PostToolBar from "@/pages/blog/PostTool";
-import MarkdownNavbar from 'markdown-navbar';
+import {TOC} from "@/pages/blog/Toc";
 
-type Heading = {
+export type Heading = {
     level: number,
-    id: string | undefined
+    title: string | undefined
 }
 
 const PostView = () => {
@@ -28,14 +28,26 @@ const PostView = () => {
     const [post, setPost] = useState<Post>()
     const [showPostNav, setShowPostNav] = useState<boolean>(false)
     const [headings, setHeadings] = useState<Array<Heading>>([])
-
+    // let headings: any = {}
     useEffect(() => {
-
         getPostById(postId as string)
     }, []);
 
     useEffect(() => {
-        // renderMDToPreview()
+        let heads: Heading[] | undefined = post?.content
+            .split('\n')
+            .filter((line) => line.match(/#{1,3}\s/))
+            .map((line) => {
+                const [, level, title]: any = line.match(/(#{1,3})\s(.*)/)
+                return {
+                    level: level.length,
+                    title,
+                } as Heading
+            })
+        if (heads != undefined) {
+            setHeadings(heads)
+        }
+        console.log(heads)
     }, [post]);
 
     const getPostById = (id: string) => {
@@ -86,22 +98,15 @@ const PostView = () => {
 
                 <ReactMarkdown className={"text-left prose max-w-full prose-invert"}
                                children={post?.content as string}
-                               rehypePlugins={[rehypeRaw, rehypeHighlight as any]}
-                               remarkPlugins={[remarkGfm, remarkToc]}
+                               rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight as any]}
+                               remarkPlugins={[remarkGfm]}
 
                                components={{
                                    h1: ({children, node, ...props}) => {
-                                       let heads = headings
-                                       heads.push({level: props.level, id: props.id})
-                                       setHeadings(heads)
-                                       return (<h1 id={props.id}><a href={`#${props.id}`}>{children}</a></h1>)
+                                       return (<h1 id={children as string} className={"target:pt-20 target:-mt-20"}>{children}</h1>)
                                    },
                                    h2: ({children, node, ...props}) => {
-                                       let heads = headings
-                                       heads.push({level: props.level, id: props.id})
-                                       setHeadings(heads)
-                                       console.log(children)
-                                       return (<h2 id={props.id}><a href={`#${props.id}`}>{children}</a></h2>)
+                                       return (<h2 id={children as string} className={"target:pt-20 target:-mt-20"}>{children}</h2>)
                                    },
                                    img: ({node, ...props}) => {
                                        return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
@@ -142,11 +147,7 @@ const PostView = () => {
                                    }
                                }}/>
             </div>
-            {/*<div*/}
-            {/*    className={"prose fixed navigation right-2 text-sm top-[70px] lg:w-[10%] w-[30] shadow-xl lg:shadow-none backdrop-blur-sm lg:block lg:bg-transparent p-2 rounded-md " + (showPostNav ? "" : "hidden ")}>*/}
-            {/*    <MarkdownNavbar source={post?.content as string} ordered={false} headingTopOffset={10} declarative={true}/>*/}
-            {/*    <div><a href="#诸葛古镇">诸葛古镇</a></div>*/}
-            {/*</div>*/}
+            <TOC showToc={showPostNav} headings={headings}></TOC>
 
             {/*<div className={"max-w-full lg:w-[70vw]"}>*/}
             <div className={"w-full lg:w-auto"}>
