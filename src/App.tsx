@@ -58,13 +58,13 @@ function App() {
         return finalTitle;
     };
     return (
-        <div className="flex flex-row w-screen bg-base-100 h-screen max-h-screen max-w-screen no-scrollbar">
+        <div className="flex flex-row w-screen bg-base-100  max-w-screen no-scrollbar">
             <div><Toaster/></div>
             <div className="drawer drawer-mobile lg:drawer-open no-scrollbar">
                 <input id="my-drawer-menu" type="checkbox" className="drawer-toggle"/>
-                <div className="drawer-content flex flex-col overflow-y-scroll no-scrollbar">
+                <div className="drawer-content flex flex-col no-scrollbar">
 
-                    <div className="flex flex-col flex-grow overflow-visible no-scrollbar">
+                    <div className="flex flex-col flex-grow no-scrollbar">
                         <Header title={title}/>
                         {/*<div className={"divider mt-0 mb-1 lg:flex hidden"}></div>*/}
                         <Suspense>
