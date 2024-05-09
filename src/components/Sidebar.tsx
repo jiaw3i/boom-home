@@ -1,17 +1,19 @@
 import {ManageMenusData, MenusData, Links, IMenu} from "@/util/menus";
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {get} from "@/util/request";
 import {LOGOUT_API} from "@/util/apis";
 import toast from "react-hot-toast";
 
 function Sidebar(props: any) {
-    const {title, setTitle} = props;
-    const {type} = props;
-    const [menus] = useState(type === "common" ? MenusData : ManageMenusData);
+    const {type, title, setTitle} = props;
+    const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        setMenus(type === "common" ? MenusData : ManageMenusData)
+    }, [type]);
     const {username} = UseUserStore();
     const logout = () => {
         get(LOGOUT_API).then(res => {
@@ -26,9 +28,9 @@ function Sidebar(props: any) {
             <label htmlFor="my-drawer-menu" className="drawer-overlay"></label>
             <aside className="flex flex-col bg-base-200 h-full pt-8 w-80 lg:w-60">
                 <div className="chat chat-start flex h-auto pl-4 pr-4 items-end">
-                    <div className="chat-image avatar">
+                    <div className="chat-image avatar hover:cursor-pointer" onClick={() => navigate("/")}>
                         <div className="w-12 rounded-full">
-                            <img src="../../huahua.png" alt={"loading"}/>
+                            <img src="/huahua.png" alt={"loading"}/>
                         </div>
                     </div>
                     <div className="chat-bubble font-bold font-mono text-sm flex flex-col justify-center">

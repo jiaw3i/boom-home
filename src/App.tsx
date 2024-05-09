@@ -26,6 +26,8 @@ function App() {
     const [imgUrl, setImgUrl] = useState<string>("");
     useEffect(() => {
         setTitle(currentTitle());
+        setType(location.pathname.match("/manage/*") ? "admin" : "common")
+        console.log(type)
         if (username === "") {
             get(CURRENT_USER).then((res: any) => {
                 if (res.success && res.data.username !== username) {
@@ -35,10 +37,12 @@ function App() {
         }
     });
 
+
+
     const currentTitle = () => {
-        // console.log("enter,{}", location.pathname)
-        let title = "Home";
-        let finalTitle = "Home";
+        console.log("enter,", location.pathname)
+        let title: string;
+        let finalTitle: string;
         if (location.pathname.match("/manage/*")) {
             let paths = location.pathname.split("/")
             title = paths[2];
