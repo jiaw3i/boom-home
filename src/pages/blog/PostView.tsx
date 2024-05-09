@@ -1,17 +1,15 @@
 import {useParams} from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {get} from "@/util/request";
 import {GET_POST_BY_ID} from "@/util/apis";
 import toast from "react-hot-toast";
 import {Post} from "@/pages/blog/Blog";
-import Vditor from "vditor";
 import "./index.css"
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from "remark-gfm";
-import remarkToc from "remark-toc";
 import {Terminal} from "lucide-react";
 import CopyButton from "@/components/CopyBtn";
 import PostToolBar from "@/pages/blog/PostTool";
@@ -91,7 +89,6 @@ const PostView = () => {
                         </div>
                     }
                 </div>
-                {/*<div className={"divider mt-0"}></div>*/}
             </div>
 
             <div id="previewWrap" className={"rounded-md lg:w-[70%]"}>
@@ -100,13 +97,14 @@ const PostView = () => {
                                children={post?.content as string}
                                rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight as any]}
                                remarkPlugins={[remarkGfm]}
-
                                components={{
-                                   h1: ({children, node, ...props}) => {
-                                       return (<h1 id={children as string} className={"target:pt-20 target:-mt-20"}>{children}</h1>)
+                                   h1: ({children}) => {
+                                       return (<h1 id={children as string}
+                                                   className={"target:pt-20 target:-mt-20"}>{children}</h1>)
                                    },
-                                   h2: ({children, node, ...props}) => {
-                                       return (<h2 id={children as string} className={"target:pt-20 target:-mt-20"}>{children}</h2>)
+                                   h2: ({children}) => {
+                                       return (<h2 id={children as string}
+                                                   className={"target:pt-20 target:-mt-20"}>{children}</h2>)
                                    },
                                    img: ({node, ...props}) => {
                                        return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
@@ -155,7 +153,8 @@ const PostView = () => {
             </div>
             <ul className={"prose w-full lg:w-[70%] mb-3 post-copyright text-left border-solid border-2 rounded-md border-zinc-400 p-2 bg-base-200"}>
                 <li className={"m-0"}><strong>文章作者：</strong>Jiawei</li>
-                <li className={"m-0"}><strong>文章地址：</strong>https://tnbai.com/blog/{post?.id}</li>
+                <li className={"m-0"}><strong>文章地址：</strong><a
+                    href={`https://tnbai.com/blog/${post?.id}`}>https://tnbai.com/blog/{post?.id}</a></li>
                 <li className={"m-0"}><strong>版权声明：</strong>本文采用
                     <a rel="license"
                        href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
