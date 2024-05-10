@@ -70,7 +70,6 @@ function Sidebar(props: any) {
                                          key={link.title} onClick={() => {
                                         window.open(link.url, "_blank");
                                     }}>
-                                        {link.icon}
                                         {link.title}
                                         <span className={"flex-none lowercase absolute right-0 mr-3"}>
                                             <svg className="h-6 w-6" width="24" height="24" viewBox="0 0 24 24"
