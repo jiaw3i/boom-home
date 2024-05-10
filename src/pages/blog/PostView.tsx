@@ -15,6 +15,7 @@ import CopyButton from "@/components/CopyBtn";
 import PostToolBar from "@/pages/blog/PostTool";
 import {TOC} from "@/pages/blog/Toc";
 import "highlight.js/styles/github-dark.css";
+import Giscus from "@giscus/react";
 
 export type Heading = {
     level: number,
@@ -46,6 +47,8 @@ const PostView = () => {
         if (heads != undefined) {
             setHeadings(heads)
         }
+
+        document.title = post?.title as string
     }, [post]);
 
     const getPostById = (id: string) => {
@@ -166,6 +169,19 @@ const PostView = () => {
                         许可协议。转载请注明出处。
                     </li>
                 </ul>
+                
+                <Giscus repo={"jiaw3i/giscus-comments"}
+                        repoId={"R_kgDOL5nykw"}
+                        mapping={"title"}
+                        category="Announcements"
+                        categoryId="DIC_kwDOL5nyk84CfQ17"
+                        strict="0"
+                        reactionsEnabled="1"
+                        emitMetadata="0"
+                        inputPosition="top"
+                        theme="light"
+                        lang="zh-CN"
+                        loading="lazy"/>
             </div>
 
             {headings.length > 0 && <TOC showToc={showPostNav} headings={headings}></TOC>}
