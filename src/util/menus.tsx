@@ -148,28 +148,29 @@ const ManageMenusData: Array<IMenu> = [
 
 const Links = [
     {
+        title: "Github",
+        // icon: <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        //     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+        //           d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+        // </svg>
+        // ,
+        isShow: true,
+        url: "https://github.com/jiaw3i"
+    },
+    {
         title: "管理系统",
-        icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
-                   stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z"/>
-            <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/>
-            <line x1="13" y1="8" x2="15" y2="8"/>
-            <line x1="13" y1="12" x2="15" y2="12"/>
-        </svg>,
+        // icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
+        //            stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        //     <path stroke="none" d="M0 0h24v24H0z"/>
+        //     <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18"/>
+        //     <line x1="13" y1="8" x2="15" y2="8"/>
+        //     <line x1="13" y1="12" x2="15" y2="12"/>
+        // </svg>,
         isShow: true,
         needLogin:true,
         url: "/manage"
     },
-    {
-        title: "网盘",
-        icon: <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-        </svg>
-        ,
-        isShow: true,
-        url: "https://pan.hanjiawei.com"
-    },
+
 ]
 // export default MenusData;
 export {MenusData, ManageMenusData, Links};
