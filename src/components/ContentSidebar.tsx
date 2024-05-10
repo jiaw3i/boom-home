@@ -44,7 +44,7 @@ export default function ContentSidebar(Props: RecordSidebarProps) {
             <div
                 className={"side-content w-80 bg-base-300 lg:bg-transparent lg:shadow-xl lg:rounded-xl flex h-full lg:pt-0 pt-5 flex-col lg:w-full pl-5 pr-5"}>
 
-                <div className={"prose text-left"}>累计发布了 {total} 条记录😜</div>
+                <div className={"prose text-left"}>累计 {total} 条数据😜</div>
                 <div className={"mt-5 font-mono text-gray-400 text-left"}>标签</div>
                 <div className={"tag-area flex flex-row mt-1 flex-wrap"}>
                     {

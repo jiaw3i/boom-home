@@ -1,14 +1,10 @@
 import PostItem from "@/pages/blog/PostItem";
 import React, {useEffect, useState} from "react";
-import {UseUserStore} from "@/store/UserInfoStore";
 import {get, post} from "@/util/request";
 import ContentSidebar, {Tag} from "@/components/ContentSidebar";
 import {LIST_POST, LIST_TAGS} from "@/util/apis";
-import RecordEditor from "@/pages/recordwall/RecordEditor";
-import {RecordList} from "@/pages/recordwall/RecordList";
 import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
-import {log} from "vditor/dist/ts/util/log";
 
 
 const Blog = () => {
@@ -16,8 +12,7 @@ const Blog = () => {
     const [tagLoading, setTagLoading] = useState<boolean>(false);
     const [tags, setTags] = useState<Tag[]>([]);
     const [posts, setPosts] = useState<Array<Post>>([])
-    const [allPosts, setAllPosts] = useState<Array<Post>>([])
-    const pageSize = 8
+    const pageSize = 10
     const [totalPage, setTotalPage] = useState(1)
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(1)
@@ -50,9 +45,9 @@ const Blog = () => {
     }
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 flex flex-row flex-grow w-full h-full max-h-fit"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 flex flex-row w-full"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col justify-between w-full pl-5 pr-5 max-h-full "}>
+            <div className={"flex flex-col w-full px-5 "}>
                 <div className={"post-links"}>
 
                     <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>

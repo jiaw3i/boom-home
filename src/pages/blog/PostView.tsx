@@ -142,7 +142,7 @@ const PostView = () => {
                                            } else {
                                                return (
                                                    <code {...props}
-                                                         className="prose rounded bg-gray-200 px-1 font-lxgw text-sm dark:bg-zinc-900">
+                                                         className="prose rounded px-1 font-lxgw text-sm">
                                                        {children}
                                                    </code>
                                                );
