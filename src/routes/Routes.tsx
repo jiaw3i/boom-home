@@ -23,7 +23,7 @@ const MyRoutes = (props: any) => {
                     <Projects setTitle={setTitle}/>
                 </React.Suspense>
             }/>
-            <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl}/>}/>
+            <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl} setTitle={setTitle}/>}/>
 
             <Route path={"/aboutme"} element={
                 <React.Suspense fallback={<Loader/>}>

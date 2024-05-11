@@ -1,27 +1,21 @@
 import React, {lazy, Suspense, useEffect, useState} from 'react'
 import './App.css'
-import {Route, Routes, useLocation} from "react-router-dom";
-// import PageTitle from "./components/PageTitle";
-// import Home from "./components/Home";
-// import Sidebar from "./components/Sidebar";
+import {useLocation} from "react-router-dom";
 import {get} from "./util/request";
 import {CURRENT_USER} from "./util/apis";
 import {UseUserStore} from "@/store/UserInfoStore";
 import {Toaster} from "react-hot-toast";
-import ThemeChange from "@/components/header/ThemeChange";
-import PostView from "@/pages/blog/PostView";
 import MyRoutes from "@/routes/Routes";
 import Header from "@/components/header/Header";
 
 const Sidebar = lazy(() => import('./components/Sidebar'));
-const PageTitle = lazy(() => import('./components/header/PageTitle'));
 
 function App() {
     const location = useLocation();
     const [type, setType] = useState(location.pathname.match("/manage/*") ? "admin" : "common");
     const [title, setTitle] = useState("主页");
     // const [theme, setTheme] = useState("light");
-    const {setUsername, setId, username} = UseUserStore();
+    const {setUsername, username} = UseUserStore();
 
     const [imgUrl, setImgUrl] = useState<string>("");
     useEffect(() => {
@@ -55,7 +49,7 @@ function App() {
                     </div>
                 </div>
 
-                <Sidebar type={type} setTitle={setTitle} title={title}></Sidebar>
+                <Sidebar type={type}></Sidebar>
             </div>
 
             <dialog id="view_image" className="modal">

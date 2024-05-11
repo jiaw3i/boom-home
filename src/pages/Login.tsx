@@ -37,7 +37,7 @@ export default function Login() {
                 className="flex w-full h-auto bg-base-200 rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
                 <div className="hidden lg:block lg:w-1/2 bg-cover"
                     // style={{backgroundImage: 'url("https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80")'}}
-                     style={{backgroundImage: 'url("https://img.hanjiawei.com/thumbnails/5e44dfe855da0026cf011f2a31898e81.png")'}}
+                     style={{backgroundImage: 'url("cola.png")'}}
                 ></div>
                 <div className="w-full p-8 lg:w-1/2">
                     <h2 className="text-2xl font-semibold text-gray-700 text-center">Hello.</h2>

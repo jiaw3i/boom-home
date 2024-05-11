@@ -7,13 +7,10 @@ import {LOGOUT_API} from "@/util/apis";
 import toast from "react-hot-toast";
 
 function Sidebar(props: any) {
-    const {type, title, setTitle} = props;
+    const {type} = props;
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
     const path = location.pathname
-
-    useEffect(() => {
-    }, []);
 
     useEffect(() => {
         setMenus(type === "common" ? MenusData : ManageMenusData)
@@ -46,10 +43,9 @@ function Sidebar(props: any) {
                     {
                         menus.filter((menuItem: IMenu) => menuItem.isShow).map(menuItem => {
                             let isCurrent = path.split("/")[1] === menuItem.path.split("/")[1]
-                            // if (isCurrent) {
-                            //     setTitle(menuItem.title)
-                            //     document.title = `${menuItem.title} | Jackway`
-                            // }
+                            if (menuItem.path == "/record" && path == "/") {
+                                isCurrent = true
+                            }
                             return <li className="" key={menuItem.title}>
                                 <div
                                     className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (isCurrent ? "active" : "")}
@@ -65,7 +61,6 @@ function Sidebar(props: any) {
                     }
 
                     <div className={"divider font-mono text-lg"}>Links</div>
-
                     {
                         Links.filter(link => link.isShow && ((link.needLogin && username == "jiawei.me@hotmail.com") || !link.needLogin)).map(link => {
                                 return <li className="" key={link.title}>
@@ -91,12 +86,16 @@ function Sidebar(props: any) {
                     <footer className="footer items-center justify-center p-2 text-neutral-content">
                         <div className="items-center font-mono align-middle gap-0">
                             {/*如果username==jiawei.me@hotmail.com，那么就显示已登录*/}
-                            {username === "jiawei.me@hotmail.com" &&
+                            {username === "jiawei.me@hotmail.com" ?
                                 <div className={"w-full flex justify-between"}>
                                     <div className={"prose"}>已登录</div>
                                     <div className={"prose hover:cursor-pointer text-secondary"}
                                          onClick={logout}>退出登录
                                     </div>
+                                </div> :
+                                <div className={"text-base-200 hover:prose hover:cursor-pointer"}
+                                     onClick={() => navigate("/login")}>
+                                    登录
                                 </div>
 
                             }

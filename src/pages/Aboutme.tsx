@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {set} from "react-hook-form";
 
 type HOME = {
     name: string,
@@ -21,11 +20,11 @@ export default function Aboutme(props: any) {
         englishName: "Jackway",
         skill: "Java / Typescript / Python",
         aboutMe:
-            "因为是陕西关中人，所以用6lazi.com(已注册，备案中)作为域名，就是6辣子夹馍那个6辣子。" +
-            "👴职业代码人\n" +
-            "💻电子设备爱好者\n" +
-            "💕Emoji爱好者\n" +
-            "🌼祖国的花朵\n",
+            "- 因为是陕西关中人，所以用6lazi.com(已注册，备案中)作为域名，就是6辣子夹馍那个6辣子。\n" +
+            "- 👴职业代码人\n" +
+            "- 💻电子设备爱好者\n" +
+            "- 💕Emoji爱好者\n" +
+            "- 🌼祖国的花朵\n",
         findMe: [
             {name: "Github", value: "https://github.com/jiaw3i"},
             {name: "Email", value: "jackwaycn@gmail.com"},

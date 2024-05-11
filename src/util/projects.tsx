@@ -42,7 +42,7 @@ const ProjectsData = [
     {
         id: 998,
         name: "pure-land",
-        description: "净土,烂尾项目react+antd+ts做的，页面太丑了做不下去了；已经被boom-home项目代理，凑个数。",
+        description: "净土,react+antd+ts做的，页面太丑了做不下去了。",
         gitUrl: "https://github.com/jiaw3i/pureland",
         homeUrl: "https://github.com/jiaw3i/pureland",
         cover: "https://github.com",
