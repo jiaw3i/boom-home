@@ -2,13 +2,15 @@ export interface IMenu {
     title: string,
     cnTitle: string,
     icon: any,
+    path: string,
     isShow: boolean
 }
 
 const MenusData: Array<IMenu> = [
     {
-        title: "RecordWall",
+        title: "流水账",
         cnTitle: "流水账📒",
+        path: "/record",
         icon: <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                    strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -18,8 +20,9 @@ const MenusData: Array<IMenu> = [
         isShow: true,
     },
     {
-        title: "Blog",
-        cnTitle: "博客📖",
+        title: "文章",
+        cnTitle: "文章📖",
+        path: "/blog",
         icon: <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
@@ -28,8 +31,9 @@ const MenusData: Array<IMenu> = [
         isShow: true,
     },
     {
-        title: "ChatBot",
+        title: "对话机器人",
         cnTitle: "机器人🤖",
+        path: "/chatbot",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                    strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7M16 11V7"/>
@@ -37,8 +41,9 @@ const MenusData: Array<IMenu> = [
         isShow: true,
     },
     {
-        title: "Lab",
+        title: "实验室",
         cnTitle: "实验室🧪",
+        path: "/lab",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path
@@ -52,8 +57,9 @@ const MenusData: Array<IMenu> = [
         isShow: true,
     },
     {
-        title: "AboutMe",
+        title: "我的信息",
         cnTitle: "关于我🤓",
+        path: "/aboutme",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24"
                    strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                    strokeLinejoin="round">
@@ -63,37 +69,13 @@ const MenusData: Array<IMenu> = [
             <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"/>
         </svg>,
         isShow: true,
-    },
-    {
-        title: "Apis",
-        cnTitle: "接口",
-        icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                   strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-            <polyline points="2 17 12 22 22 17"/>
-            <polyline points="2 12 12 17 22 12"/>
-        </svg>,
-        isShow: false,
-    },
-
-    {
-        title: "Links",
-        cnTitle: "链接",
-        icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
-                   stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"/>
-        </svg>,
-        isShow: false,
-    },
+    }
 ]
 const ManageMenusData: Array<IMenu> = [
     {
         title: "Manage Profile",
         cnTitle: "个人信息",
+        path: "manage/profile",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24"
                    strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round"
                    strokeLinejoin="round">
@@ -107,6 +89,7 @@ const ManageMenusData: Array<IMenu> = [
     {
         title: "Manage Project",
         cnTitle: "项目管理",
+        path: "manage/project",
         icon: <svg className="h-8 w-8 " viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path
@@ -122,6 +105,7 @@ const ManageMenusData: Array<IMenu> = [
     {
         title: "Manage Blog",
         cnTitle: "博客管理",
+        path: "manage/blog",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
@@ -134,6 +118,7 @@ const ManageMenusData: Array<IMenu> = [
     {
         title: "Manage Link",
         cnTitle: "链接管理",
+        path: "manage/link",
         icon: <svg className="h-8 w-8 " width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
                    stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>

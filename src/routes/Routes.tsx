@@ -11,22 +11,23 @@ const ManageBlog = lazy(() => import('@/pages/manage/blog/ManageBlog'));
 const EditPost = lazy(() => import('@/pages/manage/blog/EditPost'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const Loader = lazy(() => import('@/components/Loader'));
-const ChatBot = lazy(() => import('@/components/chatbot/ChatBot'));
-const ChatType = lazy(() => import('@/components/chatbot/ChatType'));
-const Home = lazy(() => import('@/components/Home'));
+const ChatBot = lazy(() => import('@/pages/chatbot/ChatBot'));
+const ChatType = lazy(() => import('@/pages/chatbot/ChatType'));
+const Aboutme = lazy(() => import('@/pages/Aboutme'));
 const MyRoutes = (props: any) => {
-    const {setImgUrl} = props;
+    const {setImgUrl, setTitle} = props;
     return (
         <Routes>
             <Route path={"/lab"} element={
                 <React.Suspense fallback={<Loader/>}>
-                    <Projects/>
+                    <Projects setTitle={setTitle}/>
                 </React.Suspense>
             }/>
             <Route path={"/"} element={<RecordWall setImgUrl={setImgUrl}/>}/>
+
             <Route path={"/aboutme"} element={
                 <React.Suspense fallback={<Loader/>}>
-                    <Home/>
+                    <Aboutme setTitle={setTitle}/>
                 </React.Suspense>
             }/>
             <Route path={"/manage"}>
@@ -67,18 +68,18 @@ const MyRoutes = (props: any) => {
                     />
                 }/>
             </Route>
-            <Route path={"/recordwall"} element={
-                <RecordWall setImgUrl={setImgUrl}/>
+            <Route path={"/record"} element={
+                <RecordWall setImgUrl={setImgUrl} setTitle={setTitle}/>
             }/>
             <Route path={"/blog"} element={
-                <Blog/>
+                <Blog setTitle={setTitle}/>
             }/>
-            <Route path={"/blog/:postId"} element={
-                <PostView/>
+            <Route path={"/blog/:postId/:postTitle"} element={
+                <PostView setTitle={setTitle}/>
             }/>
             <Route path={"/chatbot"} element={
                 <React.Suspense fallback={<Loader/>}>
-                    <ChatType/>
+                    <ChatType setTitle={setTitle}/>
                 </React.Suspense>
             }>
             </Route>

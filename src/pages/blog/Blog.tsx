@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
 
 
-const Blog = () => {
+const Blog = (props: any) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
     const [tags, setTags] = useState<Tag[]>([]);
@@ -16,7 +16,11 @@ const Blog = () => {
     const [totalPage, setTotalPage] = useState(1)
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(1)
-
+    const {setTitle} = props
+    useEffect(() => {
+        setTitle("文章列表")
+        document.title = "文章列表 | Jackway"
+    }, []);
 
     // 请求获取列表
     useEffect(() => {
@@ -62,7 +66,7 @@ const Blog = () => {
                     </div>
                     {
                         posts.map(post => {
-                            return <Link key={post.id} to={post.id.toString()}>
+                            return <Link key={post.id} to={`${post.id.toString()}/${post.title.toString()}`}>
                                 <PostItem post={post}/>
                             </Link>
                         })

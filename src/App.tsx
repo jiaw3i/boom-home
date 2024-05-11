@@ -19,13 +19,13 @@ const PageTitle = lazy(() => import('./components/header/PageTitle'));
 function App() {
     const location = useLocation();
     const [type, setType] = useState(location.pathname.match("/manage/*") ? "admin" : "common");
-    const [title, setTitle] = useState("Recordwall");
-    const [theme, setTheme] = useState("light");
+    const [title, setTitle] = useState("主页");
+    // const [theme, setTheme] = useState("light");
     const {setUsername, setId, username} = UseUserStore();
 
     const [imgUrl, setImgUrl] = useState<string>("");
     useEffect(() => {
-        setTitle(currentTitle());
+        // setTitle(currentTitle());
         setType(location.pathname.match("/manage/*") ? "admin" : "common")
         if (username === "") {
             get(CURRENT_USER).then((res: any) => {
@@ -36,29 +36,6 @@ function App() {
         }
     });
 
-
-
-    const currentTitle = () => {
-        let title: string;
-        let finalTitle: string;
-        if (location.pathname.match("/manage/*")) {
-            let paths = location.pathname.split("/")
-            title = paths[2];
-            if (title === undefined || title === "") {
-                title = "Project";
-            }
-            // 返回首字母大写
-            finalTitle = "manage " + title.replace(/^\S/, s => s.toUpperCase());
-        } else {
-            title = location.pathname.split("/")[1];
-            if (title === undefined || title === "") {
-                title = "Recordwall";
-            }
-            finalTitle = title.replace(/^\S/, s => s.toUpperCase());
-        }
-        document.title = finalTitle + "✔" + " | Owen❤";
-        return finalTitle;
-    };
     return (
         <div className="flex flex-row w-screen bg-base-100  max-w-screen no-scrollbar">
             <div><Toaster/></div>
@@ -72,7 +49,7 @@ function App() {
                         <Suspense>
                             <div className={"content lg:pt-0 pt-[50px] pb-2 -z-1"}>
                                 {/*<div className={"h-[50px] w-full lg:hidden"}></div>*/}
-                                <MyRoutes setImgUrl={setImgUrl}/>
+                                <MyRoutes setImgUrl={setImgUrl} setTitle={setTitle}/>
                             </div>
                         </Suspense>
                     </div>

@@ -17,13 +17,18 @@ export interface RecordInfo {
 
 export default function RecordWall(props: any) {
 
-    const {setImgUrl} = props;
+    const {setImgUrl, setTitle} = props;
     const [records, setRecords] = useState<RecordInfo[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [tagLoading, setTagLoading] = useState<boolean>(false);
     const [tags, setTags] = useState<Tag[]>([]);
     const username = UseUserStore((state) => state.username);
     const [isLogin, setIsLogin] = useState<boolean>();
+    useEffect(() => {
+        setTitle("流水账")
+        document.title = "流水账 | Jackway"
+    }, []);
+
     useEffect(() => {
         if (username === "jiawei.me@hotmail.com") {
             setIsLogin(true);

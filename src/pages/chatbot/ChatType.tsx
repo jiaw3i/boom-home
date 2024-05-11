@@ -1,12 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AllBots, BotInfo, BotTypes, GeneralBots, InterviewBots} from "../../util/bots";
 import {useNavigate} from "react-router-dom";
 import BotConfigDialog from "./BotConfig";
 import Verify from "@/components/VerifyPage";
 import {UseVerifyStore} from "@/store/VerifyStateStore";
 
-export default function ChatType() {
-
+export default function ChatType(props:any) {
+    const {setTitle} = props
+    useEffect(() => {
+        setTitle("大模型机器人")
+        document.title = "大模型机器人 | Jackway"
+    }, []);
     const navigate = useNavigate();
     const [isVerify,setIsVerify] = useState(UseVerifyStore.getState().state);
     const toChat = (type: string) => {

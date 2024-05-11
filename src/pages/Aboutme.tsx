@@ -1,4 +1,5 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {set} from "react-hook-form";
 
 type HOME = {
     name: string,
@@ -7,8 +8,14 @@ type HOME = {
     aboutMe: string,
     findMe: any[]
 }
-export default function Home() {
 
+
+export default function Aboutme(props: any) {
+    const {setTitle} = props
+    useEffect(() => {
+        setTitle("我的信息")
+        document.title = "我的信息 | Jackway"
+    }, []);
     const [home, setHome] = useState<HOME>({
         name: "6辣子",
         englishName: "Jackway",

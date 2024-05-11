@@ -10,6 +10,10 @@ function Sidebar(props: any) {
     const {type, title, setTitle} = props;
     const [menus, setMenus] = useState(type === "common" ? MenusData : ManageMenusData);
     const navigate = useNavigate();
+    const path = location.pathname
+
+    useEffect(() => {
+    }, []);
 
     useEffect(() => {
         setMenus(type === "common" ? MenusData : ManageMenusData)
@@ -41,19 +45,18 @@ function Sidebar(props: any) {
                     <div className={"divider text-lg"}>Pages</div>
                     {
                         menus.filter((menuItem: IMenu) => menuItem.isShow).map(menuItem => {
+                            let isCurrent = path.split("/")[1] === menuItem.path.split("/")[1]
+                            // if (isCurrent) {
+                            //     setTitle(menuItem.title)
+                            //     document.title = `${menuItem.title} | Jackway`
+                            // }
                             return <li className="" key={menuItem.title}>
                                 <div
-                                    className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (title.toLowerCase() === menuItem.title.toLowerCase() ? "active" : "")}
-                                    key={menuItem.title} onClick={() => {
-                                    if (type === "common") {
-                                        setTitle(menuItem.title);
-                                        navigate(`/${menuItem.title.toLowerCase()}`)
-                                    } else {
-                                        setTitle(menuItem.title);
-                                        // 将manage profile改为manage/profile
-                                        navigate(`/${menuItem.title.toLowerCase().replace(" ", "/")}`)
-                                    }
-                                }}>
+                                    className={"hover:text-black hover:bg-gray-300 font-bold text-base " + (isCurrent ? "active" : "")}
+                                    key={menuItem.title}
+                                    onClick={() => {
+                                        navigate(`${menuItem.path}`)
+                                    }}>
                                     {menuItem.icon}
                                     {menuItem.cnTitle}
                                 </div>

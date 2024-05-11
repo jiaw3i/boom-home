@@ -22,14 +22,16 @@ export type Heading = {
     title: string | undefined
 }
 
-const PostView = () => {
-
-    const {postId} = useParams()
+const PostView = (props: any) => {
+    const {setTitle} = props
+    const {postId, postTitle} = useParams()
     const [post, setPost] = useState<Post>()
     const [showPostNav, setShowPostNav] = useState<boolean>(false)
     const [headings, setHeadings] = useState<Array<Heading>>([])
     // let headings: any = {}
     useEffect(() => {
+        document.title = postTitle as string
+        setTitle(postTitle)
         getPostById(postId as string)
     }, []);
 
@@ -47,8 +49,6 @@ const PostView = () => {
         if (heads != undefined) {
             setHeadings(heads)
         }
-
-        document.title = post?.title as string
     }, [post]);
 
     const getPostById = (id: string) => {
@@ -169,7 +169,7 @@ const PostView = () => {
                         许可协议。转载请注明出处。
                     </li>
                 </ul>
-                
+
                 <Giscus repo={"jiaw3i/giscus-comments"}
                         repoId={"R_kgDOL5nykw"}
                         mapping={"title"}
