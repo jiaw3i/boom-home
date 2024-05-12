@@ -174,7 +174,7 @@ const PostView = (props: any) => {
                     <div className={"divider w-full prose"}>正文结束</div>
                 </div>
                 <ul className={"prose w-full mb-3 post-copyright text-left border-solid border-2 rounded-md border-zinc-400 p-2 bg-base-200"}>
-                    <li className={"m-0"}><strong>文章作者：</strong>Jiawei</li>
+                    <li className={"m-0"}><strong>文章作者：</strong>Jackway</li>
                     <li className={"m-0"}><strong>文章地址：</strong><a
                         href={`https://tnbai.com/blog/${post?.id}`}>https://tnbai.com/blog/{post?.id}</a></li>
                     <li className={"m-0"}><strong>版权声明：</strong>本文采用
