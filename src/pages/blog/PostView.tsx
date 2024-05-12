@@ -77,10 +77,10 @@ const PostView = (props: any) => {
 
     return (
         <div
-            className={"post-view lg:px-5 lg:pt-0 flex flex-row w-full justify-between"}>
+            className={"post-view lg:px-5 lg:pt-0 flex flex-row max-w-100vw justify-between"}>
             <div className={"post-left flex flex-col lg:w-9/12 px-5"}>
 
-                <div className={"prose post-header  mb-3"}>
+                <div className={"prose post-header mb-3"}>
                     {/*<div className={"font-bold text-xl"}>{post?.title}</div>*/}
                     <div className={"flex flex-row justify-center"}>
                         <div className={"flex flex-row mr-3"}>
@@ -111,7 +111,7 @@ const PostView = (props: any) => {
 
                 <div id="previewWrap" className={"rounded-md"}>
 
-                    <ReactMarkdown className={"text-left prose max-w-full prose-invert"}
+                    <ReactMarkdown className={"text-left prose prose-invert"}
                                    children={post?.content as string}
                                    rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight as any]}
                                    remarkPlugins={[remarkGfm]}
@@ -132,7 +132,7 @@ const PostView = (props: any) => {
                                            return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
                                        },
                                        pre: ({children}) => <pre
-                                           className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
+                                           className="p-0 overflow-x-scroll">{children}</pre>,
                                        code: ({node, className, children, ...props}) => {
                                            if (typeof props.inline === "boolean")
                                                props.inline = props.inline.toString() as any;
@@ -148,9 +148,9 @@ const PostView = (props: any) => {
                                                            </div>
                                                            <CopyButton id={id}/>
                                                        </div>
-                                                       <div className="overflow-x-auto font-lxgw">
+                                                       <div className="overflow-x-scroll font-lxgw ">
                                                            <div id={id}
-                                                                className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
+                                                                className="whitespace-pre-wrap [word-break:break-word] text-nowrap px-4 py-1">
                                                                {children}
                                                            </div>
                                                        </div>
@@ -159,7 +159,7 @@ const PostView = (props: any) => {
                                            } else {
                                                return (
                                                    <code {...props}
-                                                         className="prose rounded px-1 font-lxgw text-sm">
+                                                         className="prose whitespace-pre-wrap rounded px-1 font-lxgw text-sm">
                                                        {children}
                                                    </code>
                                                );
