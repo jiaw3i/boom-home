@@ -36,16 +36,29 @@ const PostView = (props: any) => {
     }, []);
 
     useEffect(() => {
+        let inCodeBlock = false;
         let heads: Heading[] | undefined = post?.content
             .split('\n')
-            .filter((line) => line.match(/#{1,3}\s/))
+            .filter((line) => {
+                // 检查是否进入或离开代码块
+                if (line.trim().startsWith("```")) {
+                    inCodeBlock = !inCodeBlock;
+                    return false;
+                }
+                // 如果在代码块中，跳过这一行
+                if (inCodeBlock) {
+                    return false;
+                }
+                // 匹配标题，但要确保它不在代码块中
+                return line.match(/#{1,3}\s/);
+            })
             .map((line) => {
-                const [, level, title]: any = line.match(/(#{1,3})\s(.*)/)
+                const [, level, title]: any = line.match(/(#{1,3})\s(.*)/);
                 return {
                     level: level.length,
                     title,
-                } as Heading
-            })
+                } as Heading;
+            });
         if (heads != undefined) {
             setHeadings(heads)
         }

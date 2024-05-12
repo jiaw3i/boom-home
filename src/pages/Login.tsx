@@ -11,7 +11,7 @@ type LoginProp = {
 }
 export default function Login() {
     const [searchParams] = useSearchParams()
-    const [source, setSource] = useState("/recordwall")
+    const [source, setSource] = useState("/")
     const {register, handleSubmit} = useForm<LoginProp>();
     let navigate = useNavigate();
     const {setUsername} = UseUserStore();
