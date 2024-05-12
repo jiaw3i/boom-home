@@ -31,7 +31,7 @@ const PostView = (props: any) => {
     // let headings: any = {}
     useEffect(() => {
         document.title = postTitle as string
-        setTitle(postTitle)
+        setTitle(decodeURIComponent(postTitle as string))
         getPostById(postId as string)
     }, []);
 
@@ -81,7 +81,7 @@ const PostView = (props: any) => {
             <div className={"post-left flex flex-col lg:w-9/12 px-5"}>
 
                 <div className={"prose post-header  mb-3"}>
-                    <div className={"font-bold text-xl"}>{post?.title}</div>
+                    {/*<div className={"font-bold text-xl"}>{post?.title}</div>*/}
                     <div className={"flex flex-row justify-center"}>
                         <div className={"flex flex-row mr-3"}>
                             <div className={"flex items-center"}>
@@ -90,7 +90,7 @@ const PostView = (props: any) => {
                                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
                             </div>
-                            <span>发表于{post?.createTime.split(" ")[0]}</span>
+                            <span>发布于{post?.createTime.split(" ")[0]}</span>
                         </div>
                         {
                             post?.tag &&
@@ -121,6 +121,10 @@ const PostView = (props: any) => {
                                                        className={"target:pt-20 target:-mt-20"}>{children}</h1>)
                                        },
                                        h2: ({children}) => {
+                                           return (<h2 id={children as string}
+                                                       className={"target:pt-20 target:-mt-20"}>{children}</h2>)
+                                       },
+                                       h3: ({children}) => {
                                            return (<h2 id={children as string}
                                                        className={"target:pt-20 target:-mt-20"}>{children}</h2>)
                                        },

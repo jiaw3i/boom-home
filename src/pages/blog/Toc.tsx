@@ -9,8 +9,9 @@ export const TOC = (props: any) => {
             <div className={"text-sm"}>
                 {
                     headings.map((heading: Heading) => {
-                        return (<div key={heading.title} className={`ml-${(heading.level - 1) * 2}`}><a href={`#${heading.title}`}
-                                                                                    className={"no-underline"}>{heading.title}</a>
+                        return (<div key={heading.title} className={`ml-${(heading.level - 1) * 3}`}><a
+                            href={`#${heading.title}`}
+                            className={"no-underline"}>{heading.title}</a>
                         </div>)
                     })
                 }

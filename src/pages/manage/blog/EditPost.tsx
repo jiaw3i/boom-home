@@ -156,7 +156,7 @@ const EditPost = () => {
     }
     return (
         <div className={"edit-blog w-full h-full  flex lg:flex-row flex-col-reverse"}>
-            <div className={"post-editor lg:w-5/6 p-5 pt-0 overflow-y-scroll no-scrollbar"}>
+            <div className={"post-editor list-auto lg:w-5/6 p-5 pt-0 overflow-y-scroll no-scrollbar"}>
                 <div id={"vditor"} className="vditor text-left font-lxgw"/>
             </div>
             <div className={"post-form p-5 pt-0 lg:p-0 lg:pr-5 "}>
