@@ -150,7 +150,7 @@ const PostView = (props: any) => {
                                                        </div>
                                                        <div className="overflow-x-scroll font-lxgw ">
                                                            <div id={id}
-                                                                className="whitespace-pre-wrap [word-break:break-word] text-nowrap px-4 py-1">
+                                                                className="whitespace-pre-wrap [word-break:break-word] px-4 py-1">
                                                                {children}
                                                            </div>
                                                        </div>
