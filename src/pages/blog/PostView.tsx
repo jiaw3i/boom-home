@@ -132,7 +132,7 @@ const PostView = (props: any) => {
                                            return <img {...props} alt={"loading..."} className={"lg:max-w-xl"}/>
                                        },
                                        pre: ({children}) => <pre
-                                           className="p-0 overflow-x-scroll">{children}</pre>,
+                                           className="p-0">{children}</pre>,
                                        code: ({node, className, children, ...props}) => {
                                            if (typeof props.inline === "boolean")
                                                props.inline = props.inline.toString() as any;
@@ -148,7 +148,7 @@ const PostView = (props: any) => {
                                                            </div>
                                                            <CopyButton id={id}/>
                                                        </div>
-                                                       <div className="overflow-x-scroll font-lxgw ">
+                                                       <div className="font-lxgw">
                                                            <div id={id}
                                                                 className="whitespace-pre-wrap [word-break:break-word] px-4 py-1">
                                                                {children}
