@@ -26,7 +26,11 @@ export default function RecordWall(props: any) {
     const [isLogin, setIsLogin] = useState<boolean>();
     useEffect(() => {
         setTitle("流水账")
-        document.title = "流水账 | Jackway"
+        if (location.pathname == "/") {
+            document.title = "6lazi.com(绿辣子站)"
+        } else {
+            document.title = "流水账 | Jackway"
+        }
     }, []);
 
     useEffect(() => {
