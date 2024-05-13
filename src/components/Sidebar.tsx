@@ -101,7 +101,7 @@ function Sidebar(props: any) {
                             }
                             <p className={"prose"}>Copyright©2023 Owen</p>
                             <a href="https://icp.gov.moe/?keyword=20233353" className={"prose"}
-                               target="_blank">陕ICP备2024028129号</a>
+                               target="_blank">陕ICP备2024028129号-2</a>
                         </div>
                     </footer>
                 </div>
