@@ -97,7 +97,7 @@ const Blog = (props: any) => {
                     </button>
                 </div>
             </div>
-            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total}/>
+            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total} type={"blog"}/>
         </div>
     )
 }

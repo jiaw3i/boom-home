@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {RssIcon} from "@/components/Icons";
 
 export interface Tag {
     id: number,
@@ -6,15 +7,16 @@ export interface Tag {
     createTime: string,
 }
 
-interface RecordSidebarProps {
+interface SidebarProps {
     filter: Function,
     refreshTags: Function,
     tags: Tag[],
     isLoading: boolean,
-    total: number
+    total: number,
+    type: string
 }
 
-export default function ContentSidebar(Props: RecordSidebarProps) {
+export default function ContentSidebar(Props: SidebarProps) {
     const {filter, refreshTags, tags, isLoading = false, total} = Props;
 
     const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
@@ -63,6 +65,12 @@ export default function ContentSidebar(Props: RecordSidebarProps) {
                         <span className={"loading loading-dots loading-sm"}></span>
                     </div>
                 }
+
+                <div className={"rss mt-4"}>
+                    <a href="https://rs.6lazi.com/blog/atom.xml" target={"_blank"} className={" flex flex-row items-center text-xl text-left"}>
+                        {RssIcon}RSS
+                    </a>
+                </div>
             </div>
         </div>
     )

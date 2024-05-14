@@ -94,7 +94,7 @@ export default function RecordWall(props: any) {
                 />
             </div>
             <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={refreshTags} filter={filterRecords}
-                            total={records.length}/>
+                            total={records.length} type={"record"}/>
         </div>
 
     );
