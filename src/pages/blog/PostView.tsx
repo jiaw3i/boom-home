@@ -109,7 +109,7 @@ const PostView = (props: any) => {
                     </div>
                 </div>
 
-                <div id="previewWrap" className={"rounded-md"}>
+                <article id="previewWrap" className={"rounded-md"}>
 
                     <ReactMarkdown className={"text-left prose prose-invert"}
                                    children={post?.content as string}
@@ -166,7 +166,7 @@ const PostView = (props: any) => {
                                            }
                                        }
                                    }}/>
-                </div>
+                </article>
 
 
                 {/*<div className={"max-w-full lg:w-[70vw]"}>*/}
