@@ -16,10 +16,10 @@ export default ({mode}) => {
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, '')
                 },
-                '/blog/atom.xml': {
+                '/feed': {
                     target: loadEnv(mode, process.cwd()).VITE_BASE_URL,
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/blog/, 'post')
+                    rewrite: (path) => "/post/atom.xml"
                 }
             }
         },
