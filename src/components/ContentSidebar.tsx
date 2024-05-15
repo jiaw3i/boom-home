@@ -17,7 +17,7 @@ interface SidebarProps {
 }
 
 export default function ContentSidebar(Props: SidebarProps) {
-    const {filter, refreshTags, tags, isLoading = false, total} = Props;
+    const {filter, refreshTags, tags, isLoading = false, total, type} = Props;
 
     const [selectedTags, setSelectedTags] = useState<Array<Tag>>([]);
     useEffect(() => {
@@ -65,12 +65,15 @@ export default function ContentSidebar(Props: SidebarProps) {
                         <span className={"loading loading-dots loading-sm"}></span>
                     </div>
                 }
+                {
+                    type == "blog" && <div className={"rss mt-4"}>
+                        <a href="https://6lazi.com/feed" target={"_blank"}
+                           className={" flex flex-row items-center text-xl text-left"}>
+                            {RssIcon}RSS
+                        </a>
+                    </div>
+                }
 
-                <div className={"rss mt-4"}>
-                    <a href="https://rs.6lazi.com/blog/atom.xml" target={"_blank"} className={" flex flex-row items-center text-xl text-left"}>
-                        {RssIcon}RSS
-                    </a>
-                </div>
             </div>
         </div>
     )

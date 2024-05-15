@@ -111,7 +111,7 @@ const PostView = (props: any) => {
 
                 <article id="previewWrap" className={"rounded-md"}>
 
-                    <ReactMarkdown className={"text-left prose prose-invert"}
+                    <ReactMarkdown className={"article-body text-left prose prose-invert"}
                                    children={post?.content as string}
                                    rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight as any]}
                                    remarkPlugins={[remarkGfm]}
