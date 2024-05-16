@@ -66,7 +66,7 @@ const Blog = (props: any) => {
                     </div>
                     {
                         posts.map(post => {
-                            return <Link key={post.id} to={`${post.id.toString()}/${encodeURIComponent(post.title.toString())}`}>
+                            return <Link key={post.id} to={`${post.id.toString()}`}>
                                 <PostItem post={post}/>
                             </Link>
                         })
@@ -97,7 +97,8 @@ const Blog = (props: any) => {
                     </button>
                 </div>
             </div>
-            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total} type={"blog"}/>
+            <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total}
+                            type={"blog"}/>
         </div>
     )
 }

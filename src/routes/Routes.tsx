@@ -74,7 +74,7 @@ const MyRoutes = (props: any) => {
             <Route path={"/blog"} element={
                 <Blog setTitle={setTitle}/>
             }/>
-            <Route path={"/blog/:postId/:postTitle"} element={
+            <Route path={"/blog/:postId"} element={
                 <PostView setTitle={setTitle}/>
             }/>
             <Route path={"/chatbot"} element={
