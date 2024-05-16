@@ -42,7 +42,7 @@ export default function ThemeChange() {
                         <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
                     </svg>
                 </label>
-                <ul tabIndex={0} className="dropdown-content no-scrollbar z-[1] flex-nowrap menu p-2 shadow bg-base-300 rounded-box font-mono h-70[vh] w-56 max-h-96 font-bold overflow-y-auto">
+                <ul tabIndex={0} className="dropdown-content no-scrollbar z-20 flex-nowrap menu p-2 shadow bg-base-300 rounded-box font-mono h-70[vh] w-56 max-h-96 font-bold overflow-y-auto">
                     {
                         themes.map((theme, index) => {
                             return <li key={index} className={"p-0 mt-1 mb-1"} >

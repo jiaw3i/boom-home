@@ -41,7 +41,7 @@ function App() {
                         <Header title={title}/>
                         {/*<div className={"divider mt-0 mb-1 lg:flex hidden"}></div>*/}
                         <Suspense>
-                            <div className={"content lg:pt-0 pt-[50px] pb-2 -z-1"}>
+                            <div className={"content lg:pt-0 pt-[50px] pb-2"}>
                                 {/*<div className={"h-[50px] w-full lg:hidden"}></div>*/}
                                 <MyRoutes setImgUrl={setImgUrl} setTitle={setTitle}/>
                             </div>

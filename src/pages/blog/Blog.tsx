@@ -5,6 +5,7 @@ import ContentSidebar, {Tag} from "@/components/ContentSidebar";
 import {LIST_POST, LIST_TAGS} from "@/util/apis";
 import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
+import Loader from "@/components/Loader";
 
 
 const Blog = (props: any) => {
@@ -47,56 +48,61 @@ const Blog = (props: any) => {
         getPosts({tags: tags})
         setLoading(false);
     }
+
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open lg:px-10 pt-0 flex flex-row w-full"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 lg:mt-2 pt-0 flex flex-row w-full"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col w-full px-5 "}>
-                <div className={"post-links"}>
 
-                    <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
-                        <div className={"font-bold text-2xl prose"}>✍️</div>
-                        <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">
-                            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="11" cy="11" r="8"/>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                            </svg>
-                        </label>
-                    </div>
-                    {
-                        posts.map(post => {
-                            return <Link key={post.id} to={`${post.id.toString()}`}>
-                                <PostItem post={post}/>
-                            </Link>
-                        })
-                    }
-                </div>
-                <div className={"flex flex-row justify-between mt-2"}>
-                    <button className="join-item btn" onClick={() => {
-                        if (page > 1) {
-                            setPage(page - 1);
-                        } else {
-                            toast("已经是第一页了")
-                        }
-                    }}>上一页
-                    </button>
+            {
+                !posts.length ? <Loader/>:
+                    <div className={"flex flex-col w-full px-5 "}>
+                        <div className={"post-links"}>
 
-                    <div className={"bg-transparent prose flex flex-col justify-center"}>
+                            <div className={"flex flex-row justify-between mb-2 pb-1 lg:hidden"}>
+                                <div className={"font-bold text-2xl prose"}>✍️</div>
+                                <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">
+                                    <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <circle cx="11" cy="11" r="8"/>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                    </svg>
+                                </label>
+                            </div>
+                            {
+                                posts.map(post => {
+                                    return <Link key={post.id} to={`${post.id.toString()}`}>
+                                        <PostItem post={post}/>
+                                    </Link>
+                                })
+                            }
+                        </div>
+                        <div className={"flex flex-row justify-between mt-2"}>
+                            <button className="join-item btn" onClick={() => {
+                                if (page > 1) {
+                                    setPage(page - 1);
+                                } else {
+                                    toast("已经是第一页了")
+                                }
+                            }}>上一页
+                            </button>
+
+                            <div className={"bg-transparent prose flex flex-col justify-center"}>
                     <span>
                         {page}/{totalPage}
                     </span>
+                            </div>
+                            <button className="join-item btn" onClick={() => {
+                                if (page < totalPage) {
+                                    setPage(page + 1);
+                                } else {
+                                    toast("已经是最后一页了")
+                                }
+                            }}>下一页
+                            </button>
+                        </div>
                     </div>
-                    <button className="join-item btn" onClick={() => {
-                        if (page < totalPage) {
-                            setPage(page + 1);
-                        } else {
-                            toast("已经是最后一页了")
-                        }
-                    }}>下一页
-                    </button>
-                </div>
-            </div>
+            }
             <ContentSidebar isLoading={tagLoading} tags={tags} refreshTags={getTags} filter={filterPost} total={total}
                             type={"blog"}/>
         </div>

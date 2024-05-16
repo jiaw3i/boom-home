@@ -73,9 +73,9 @@ export default function RecordWall(props: any) {
     }
     return (
         <div
-            className={"drawer drawer-end lg:drawer-open flex flex-row flex-grow w-full h-full max-h-full"}>
+            className={"drawer drawer-end lg:drawer-open lg:px-10 lg:mt-2 flex flex-row flex-grow w-full h-full max-h-full"}>
             <input id="sidbar-drawer" type="checkbox" className="drawer-toggle"/>
-            <div className={"flex flex-col w-full pl-5 pr-5 max-h-full"}>
+            <div className={"flex flex-col w-full px-5 max-h-full"}>
                 <div className={"flex flex-row justify-between mb-1 pb-1 lg:hidden"}>
                     <div className={"font-bold text-2xl prose"}>✍️👀💻</div>
                     <label htmlFor="sidbar-drawer" className="drawer-button hover:cursor-pointer prose">

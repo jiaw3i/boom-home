@@ -30,7 +30,7 @@ const RecordList = (props: RecordListProps) => {
             return content;
         }
         tag.split(",").forEach((t) => {
-            content = content.replace(t, `<span class="text-blue-500 hover:cursor-pointer">${t}</span>`)
+            content = content.replace(t, "")
         });
         return content;
     }
@@ -66,17 +66,23 @@ const RecordList = (props: RecordListProps) => {
                 records.map((record: RecordInfo) =>
                     (
                         <div key={record.id}
-                             className={"text-left record-line-item flex flex-col bg-base-300 shadow-xl rounded-xl justify-between items-center p-2 mb-5"}>
+                             className={"card prose text-left record-line-item flex flex-col bg-base-300 rounded-lg justify-between items-center p-2 mb-5"}>
                             <div className={"flex flex-row w-full"}>
-                                <div className={"text-left flex flex-row font-mono text-gray-500 flex-grow"}>
+                                <div
+                                    className={"text-left flex flex-row font-mono text-gray-500 flex-grow items-center"}>
                                     <div
-                                        className={"time mr-2"}>{record.createTime.replace("T", " ")}
+                                        className={"time mr-2 text-sm"}>{record.createTime.replace("T", " ")}
                                     </div>
+                                    {
+                                        record.tag.split(",").map(tag => <div
+                                            className={"badge badge-outline badge-primary badge-sm mr-1"}>{tag.replace("#", "")}</div>)
+
+                                    }
 
                                     {
                                         record.permission === 0 &&
                                         <div>
-                                            <div className={"badge badge-outline badge-primary"}>仅自己可见</div>
+                                            <div className={"badge badge-outline badge-secondary"}>仅自己可见</div>
                                         </div>
                                     }
                                 </div>
@@ -120,7 +126,8 @@ const RecordList = (props: RecordListProps) => {
                                                                <img {...props} alt={"loading..."}/>
                                                            </PhotoView>
                                                        },
-                                                       pre: ({children}) => <pre className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
+                                                       pre: ({children}) => <pre
+                                                           className="p-0 w-full max-w-full overflow-x-hidden">{children}</pre>,
                                                        code: ({node, className, children, ...props}) => {
                                                            // const match = /language-(\w+)/.exec(className || "");
                                                            if (typeof props.inline === "boolean")
@@ -137,7 +144,8 @@ const RecordList = (props: RecordListProps) => {
                                                                            <CopyButton id={id}/>
                                                                        </div>
                                                                        <div className="overflow-x-auto">
-                                                                           <div id={id} className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
+                                                                           <div id={id}
+                                                                                className="whitespace-pre-wrap pl-4 pr-4 pt-1 pb-1">
                                                                                {children}
                                                                            </div>
                                                                        </div>
