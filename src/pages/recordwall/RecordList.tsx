@@ -74,8 +74,9 @@ const RecordList = (props: RecordListProps) => {
                                         className={"time mr-2 text-sm"}>{record.createTime.replace("T", " ")}
                                     </div>
                                     {
-                                        record.tag.split(",").map(tag => <div
-                                            className={"badge badge-outline badge-primary badge-sm mr-1"}>{tag.replace("#", "")}</div>)
+                                        record.tag.split(",").filter(tag => tag != "").map(tag => <div
+                                            key={tag}
+                                            className={"badge badge-primary badge-sm mr-1"}>{tag.replace("#", "")}</div>)
 
                                     }
 

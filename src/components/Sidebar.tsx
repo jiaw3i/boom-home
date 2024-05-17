@@ -99,7 +99,7 @@ function Sidebar(props: any) {
                                 </div>
 
                             }
-                            <p className={"prose"}>Copyright©2023 Owen</p>
+                            <p className={"prose"}>Copyright©2023-2024 Jackway</p>
                             <a href="https://beian.miit.gov.cn/" className={"prose"}
                                target="_blank">陕ICP备2024028129号-2</a>
                         </div>

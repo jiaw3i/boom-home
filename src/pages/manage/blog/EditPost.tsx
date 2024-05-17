@@ -23,6 +23,10 @@ const EditPost = () => {
         if (postId != null) {
             getPostById(postId)
         }
+
+    }, []);
+
+    useEffect(() => {
         const vditor = new Vditor("vditor", {
             toolbar: [
                 "emoji",
@@ -87,15 +91,6 @@ const EditPost = () => {
                 vditor.focus();
             },
         });
-
-        // Clear the effect
-        return () => {
-            vd?.destroy();
-            setVd(undefined);
-        };
-    }, []);
-
-    useEffect(() => {
         if (editPost != undefined) {
             setValue("id", editPost.id)
             setValue("title", editPost.title)
@@ -103,6 +98,12 @@ const EditPost = () => {
             setValue("tag", editPost.tag)
             vd?.setValue(editPost.content as string)
         }
+        // Clear the effect
+        return () => {
+            vd?.destroy();
+            setVd(undefined);
+        };
+
     }, [editPost]);
     const getTags = () => {
         get(LIST_TAGS, {type: "post"}).then((res: any) => {
