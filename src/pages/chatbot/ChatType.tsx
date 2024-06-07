@@ -22,7 +22,7 @@ export default function ChatType(props: any) {
 
     return (
         <>
-            <PageSEO title={"大模型机器人 | Jackway"} description={"大模型机器人 | Jackway"}/>
+            <PageSEO title={"大模型对话"} description={"大模型对话"}/>
             {
                 isVerify ?
                     <div className={"overflow-y-scroll h-full no-scrollbar"}>

@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import React, {lazy} from "react";
 import PostView from "@/pages/blog/PostView";
 import AuthRoute from "@/routes/AuthRoute";
+import Todo from "@/pages/todo/Todo";
 
 const RecordWall = lazy(() => import('@/pages/recordwall/RecordWall'));
 const Blog = lazy(() => import('@/pages/blog/Blog'));
@@ -28,6 +29,11 @@ const MyRoutes = (props: any) => {
             <Route path={"/aboutme"} element={
                 <React.Suspense fallback={<Loader/>}>
                     <Aboutme setTitle={setTitle}/>
+                </React.Suspense>
+            }/>
+            <Route path={"/todo"} element={
+                <React.Suspense fallback={<Loader/>}>
+                    <Todo setTitle={setTitle}/>
                 </React.Suspense>
             }/>
             <Route path={"/manage"}>
