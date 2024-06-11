@@ -44,7 +44,7 @@ const MenusData: Array<IMenu> = [
             <line x1="11" y1="12" x2="20" y2="12"/>
             <line x1="11" y1="18" x2="20" y2="18"/>
         </svg>,
-        isShow: true,
+        isShow: false,
     },
     {
         title: "对话机器人",
